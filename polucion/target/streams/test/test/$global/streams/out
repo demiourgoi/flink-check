@@ -1,0 +1,7 @@
+[0m[[0mdebug[0m] [0mRunning TaskDef(Formula, org.scalacheck.ScalaCheckFramework$$anon$3@fbc8176, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(Formula-0, org.scalacheck.ScalaCheckFramework$$anon$3@fbc8176, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(Formula-2, org.scalacheck.ScalaCheckFramework$$anon$3@fbc8176, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(Formula-1, org.scalacheck.ScalaCheckFramework$$anon$3@fbc8176, false, [SuiteSelector])[0m
+[0m[[0minfo[0m] [0mPassed: Total 3, Failed 0, Errors 0, Passed 3[0m
+[0m[[0mdebug[0m] [0mPassed tests:[0m
+[0m[[0mdebug[0m] [0m	Formula[0m

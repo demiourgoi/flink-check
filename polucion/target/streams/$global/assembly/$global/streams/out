@@ -1,0 +1,41 @@
+[0m[[0mdebug[0m] [0mCalculate mappings...[0m
+[0m[[0minfo[0m] [0mChecking every *.class/*.jar file's SHA-1.[0m
+[0m[[0minfo[0m] [0mMerging files...[0m
+[0m[[0minfo[0m] [0mSHA-1: 222f9faf8212e11f5eeaabefd455879bc328c3d9[0m
+[0m[[0minfo[0m] [0mPackaging /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/scala-2.11/polucion-assembly-0.1-SNAPSHOT.jar ...[0m
+[0m[[0mdebug[0m] [0mInput file mappings:[0m
+[0m[[0mdebug[0m] [0m	org/example/Job$.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/Job$.class[0m
+[0m[[0mdebug[0m] [0m	org/example/Job.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/Job.class[0m
+[0m[[0mdebug[0m] [0m	org/example/SocketTextStreamWordCount$$anon$2$$anon$1.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/SocketTextStreamWordCount$$anon$2$$anon$1.class[0m
+[0m[[0mdebug[0m] [0m	org/example/SocketTextStreamWordCount$$anon$2$$anonfun$createSerializer$1.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/SocketTextStreamWordCount$$anon$2$$anonfun$createSerializer$1.class[0m
+[0m[[0mdebug[0m] [0m	org/example/SocketTextStreamWordCount$$anon$2.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/SocketTextStreamWordCount$$anon$2.class[0m
+[0m[[0mdebug[0m] [0m	org/example/SocketTextStreamWordCount$$anonfun$1$$anonfun$apply$1.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/SocketTextStreamWordCount$$anonfun$1$$anonfun$apply$1.class[0m
+[0m[[0mdebug[0m] [0m	org/example/SocketTextStreamWordCount$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/SocketTextStreamWordCount$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	org/example/SocketTextStreamWordCount$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/SocketTextStreamWordCount$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	org/example/SocketTextStreamWordCount$.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/SocketTextStreamWordCount$.class[0m
+[0m[[0mdebug[0m] [0m	org/example/SocketTextStreamWordCount.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/SocketTextStreamWordCount.class[0m
+[0m[[0mdebug[0m] [0m	org/example/WordCount$$anon$2$$anon$1.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/WordCount$$anon$2$$anon$1.class[0m
+[0m[[0mdebug[0m] [0m	org/example/WordCount$$anon$2$$anonfun$createSerializer$1.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/WordCount$$anon$2$$anonfun$createSerializer$1.class[0m
+[0m[[0mdebug[0m] [0m	org/example/WordCount$$anon$2.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/WordCount$$anon$2.class[0m
+[0m[[0mdebug[0m] [0m	org/example/WordCount$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/WordCount$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	org/example/WordCount$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/WordCount$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	org/example/WordCount$.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/WordCount$.class[0m
+[0m[[0mdebug[0m] [0m	org/example/WordCount.class[0m
+[0m[[0mdebug[0m] [0m	  /home/valentina/Documentos/UCM/TFM/polucion/polucion/target/streams/$global/assemblyOption/$global/streams/assembly/33944671a85ddcf20f8db044982ee5255d1ae781_dir/org/example/WordCount.class[0m
+[0m[[0minfo[0m] [0mDone packaging.[0m

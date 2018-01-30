@@ -1,0 +1,638 @@
+format version: 5
+output mode:
+1 items
+0 -> single
+output directories:
+1 items
+output dir -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes
+compile options:
+0 items
+javac options:
+0 items
+compiler version:
+1 items
+0 -> 2.11.7
+compile order:
+1 items
+0 -> Mixed
+name hashing:
+1 items
+0 -> true
+products:
+35 items
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/Job$.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/Job.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anon$2$$anon$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anon$2$$anonfun$createSerializer$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anon$2.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anonfun$1$$anonfun$apply$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anonfun$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anonfun$2.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$$anon$2$$anon$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$$anon$2$$anonfun$createSerializer$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$$anon$2.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$$anonfun$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$$anonfun$2.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$4$$anon$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$4$$anonfun$createSerializer$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$4.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$5$$anon$2.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$5$$anonfun$createSerializer$2.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$5.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$6$$anon$3.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$6$$anonfun$createSerializer$3.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$6.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anonfun$2.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anonfun$main$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$AccumulateValues.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$AccumulateWindows$$anonfun$1.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$AccumulateWindows.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$Count.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$Counter.class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion.class
+binary dependencies:
+20 items
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-core/jars/flink-core-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-scala_2.11/jars/flink-scala_2.11-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> /home/valentina/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-core/jars/flink-core-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-scala_2.11/jars/flink-scala_2.11-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-streaming-java_2.11/jars/flink-streaming-java_2.11-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-streaming-scala_2.11/jars/flink-streaming-scala_2.11-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /home/valentina/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-core/jars/flink-core-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-scala_2.11/jars/flink-scala_2.11-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /home/valentina/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-core/jars/flink-core-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-scala_2.11/jars/flink-scala_2.11-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-streaming-java_2.11/jars/flink-streaming-java_2.11-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/.ivy2/cache/org.apache.flink/flink-streaming-scala_2.11/jars/flink-streaming-scala_2.11-1.3.0.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /home/valentina/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar
+direct source dependencies:
+0 items
+direct external dependencies:
+0 items
+public inherited source dependencies:
+0 items
+public inherited external dependencies:
+0 items
+member reference internal dependencies:
+0 items
+member reference external dependencies:
+0 items
+inheritance internal dependencies:
+0 items
+inheritance external dependencies:
+0 items
+class names:
+35 items
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> org.example.Job
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> org.example.Job$
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> org.example.SocketTextStreamWordCount
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> org.example.SocketTextStreamWordCount$
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> org.example.SocketTextStreamWordCount$$anon$2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> org.example.SocketTextStreamWordCount$$anon$2$$anon$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> org.example.SocketTextStreamWordCount$$anon$2$$anonfun$createSerializer$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> org.example.SocketTextStreamWordCount$$anonfun$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> org.example.SocketTextStreamWordCount$$anonfun$1$$anonfun$apply$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> org.example.SocketTextStreamWordCount$$anonfun$2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> org.example.WordCount
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> org.example.WordCount$
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> org.example.WordCount$$anon$2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> org.example.WordCount$$anon$2$$anon$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> org.example.WordCount$$anon$2$$anonfun$createSerializer$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> org.example.WordCount$$anonfun$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> org.example.WordCount$$anonfun$2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anon$4
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anon$4$$anon$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anon$4$$anonfun$createSerializer$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anon$5
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anon$5$$anon$2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anon$5$$anonfun$createSerializer$2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anon$6
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anon$6$$anon$3
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anon$6$$anonfun$createSerializer$3
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anonfun$2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$$anonfun$main$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$AccumulateValues
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$AccumulateWindows
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$AccumulateWindows$$anonfun$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$Count
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org.polucion.Polucion$Counter
+used names:
+419 items
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> <init>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> AnyRef
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> Array
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> ExecutionEnvironment
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> Job
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> JobExecutionResult
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> Object
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> Predef
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> String
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> Unit
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> apache
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> api
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> env
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> example
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> execute
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> flink
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> getExecutionEnvironment
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> org
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> scala
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> !=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> $anon
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> <init>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> <refinement>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> <repeated...>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> <repeated>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> ?0
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> A
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Any
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> AnyRef
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Array
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> ArrayOps
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> B
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> BasicTypeInfo
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Boolean
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> CaseClassSerializer
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> CaseClassTypeInfo
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Char
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> ClassTag
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Constructor
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> DataStream
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> DataStreamSink
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> ExecutionConfig
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Function1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Int
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> JobExecutionResult
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> KeyedStream
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> List
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Long
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Nothing
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Object
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Predef
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> PrintStream
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> R
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Range
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> RichInt
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Seq
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> SocketTextStreamWordCount
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> StreamExecutionEnvironment
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> String
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> StringOps
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> System
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> T
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> T0
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> T1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> T2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> TraversableOnce
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Tuple
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Tuple2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> TypeInformation
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> TypeSerializer
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> U
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> Unit
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> X
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> _$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> _$2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> _$6
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> _$7
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> _$8
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> _1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> apache
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> api
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> apply
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> args
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> asInstanceOf
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> augmentString
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> collection
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> counts
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> createSerializer
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> createTypeInformation
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> env
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> err
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> example
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> execute
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> executionConfig
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> fieldSerializers
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> fields
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> filter
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> flatMap
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> flink
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> foreach
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> getArity
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> getClass
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> getConstructors
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> getExecutionEnvironment
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> getInfoFor
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> getTypeClass
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> hostName
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> i
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> immutable
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> implicitly
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> intWrapper
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> java
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> keyBy
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> lang
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> length
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> main
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> map
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> materializeClassTag
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> newInstance
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> nonEmpty
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> org
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> package
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> port
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> print
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> println
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> protected$types
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> refArrayOps
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> scala
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> socketTextStream
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> split
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> streaming
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> sum
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> text
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> toArray
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> toInt
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> toLowerCase
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> tupleClass
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> types
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> until
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> update
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> $anon
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> <init>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> <refinement>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> <repeated...>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> <repeated>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> ?0
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> A
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> AggregateDataSet
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Any
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> AnyRef
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Array
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> ArrayOps
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> B
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> BasicTypeInfo
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> CaseClassSerializer
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> CaseClassTypeInfo
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> ClassTag
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Constructor
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> DataSet
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> ExecutionConfig
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> ExecutionEnvironment
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Function1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> GroupedDataSet
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Int
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> List
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Nothing
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Object
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Predef
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> R
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Range
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> RichInt
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Seq
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> String
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> T
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> T0
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> T1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> T2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> TraversableOnce
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Tuple2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> TypeInformation
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> TypeSerializer
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> U
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> Unit
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> WordCount
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> X
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> _$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> _$2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> _$6
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> _$7
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> _$8
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> _7
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> apache
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> api
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> apply
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> asInstanceOf
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> collection
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> counts
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> createSerializer
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> createTypeInformation
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> env
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> example
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> executionConfig
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> fieldSerializers
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> fields
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> flatMap
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> flink
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> foreach
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> fromElements
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> getArity
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> getClass
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> getConstructors
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> getExecutionEnvironment
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> getInfoFor
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> getTypeClass
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> groupBy
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> i
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> immutable
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> implicitly
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> intWrapper
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> map
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> materializeClassTag
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> newInstance
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> org
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> package
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> print
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> protected$types
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> refArrayOps
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> scala
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> split
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> sum
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> text
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> toArray
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> toLowerCase
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> tupleClass
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> types
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> until
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> update
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> $anon
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> &&
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> +
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> ::
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> :::
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> <init>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> <repeated...>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> <repeated>
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> ==
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> >
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> >=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> ?0
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> A
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> ACC
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> AccumulateValues
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> AccumulateWindows
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> AggregateFunction
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Any
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> AnyRef
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Array
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> B
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> BasicTypeInfo
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Boolean
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> CaseClassSerializer
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> CaseClassTypeInfo
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Char
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Class
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> ClassTag
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Constructor
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Count
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Counter
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> DataStream
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> DataStreamSink
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> ExecutionConfig
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Function1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Function2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> GlobalWindow
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> GlobalWindows
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Int
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> JobExecutionResult
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> KeyedStream
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> List
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Long
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> MatchError
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Nil
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> None
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Nothing
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Object
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> OnMergeContext
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Option
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Polucion
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Predef
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> R
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Range
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> RichInt
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> S
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Seq
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Some
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> StreamExecutionEnvironment
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> String
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> StringOps
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> T
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> T0
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> T1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> T2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Time
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> TimeCharacteristic
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> TimeWindow
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Trigger
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> TriggerResult
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Tuple
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Tuple2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> TypeExtractor
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> TypeInformation
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> TypeSerializer
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> U
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Unit
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> Window
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> WindowedStream
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> X
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> _$1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> _$2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> _$6
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> _$7
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> _$8
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> _1
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> _2
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> a
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> acc
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> acc_=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> accumulateWindow
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> aggregate
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> alarm
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> apache
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> api
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> apply
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> asInstanceOf
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> assigners
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> augmentString
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> b
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> c
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> collection
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> common
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> countWindow
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> countWindowVal
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> createSerializer
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> createTypeInfo
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> createTypeInformation
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> env
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> execute
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> executionConfig
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> fieldSerializers
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> fields
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> filter
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> flink
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> foreach
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> functions
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> getArity
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> getClass
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> getConstructors
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> getExecutionEnvironment
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> getInfoFor
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> getResult
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> getTypeClass
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> greaterList
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> i
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> id
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> immutable
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> implicitly
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> in
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> init
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> intWrapper
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> isInstanceOf
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> keyBy
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> keyValue
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> l
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> l_=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> length
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> map
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> mapWithState
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> mapped
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> materializeClassTag
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> max
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> maxPollution
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> maximum
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> newInstance
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> org
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> package
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> polucion
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> print
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> protected$types
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> rep
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> repetitions
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> scala
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> seconds
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> sensor
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> sensorID
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> sensorID_=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> sensor_=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> setStreamTimeCharacteristic
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> socketTextStream
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> split
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> streaming
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> text
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> time
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> timeWindow
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> toArray
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> toInt
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> toLong
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> triggers
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> tumblingWindow
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> tupleClass
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> types
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> unary_!
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> until
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> update
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> value
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> windowing
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> windows
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> x
+product stamps:
+35 items
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/Job$.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/Job.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anon$2$$anon$1.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anon$2$$anonfun$createSerializer$1.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anon$2.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anonfun$1$$anonfun$apply$1.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anonfun$1.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$$anonfun$2.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount$.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/SocketTextStreamWordCount.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$$anon$2$$anon$1.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$$anon$2$$anonfun$createSerializer$1.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$$anon$2.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$$anonfun$1.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$$anonfun$2.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount$.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/example/WordCount.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$4$$anon$1.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$4$$anonfun$createSerializer$1.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$4.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$5$$anon$2.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$5$$anonfun$createSerializer$2.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$5.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$6$$anon$3.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$6$$anonfun$createSerializer$3.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anon$6.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anonfun$2.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$$anonfun$main$1.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$.class -> lastModified(1509105863000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$AccumulateValues.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$AccumulateWindows$$anonfun$1.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$AccumulateWindows.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$Count.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion$Counter.class -> lastModified(1509105864000)
+/home/valentina/IdeaProjects/polucion/target/scala-2.11/classes/org/polucion/Polucion.class -> lastModified(1509105863000)
+source stamps:
+4 items
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> hash(aeb4dd89ec77cd0553cbee4f33f9417283f7f5d6)
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> hash(c7c5871719eb66721e60b50e2b9813a6e3c3b353)
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> hash(1b2b7d37c8e411167b3d5db32040058af84cbbd2)
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> hash(bde0922725d60d001331f2a9f19e006b3789ce31)
+binary stamps:
+6 items
+/home/valentina/.ivy2/cache/org.apache.flink/flink-core/jars/flink-core-1.3.0.jar -> lastModified(1495815020000)
+/home/valentina/.ivy2/cache/org.apache.flink/flink-scala_2.11/jars/flink-scala_2.11-1.3.0.jar -> lastModified(1495813663000)
+/home/valentina/.ivy2/cache/org.apache.flink/flink-streaming-java_2.11/jars/flink-streaming-java_2.11-1.3.0.jar -> lastModified(1495813586000)
+/home/valentina/.ivy2/cache/org.apache.flink/flink-streaming-scala_2.11/jars/flink-streaming-scala_2.11-1.3.0.jar -> lastModified(1495813907000)
+/home/valentina/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar -> lastModified(1435004218000)
+/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar -> lastModified(1501205457000)
+class names:
+6 items
+/home/valentina/.ivy2/cache/org.apache.flink/flink-core/jars/flink-core-1.3.0.jar -> org.apache.flink.api.common.functions.AggregateFunction
+/home/valentina/.ivy2/cache/org.apache.flink/flink-scala_2.11/jars/flink-scala_2.11-1.3.0.jar -> org.apache.flink.api.scala.typeutils.CaseClassTypeInfo
+/home/valentina/.ivy2/cache/org.apache.flink/flink-streaming-java_2.11/jars/flink-streaming-java_2.11-1.3.0.jar -> org.apache.flink.streaming.api.windowing.time.Time
+/home/valentina/.ivy2/cache/org.apache.flink/flink-streaming-scala_2.11/jars/flink-streaming-scala_2.11-1.3.0.jar -> org.apache.flink.streaming.api.scala.KeyedStream
+/home/valentina/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar -> scala.Some$
+/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar -> java.lang.Object
+internal apis:
+4 items
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlSjH5SdlLSkQCAAdJAAdhcGlIYXNoWgAIaGFzTWFjcm9aABBoYXNQYWNrYWdlT2JqZWN0TAAYX2ludGVybmFsT25seV9uYW1lSGFzaGVzdAAkTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoZXM7TAADYXBpdAAVTHhzYnRpL2FwaS9Tb3VyY2VBUEk7TAALY29tcGlsYXRpb250ABdMeHNidGkvYXBpL0NvbXBpbGF0aW9uO1sABGhhc2h0AAJbQnhwcCQE1gAAc3IAInhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoZXNU2r6Z+tTsTAIAAlsAD2ltcGxpY2l0TWVtYmVyc3QAI1tMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2g7WwAOcmVndWxhck1lbWJlcnNxAH4AB3hwdXIAI1tMeHNidGkuYXBpLl9pbnRlcm5hbE9ubHlfTmFtZUhhc2g7SVqAtt2Wi/QCAAB4cAAAAAB1cQB+AAkAAAAVc3IAIHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoWw71InY4V88CAAJJAARoYXNoTAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwdrthHnQABm5vdGlmeXNxAH4ADM3HENd0AAR3YWl0c3EAfgAMQY/MjnQADSRhc0luc3RhbmNlT2ZzcQB+AAzLRnCgdAAGZXF1YWxzc3EAfgAMyb4oCXQADGFzSW5zdGFuY2VPZnNxAH4ADFeAXZF0AAxzeW5jaHJvbml6ZWRzcQB+AAzHA+qldAANJGlzSW5zdGFuY2VPZnNxAH4ADBFFyad0AARtYWluc3EAfgAMRLjxEHQAA0pvYnNxAH4ADNuvzCV0AAlub3RpZnlBbGxzcQB+AAy3daRrdAAMaXNJbnN0YW5jZU9mc3EAfgAM8mH4NHQAAj09c3EAfgAMkhTfWHQABWNsb25lc3EAfgAMra6ULHQACHRvU3RyaW5nc3EAfgAMQQ+Yg3QAAiE9c3EAfgAMVKI7LXQACGdldENsYXNzc3EAfgAMpJxTEXQAAm5lc3EAfgAMaN5hXnQAAmVxc3EAfgAM79Lb6HQAAiMjc3EAfgAM3TZXoHQACGZpbmFsaXplc3EAfgAMXrP1q3QACGhhc2hDb2Rlc3IAE3hzYnRpLmFwaS5Tb3VyY2VBUEm5Xqf5KSM4pAIAAlsAC2RlZmluaXRpb25zdAAXW0x4c2J0aS9hcGkvRGVmaW5pdGlvbjtbAAhwYWNrYWdlc3QAFFtMeHNidGkvYXBpL1BhY2thZ2U7eHB1cgAXW0x4c2J0aS5hcGkuRGVmaW5pdGlvbjuIyVzntONeDgIAAHhwAAAAAXNyABN4c2J0aS5hcGkuQ2xhc3NMaWtlgzQcod+wl2wCAARMAA5kZWZpbml0aW9uVHlwZXQAGkx4c2J0aS9hcGkvRGVmaW5pdGlvblR5cGU7WwAQc2F2ZWRBbm5vdGF0aW9uc3QAE1tMamF2YS9sYW5nL1N0cmluZztMAAhzZWxmVHlwZXQAEEx4c2J0aS9hcGkvTGF6eTtMAAlzdHJ1Y3R1cmVxAH4AQXhyACF4c2J0aS5hcGkuUGFyYW1ldGVyaXplZERlZmluaXRpb275EW6x1VA84gIAAVsADnR5cGVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvVHlwZVBhcmFtZXRlcjt4cgAUeHNidGkuYXBpLkRlZmluaXRpb26HKhvocULjRgIABEwABmFjY2Vzc3QAEkx4c2J0aS9hcGkvQWNjZXNzO1sAC2Fubm90YXRpb25zdAAXW0x4c2J0aS9hcGkvQW5ub3RhdGlvbjtMAAltb2RpZmllcnN0ABVMeHNidGkvYXBpL01vZGlmaWVycztMAARuYW1lcQB+AA14cHNyABB4c2J0aS5hcGkuUHVibGljulg9rmwtYEICAAB4cgAQeHNidGkuYXBpLkFjY2Vzc91imvgdYzFIAgAAeHB1cgAXW0x4c2J0aS5hcGkuQW5ub3RhdGlvbjvrl+sZEPaNSAIAAHhwAAAAAHNyABN4c2J0aS5hcGkuTW9kaWZpZXJzl+dh3BMme7MCAAFCAAVmbGFnc3hwAHQAD29yZy5leGFtcGxlLkpvYnVyABpbTHhzYnRpLmFwaS5UeXBlUGFyYW1ldGVyO9ltJg8onfK2AgAAeHAAAAAAfnIAGHhzYnRpLmFwaS5EZWZpbml0aW9uVHlwZQAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQABk1vZHVsZXVyABNbTGphdmEubGFuZy5TdHJpbmc7rdJW5+kde0cCAAB4cAAAAABzcgAheHNidGkuYXBpLkFic3RyYWN0TGF6eSRTdHJpY3RMYXp5DWYcaykWKrgCAAFMAAV2YWx1ZXQAEkxqYXZhL2xhbmcvT2JqZWN0O3hwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4AWXNyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgBBTAAJaW5oZXJpdGVkcQB+AEFMAAdwYXJlbnRzcQB+AEF4cQB+AF5zcQB+AFl1cQB+ADwAAAABc3IADXhzYnRpLmFwaS5EZWZSvp/ifLQ2aQIAAkwACnJldHVyblR5cGV0ABBMeHNidGkvYXBpL1R5cGU7WwAPdmFsdWVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvUGFyYW1ldGVyTGlzdDt4cQB+AEJxAH4AS3VxAH4ATAAAAABzcQB+AE4AcQB+AB11cQB+AFEAAAAAc3IAFHhzYnRpLmFwaS5Qcm9qZWN0aW9u89KNVOlFpC0CAAJMAAJpZHEAfgANTAAGcHJlZml4dAAWTHhzYnRpL2FwaS9TaW1wbGVUeXBlO3hxAH4AXXQABFVuaXRzcgATeHNidGkuYXBpLlNpbmdsZXRvbvynX/jPVuRGAgABTAAEcGF0aHQAEEx4c2J0aS9hcGkvUGF0aDt4cQB+AF1zcgAOeHNidGkuYXBpLlBhdGibPVwIzqUnhAIAAVsACmNvbXBvbmVudHN0ABpbTHhzYnRpL2FwaS9QYXRoQ29tcG9uZW50O3hwdXIAGltMeHNidGkuYXBpLlBhdGhDb21wb25lbnQ7Q9oJdC1nFnQCAAB4cAAAAAJzcgAMeHNidGkuYXBpLklkmDJsizdTxEACAAFMAAJpZHEAfgANeHIAF3hzYnRpLmFwaS5QYXRoQ29tcG9uZW50X5oiWy6Gn7wCAAB4cHQABXNjYWxhc3IADnhzYnRpLmFwaS5UaGlz2wntpsxaQFwCAAB4cQB+AHl1cgAaW0x4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdDv10zod8rNw7gIAAHhwAAAAAXNyABd4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdNbFvBxkSXTjAgACWgAKaXNJbXBsaWNpdFsACnBhcmFtZXRlcnN0ABxbTHhzYnRpL2FwaS9NZXRob2RQYXJhbWV0ZXI7eHAAdXIAHFtMeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlcjvPuMVdpd21bQIAAHhwAAAAAXNyABl4c2J0aS5hcGkuTWV0aG9kUGFyYW1ldGVyH0WuF9NJsOoCAARaAApoYXNEZWZhdWx0TAAIbW9kaWZpZXJ0AB1MeHNidGkvYXBpL1BhcmFtZXRlck1vZGlmaWVyO0wABG5hbWVxAH4ADUwAA3RwZXEAfgBmeHAAfnIAG3hzYnRpLmFwaS5QYXJhbWV0ZXJNb2RpZmllcgAAAAAAAAAAEgAAeHEAfgBUdAAFUGxhaW50AARhcmdzc3IAF3hzYnRpLmFwaS5QYXJhbWV0ZXJpemVkFmzuaQPJu38CAAJMAAhiYXNlVHlwZXEAfgBtWwANdHlwZUFyZ3VtZW50c3QAEVtMeHNidGkvYXBpL1R5cGU7eHEAfgBdc3EAfgBsdAAFQXJyYXlxAH4AcnVyABFbTHhzYnRpLmFwaS5UeXBlO3T/pVp7+elBAgAAeHAAAAABc3EAfgBsdAAGU3RyaW5nc3EAfgBwc3EAfgBzdXEAfgB2AAAAA3NxAH4AeHQABGphdmFzcQB+AHh0AARsYW5ncQB+AH1zcQB+AFl1cQB+ADwAAAAAc3EAfgBZdXEAfgCRAAAAAnNxAH4AbHQABk9iamVjdHEAfgCVc3EAfgBsdAADQW55cQB+AHJ1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAAnNyABF4c2J0aS5hcGkuUGFja2FnZX5Zj/auzjlYAgABTAAEbmFtZXEAfgANeHB0AAtvcmcuZXhhbXBsZXNxAH4ApnQAA29yZ3NyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABX1231aN1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5cQB+AA1MAA9zb3VyY2VEaXJlY3RvcnlxAH4ADXhwdAA/L2hvbWUvdmFsZW50aW5hL0lkZWFQcm9qZWN0cy9wb2x1Y2lvbi90YXJnZXQvc2NhbGEtMi4xMS9jbGFzc2VzdAABL3VyAAJbQqzzF/gGCFTgAgAAeHAAAAAUrrTdiex3zQVTy+5PM/lBcoP39dY=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlSjH5SdlLSkQCAAdJAAdhcGlIYXNoWgAIaGFzTWFjcm9aABBoYXNQYWNrYWdlT2JqZWN0TAAYX2ludGVybmFsT25seV9uYW1lSGFzaGVzdAAkTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoZXM7TAADYXBpdAAVTHhzYnRpL2FwaS9Tb3VyY2VBUEk7TAALY29tcGlsYXRpb250ABdMeHNidGkvYXBpL0NvbXBpbGF0aW9uO1sABGhhc2h0AAJbQnhwSbOS8wAAc3IAInhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoZXNU2r6Z+tTsTAIAAlsAD2ltcGxpY2l0TWVtYmVyc3QAI1tMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2g7WwAOcmVndWxhck1lbWJlcnNxAH4AB3hwdXIAI1tMeHNidGkuYXBpLl9pbnRlcm5hbE9ubHlfTmFtZUhhc2g7SVqAtt2Wi/QCAAB4cAAAAAB1cQB+AAkAAAAVc3IAIHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoWw71InY4V88CAAJJAARoYXNoTAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwyOP3MnQABm5vdGlmeXNxAH4ADAtEZN90AAR3YWl0c3EAfgAMBTIL7nQADSRhc0luc3RhbmNlT2ZzcQB+AAxzcBUidAAZU29ja2V0VGV4dFN0cmVhbVdvcmRDb3VudHNxAH4ADC9s7BF0AAZlcXVhbHNzcQB+AAyuHq+HdAAMYXNJbnN0YW5jZU9mc3EAfgAMMRKbmXQADHN5bmNocm9uaXplZHNxAH4ADAKccRB0AA0kaXNJbnN0YW5jZU9mc3EAfgAMrMqTDnQABG1haW5zcQB+AAyk+LtUdAAJbm90aWZ5QWxsc3EAfgAMdtwiyXQADGlzSW5zdGFuY2VPZnNxAH4ADJ4MO4Z0AAI9PXNxAH4ADFqogFB0AAVjbG9uZXNxAH4ADFAN3UV0AAh0b1N0cmluZ3NxAH4ADHdQ9Pt0AAIhPXNxAH4ADHVuVC50AAhnZXRDbGFzc3NxAH4ADEVsqvx0AAJuZXNxAH4ADM1l3x50AAJlcXNxAH4ADNxuIeJ0AAIjI3NxAH4ADFWrJtV0AAhmaW5hbGl6ZXNxAH4ADID40Xd0AAhoYXNoQ29kZXNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+AEF4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXEAfgANeHBzcgAQeHNidGkuYXBpLlB1YmxpY7pYPa5sLWBCAgAAeHIAEHhzYnRpLmFwaS5BY2Nlc3PdYpr4HWMxSAIAAHhwdXIAF1tMeHNidGkuYXBpLkFubm90YXRpb24765frGRD2jUgCAAB4cAAAAABzcgATeHNidGkuYXBpLk1vZGlmaWVyc5fnYdwTJnuzAgABQgAFZmxhZ3N4cAB0ACVvcmcuZXhhbXBsZS5Tb2NrZXRUZXh0U3RyZWFtV29yZENvdW50dXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyACF4c2J0aS5hcGkuQWJzdHJhY3RMYXp5JFN0cmljdExhenkNZhxrKRYquAIAAUwABXZhbHVldAASTGphdmEvbGFuZy9PYmplY3Q7eHBzcgATeHNidGkuYXBpLkVtcHR5VHlwZbz9nkZJO4kkAgAAeHIAFHhzYnRpLmFwaS5TaW1wbGVUeXBlcnhiiCEjv0ACAAB4cgAOeHNidGkuYXBpLlR5cGU/atkhFkmqygIAAHhwc3EAfgBZc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+AEFMAAlpbmhlcml0ZWRxAH4AQUwAB3BhcmVudHNxAH4AQXhxAH4AXnNxAH4AWXVxAH4APAAAAAFzcgANeHNidGkuYXBpLkRlZlK+n+J8tDZpAgACTAAKcmV0dXJuVHlwZXQAEEx4c2J0aS9hcGkvVHlwZTtbAA92YWx1ZVBhcmFtZXRlcnN0ABpbTHhzYnRpL2FwaS9QYXJhbWV0ZXJMaXN0O3hxAH4AQnEAfgBLdXEAfgBMAAAAAHNxAH4ATgBxAH4AH3VxAH4AUQAAAABzcgAUeHNidGkuYXBpLlByb2plY3Rpb27z0o1U6UWkLQIAAkwAAmlkcQB+AA1MAAZwcmVmaXh0ABZMeHNidGkvYXBpL1NpbXBsZVR5cGU7eHEAfgBddAAEVW5pdHNyABN4c2J0aS5hcGkuU2luZ2xldG9u/Kdf+M9W5EYCAAFMAARwYXRodAAQTHhzYnRpL2FwaS9QYXRoO3hxAH4AXXNyAA54c2J0aS5hcGkuUGF0aJs9XAjOpSeEAgABWwAKY29tcG9uZW50c3QAGltMeHNidGkvYXBpL1BhdGhDb21wb25lbnQ7eHB1cgAaW0x4c2J0aS5hcGkuUGF0aENvbXBvbmVudDtD2gl0LWcWdAIAAHhwAAAAAnNyAAx4c2J0aS5hcGkuSWSYMmyLN1PEQAIAAUwAAmlkcQB+AA14cgAXeHNidGkuYXBpLlBhdGhDb21wb25lbnRfmiJbLoafvAIAAHhwdAAFc2NhbGFzcgAOeHNidGkuYXBpLlRoaXPbCe2mzFpAXAIAAHhxAH4AeXVyABpbTHhzYnRpLmFwaS5QYXJhbWV0ZXJMaXN0O/XTOh3ys3DuAgAAeHAAAAABc3IAF3hzYnRpLmFwaS5QYXJhbWV0ZXJMaXN01sW8HGRJdOMCAAJaAAppc0ltcGxpY2l0WwAKcGFyYW1ldGVyc3QAHFtMeHNidGkvYXBpL01ldGhvZFBhcmFtZXRlcjt4cAB1cgAcW0x4c2J0aS5hcGkuTWV0aG9kUGFyYW1ldGVyO8+4xV2l3bVtAgAAeHAAAAABc3IAGXhzYnRpLmFwaS5NZXRob2RQYXJhbWV0ZXIfRa4X00mw6gIABFoACmhhc0RlZmF1bHRMAAhtb2RpZmllcnQAHUx4c2J0aS9hcGkvUGFyYW1ldGVyTW9kaWZpZXI7TAAEbmFtZXEAfgANTAADdHBlcQB+AGZ4cAB+cgAbeHNidGkuYXBpLlBhcmFtZXRlck1vZGlmaWVyAAAAAAAAAAASAAB4cQB+AFR0AAVQbGFpbnQABGFyZ3NzcgAXeHNidGkuYXBpLlBhcmFtZXRlcml6ZWQWbO5pA8m7fwIAAkwACGJhc2VUeXBlcQB+AG1bAA10eXBlQXJndW1lbnRzdAARW0x4c2J0aS9hcGkvVHlwZTt4cQB+AF1zcQB+AGx0AAVBcnJheXEAfgBydXIAEVtMeHNidGkuYXBpLlR5cGU7dP+lWnv56UECAAB4cAAAAAFzcQB+AGx0AAZTdHJpbmdzcQB+AHBzcQB+AHN1cQB+AHYAAAADc3EAfgB4dAAEamF2YXNxAH4AeHQABGxhbmdxAH4AfXNxAH4AWXVxAH4APAAAAABzcQB+AFl1cQB+AJEAAAACc3EAfgBsdAAGT2JqZWN0cQB+AJVzcQB+AGx0AANBbnlxAH4AcnVyABRbTHhzYnRpLmFwaS5QYWNrYWdlO1sTGTdwpyehAgAAeHAAAAACc3IAEXhzYnRpLmFwaS5QYWNrYWdlflmP9q7OOVgCAAFMAARuYW1lcQB+AA14cHQAC29yZy5leGFtcGxlc3EAfgCmdAADb3Jnc3IAFXhzYnRpLmFwaS5Db21waWxhdGlvbu364MNq6KBCAgACSgAJc3RhcnRUaW1lWwAHb3V0cHV0c3QAGltMeHNidGkvYXBpL091dHB1dFNldHRpbmc7eHAAAAFfXbfVo3VyABpbTHhzYnRpLmFwaS5PdXRwdXRTZXR0aW5nO39qwvOnh6VCAgAAeHAAAAABc3IAF3hzYnRpLmFwaS5PdXRwdXRTZXR0aW5netmaR3T7HXsCAAJMAA9vdXRwdXREaXJlY3RvcnlxAH4ADUwAD3NvdXJjZURpcmVjdG9yeXEAfgANeHB0AD8vaG9tZS92YWxlbnRpbmEvSWRlYVByb2plY3RzL3BvbHVjaW9uL3RhcmdldC9zY2FsYS0yLjExL2NsYXNzZXN0AAEvdXIAAltCrPMX+AYIVOACAAB4cAAAABTHxYcXGetmch5gtQ4rmBOm48OzUw==
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlSjH5SdlLSkQCAAdJAAdhcGlIYXNoWgAIaGFzTWFjcm9aABBoYXNQYWNrYWdlT2JqZWN0TAAYX2ludGVybmFsT25seV9uYW1lSGFzaGVzdAAkTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoZXM7TAADYXBpdAAVTHhzYnRpL2FwaS9Tb3VyY2VBUEk7TAALY29tcGlsYXRpb250ABdMeHNidGkvYXBpL0NvbXBpbGF0aW9uO1sABGhhc2h0AAJbQnhwGKu97gAAc3IAInhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoZXNU2r6Z+tTsTAIAAlsAD2ltcGxpY2l0TWVtYmVyc3QAI1tMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2g7WwAOcmVndWxhck1lbWJlcnNxAH4AB3hwdXIAI1tMeHNidGkuYXBpLl9pbnRlcm5hbE9ubHlfTmFtZUhhc2g7SVqAtt2Wi/QCAAB4cAAAAAB1cQB+AAkAAAAVc3IAIHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoWw71InY4V88CAAJJAARoYXNoTAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwLVecEHQABm5vdGlmeXNxAH4ADKWs2V90AAR3YWl0c3EAfgAMap/xI3QADSRhc0luc3RhbmNlT2ZzcQB+AAw354dsdAAGZXF1YWxzc3EAfgAMbqRzs3QADGFzSW5zdGFuY2VPZnNxAH4ADPFt/kh0AAxzeW5jaHJvbml6ZWRzcQB+AAy48/NsdAANJGlzSW5zdGFuY2VPZnNxAH4ADOIKnrl0AARtYWluc3EAfgAMwgZsGnQACVdvcmRDb3VudHNxAH4ADMqD2N10AAlub3RpZnlBbGxzcQB+AAwbGLSVdAAMaXNJbnN0YW5jZU9mc3EAfgAMbwpLX3QAAj09c3EAfgAM4xBqY3QABWNsb25lc3EAfgAME/+9MXQACHRvU3RyaW5nc3EAfgAMNekiXnQAAiE9c3EAfgAM5mfd03QACGdldENsYXNzc3EAfgAM0H4WrnQAAm5lc3EAfgAMI3mylXQAAmVxc3EAfgAMlvKFynQAAiMjc3EAfgAMcNEkCXQACGZpbmFsaXplc3EAfgAMXRJKN3QACGhhc2hDb2Rlc3IAE3hzYnRpLmFwaS5Tb3VyY2VBUEm5Xqf5KSM4pAIAAlsAC2RlZmluaXRpb25zdAAXW0x4c2J0aS9hcGkvRGVmaW5pdGlvbjtbAAhwYWNrYWdlc3QAFFtMeHNidGkvYXBpL1BhY2thZ2U7eHB1cgAXW0x4c2J0aS5hcGkuRGVmaW5pdGlvbjuIyVzntONeDgIAAHhwAAAAAXNyABN4c2J0aS5hcGkuQ2xhc3NMaWtlgzQcod+wl2wCAARMAA5kZWZpbml0aW9uVHlwZXQAGkx4c2J0aS9hcGkvRGVmaW5pdGlvblR5cGU7WwAQc2F2ZWRBbm5vdGF0aW9uc3QAE1tMamF2YS9sYW5nL1N0cmluZztMAAhzZWxmVHlwZXQAEEx4c2J0aS9hcGkvTGF6eTtMAAlzdHJ1Y3R1cmVxAH4AQXhyACF4c2J0aS5hcGkuUGFyYW1ldGVyaXplZERlZmluaXRpb275EW6x1VA84gIAAVsADnR5cGVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvVHlwZVBhcmFtZXRlcjt4cgAUeHNidGkuYXBpLkRlZmluaXRpb26HKhvocULjRgIABEwABmFjY2Vzc3QAEkx4c2J0aS9hcGkvQWNjZXNzO1sAC2Fubm90YXRpb25zdAAXW0x4c2J0aS9hcGkvQW5ub3RhdGlvbjtMAAltb2RpZmllcnN0ABVMeHNidGkvYXBpL01vZGlmaWVycztMAARuYW1lcQB+AA14cHNyABB4c2J0aS5hcGkuUHVibGljulg9rmwtYEICAAB4cgAQeHNidGkuYXBpLkFjY2Vzc91imvgdYzFIAgAAeHB1cgAXW0x4c2J0aS5hcGkuQW5ub3RhdGlvbjvrl+sZEPaNSAIAAHhwAAAAAHNyABN4c2J0aS5hcGkuTW9kaWZpZXJzl+dh3BMme7MCAAFCAAVmbGFnc3hwAHQAFW9yZy5leGFtcGxlLldvcmRDb3VudHVyABpbTHhzYnRpLmFwaS5UeXBlUGFyYW1ldGVyO9ltJg8onfK2AgAAeHAAAAAAfnIAGHhzYnRpLmFwaS5EZWZpbml0aW9uVHlwZQAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQABk1vZHVsZXVyABNbTGphdmEubGFuZy5TdHJpbmc7rdJW5+kde0cCAAB4cAAAAABzcgAheHNidGkuYXBpLkFic3RyYWN0TGF6eSRTdHJpY3RMYXp5DWYcaykWKrgCAAFMAAV2YWx1ZXQAEkxqYXZhL2xhbmcvT2JqZWN0O3hwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4AWXNyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgBBTAAJaW5oZXJpdGVkcQB+AEFMAAdwYXJlbnRzcQB+AEF4cQB+AF5zcQB+AFl1cQB+ADwAAAABc3IADXhzYnRpLmFwaS5EZWZSvp/ifLQ2aQIAAkwACnJldHVyblR5cGV0ABBMeHNidGkvYXBpL1R5cGU7WwAPdmFsdWVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvUGFyYW1ldGVyTGlzdDt4cQB+AEJxAH4AS3VxAH4ATAAAAABzcQB+AE4AcQB+AB11cQB+AFEAAAAAc3IAFHhzYnRpLmFwaS5Qcm9qZWN0aW9u89KNVOlFpC0CAAJMAAJpZHEAfgANTAAGcHJlZml4dAAWTHhzYnRpL2FwaS9TaW1wbGVUeXBlO3hxAH4AXXQABFVuaXRzcgATeHNidGkuYXBpLlNpbmdsZXRvbvynX/jPVuRGAgABTAAEcGF0aHQAEEx4c2J0aS9hcGkvUGF0aDt4cQB+AF1zcgAOeHNidGkuYXBpLlBhdGibPVwIzqUnhAIAAVsACmNvbXBvbmVudHN0ABpbTHhzYnRpL2FwaS9QYXRoQ29tcG9uZW50O3hwdXIAGltMeHNidGkuYXBpLlBhdGhDb21wb25lbnQ7Q9oJdC1nFnQCAAB4cAAAAAJzcgAMeHNidGkuYXBpLklkmDJsizdTxEACAAFMAAJpZHEAfgANeHIAF3hzYnRpLmFwaS5QYXRoQ29tcG9uZW50X5oiWy6Gn7wCAAB4cHQABXNjYWxhc3IADnhzYnRpLmFwaS5UaGlz2wntpsxaQFwCAAB4cQB+AHl1cgAaW0x4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdDv10zod8rNw7gIAAHhwAAAAAXNyABd4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdNbFvBxkSXTjAgACWgAKaXNJbXBsaWNpdFsACnBhcmFtZXRlcnN0ABxbTHhzYnRpL2FwaS9NZXRob2RQYXJhbWV0ZXI7eHAAdXIAHFtMeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlcjvPuMVdpd21bQIAAHhwAAAAAXNyABl4c2J0aS5hcGkuTWV0aG9kUGFyYW1ldGVyH0WuF9NJsOoCAARaAApoYXNEZWZhdWx0TAAIbW9kaWZpZXJ0AB1MeHNidGkvYXBpL1BhcmFtZXRlck1vZGlmaWVyO0wABG5hbWVxAH4ADUwAA3RwZXEAfgBmeHAAfnIAG3hzYnRpLmFwaS5QYXJhbWV0ZXJNb2RpZmllcgAAAAAAAAAAEgAAeHEAfgBUdAAFUGxhaW50AARhcmdzc3IAF3hzYnRpLmFwaS5QYXJhbWV0ZXJpemVkFmzuaQPJu38CAAJMAAhiYXNlVHlwZXEAfgBtWwANdHlwZUFyZ3VtZW50c3QAEVtMeHNidGkvYXBpL1R5cGU7eHEAfgBdc3EAfgBsdAAFQXJyYXlxAH4AcnVyABFbTHhzYnRpLmFwaS5UeXBlO3T/pVp7+elBAgAAeHAAAAABc3EAfgBsdAAGU3RyaW5nc3EAfgBwc3EAfgBzdXEAfgB2AAAAA3NxAH4AeHQABGphdmFzcQB+AHh0AARsYW5ncQB+AH1zcQB+AFl1cQB+ADwAAAAAc3EAfgBZdXEAfgCRAAAAAnNxAH4AbHQABk9iamVjdHEAfgCVc3EAfgBsdAADQW55cQB+AHJ1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAAnNyABF4c2J0aS5hcGkuUGFja2FnZX5Zj/auzjlYAgABTAAEbmFtZXEAfgANeHB0AAtvcmcuZXhhbXBsZXNxAH4ApnQAA29yZ3NyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABX1231aN1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5cQB+AA1MAA9zb3VyY2VEaXJlY3RvcnlxAH4ADXhwdAA/L2hvbWUvdmFsZW50aW5hL0lkZWFQcm9qZWN0cy9wb2x1Y2lvbi90YXJnZXQvc2NhbGEtMi4xMS9jbGFzc2VzdAABL3VyAAJbQqzzF/gGCFTgAgAAeHAAAAAUGyt9N8jkERZ7PV2zIEAFivhMu9I=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlSjH5SdlLSkQCAAdJAAdhcGlIYXNoWgAIaGFzTWFjcm9aABBoYXNQYWNrYWdlT2JqZWN0TAAYX2ludGVybmFsT25seV9uYW1lSGFzaGVzdAAkTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoZXM7TAADYXBpdAAVTHhzYnRpL2FwaS9Tb3VyY2VBUEk7TAALY29tcGlsYXRpb250ABdMeHNidGkvYXBpL0NvbXBpbGF0aW9uO1sABGhhc2h0AAJbQnhwzo+zoQAAc3IAInhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoZXNU2r6Z+tTsTAIAAlsAD2ltcGxpY2l0TWVtYmVyc3QAI1tMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2g7WwAOcmVndWxhck1lbWJlcnNxAH4AB3hwdXIAI1tMeHNidGkuYXBpLl9pbnRlcm5hbE9ubHlfTmFtZUhhc2g7SVqAtt2Wi/QCAAB4cAAAAAB1cQB+AAkAAAAkc3IAIHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoWw71InY4V88CAAJJAARoYXNoTAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwrFRgrHQABm5vdGlmeXNxAH4ADPyBQ7B0ABFBY2N1bXVsYXRlV2luZG93c3NxAH4ADCiWevh0AAhQb2x1Y2lvbnNxAH4ADNoeWm10AAR3YWl0c3EAfgAMkeOaKXQADSRhc0luc3RhbmNlT2ZzcQB+AAyUHlNvdAAGZXF1YWxzc3EAfgAMn3VE43QAC3JlcGV0aXRpb25zc3EAfgAMcO9dxnQACWdldFJlc3VsdHNxAH4ADE+67Il0AAxhc0luc3RhbmNlT2ZzcQB+AAz1mCoLdAARY3JlYXRlQWNjdW11bGF0b3JzcQB+AAykiV1qdAAMc3luY2hyb25pemVkc3EAfgAM1CEkznQADSRpc0luc3RhbmNlT2ZzcQB+AAyfltHPdAAEbWFpbnNxAH4ADCQY1Y10AAlub3RpZnlBbGxzcQB+AAwAJjONdAAMaXNJbnN0YW5jZU9mc3EAfgAMhTrtx3QAB21heGltdW1zcQB+AAyeCsKsdAAGc2Vuc29yc3EAfgAMhBuHlHQABjxpbml0PnNxAH4ADC1LPy10AAVtZXJnZXNxAH4ADBY8JrZ0AAVDb3VudHNxAH4ADImuJs90ABBBY2N1bXVsYXRlVmFsdWVzc3EAfgAMB3lpFXQAAWxzcQB+AAxBWAdudAACPT1zcQB+AAx/fZNudAAFY2xvbmVzcQB+AAwcIGYfdAAIc2Vuc29ySURzcQB+AAxEBJQmdAAIdG9TdHJpbmdzcQB+AAzhsZvtdAACIT1zcQB+AAxcNvmhdAAIZ2V0Q2xhc3NzcQB+AAzfcyCfdAADYWNjc3EAfgAMOLP6G3QAB0NvdW50ZXJzcQB+AAysfPK4dAACbmVzcQB+AAz39coMdAADYWRkc3EAfgAMdopJJXQAAmVxc3EAfgAMVoos63QAAiMjc3EAfgAMYSLdcHQACGZpbmFsaXplc3EAfgAMSlNI6nQACGhhc2hDb2Rlc3IAE3hzYnRpLmFwaS5Tb3VyY2VBUEm5Xqf5KSM4pAIAAlsAC2RlZmluaXRpb25zdAAXW0x4c2J0aS9hcGkvRGVmaW5pdGlvbjtbAAhwYWNrYWdlc3QAFFtMeHNidGkvYXBpL1BhY2thZ2U7eHB1cgAXW0x4c2J0aS5hcGkuRGVmaW5pdGlvbjuIyVzntONeDgIAAHhwAAAAAXNyABN4c2J0aS5hcGkuQ2xhc3NMaWtlgzQcod+wl2wCAARMAA5kZWZpbml0aW9uVHlwZXQAGkx4c2J0aS9hcGkvRGVmaW5pdGlvblR5cGU7WwAQc2F2ZWRBbm5vdGF0aW9uc3QAE1tMamF2YS9sYW5nL1N0cmluZztMAAhzZWxmVHlwZXQAEEx4c2J0aS9hcGkvTGF6eTtMAAlzdHJ1Y3R1cmVxAH4AX3hyACF4c2J0aS5hcGkuUGFyYW1ldGVyaXplZERlZmluaXRpb275EW6x1VA84gIAAVsADnR5cGVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvVHlwZVBhcmFtZXRlcjt4cgAUeHNidGkuYXBpLkRlZmluaXRpb26HKhvocULjRgIABEwABmFjY2Vzc3QAEkx4c2J0aS9hcGkvQWNjZXNzO1sAC2Fubm90YXRpb25zdAAXW0x4c2J0aS9hcGkvQW5ub3RhdGlvbjtMAAltb2RpZmllcnN0ABVMeHNidGkvYXBpL01vZGlmaWVycztMAARuYW1lcQB+AA14cHNyABB4c2J0aS5hcGkuUHVibGljulg9rmwtYEICAAB4cgAQeHNidGkuYXBpLkFjY2Vzc91imvgdYzFIAgAAeHB1cgAXW0x4c2J0aS5hcGkuQW5ub3RhdGlvbjvrl+sZEPaNSAIAAHhwAAAAAHNyABN4c2J0aS5hcGkuTW9kaWZpZXJzl+dh3BMme7MCAAFCAAVmbGFnc3hwAHQAFW9yZy5wb2x1Y2lvbi5Qb2x1Y2lvbnVyABpbTHhzYnRpLmFwaS5UeXBlUGFyYW1ldGVyO9ltJg8onfK2AgAAeHAAAAAAfnIAGHhzYnRpLmFwaS5EZWZpbml0aW9uVHlwZQAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQABk1vZHVsZXVyABNbTGphdmEubGFuZy5TdHJpbmc7rdJW5+kde0cCAAB4cAAAAABzcgAheHNidGkuYXBpLkFic3RyYWN0TGF6eSRTdHJpY3RMYXp5DWYcaykWKrgCAAFMAAV2YWx1ZXQAEkxqYXZhL2xhbmcvT2JqZWN0O3hwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4Ad3NyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgBfTAAJaW5oZXJpdGVkcQB+AF9MAAdwYXJlbnRzcQB+AF94cQB+AHxzcQB+AHd1cQB+AFoAAAABc3IADXhzYnRpLmFwaS5EZWZSvp/ifLQ2aQIAAkwACnJldHVyblR5cGV0ABBMeHNidGkvYXBpL1R5cGU7WwAPdmFsdWVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvUGFyYW1ldGVyTGlzdDt4cQB+AGBxAH4AaXVxAH4AagAAAABzcQB+AGwAcQB+ACd1cQB+AG8AAAAAc3IAFHhzYnRpLmFwaS5Qcm9qZWN0aW9u89KNVOlFpC0CAAJMAAJpZHEAfgANTAAGcHJlZml4dAAWTHhzYnRpL2FwaS9TaW1wbGVUeXBlO3hxAH4Ae3QABFVuaXRzcgATeHNidGkuYXBpLlNpbmdsZXRvbvynX/jPVuRGAgABTAAEcGF0aHQAEEx4c2J0aS9hcGkvUGF0aDt4cQB+AHtzcgAOeHNidGkuYXBpLlBhdGibPVwIzqUnhAIAAVsACmNvbXBvbmVudHN0ABpbTHhzYnRpL2FwaS9QYXRoQ29tcG9uZW50O3hwdXIAGltMeHNidGkuYXBpLlBhdGhDb21wb25lbnQ7Q9oJdC1nFnQCAAB4cAAAAAJzcgAMeHNidGkuYXBpLklkmDJsizdTxEACAAFMAAJpZHEAfgANeHIAF3hzYnRpLmFwaS5QYXRoQ29tcG9uZW50X5oiWy6Gn7wCAAB4cHQABXNjYWxhc3IADnhzYnRpLmFwaS5UaGlz2wntpsxaQFwCAAB4cQB+AJd1cgAaW0x4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdDv10zod8rNw7gIAAHhwAAAAAXNyABd4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdNbFvBxkSXTjAgACWgAKaXNJbXBsaWNpdFsACnBhcmFtZXRlcnN0ABxbTHhzYnRpL2FwaS9NZXRob2RQYXJhbWV0ZXI7eHAAdXIAHFtMeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlcjvPuMVdpd21bQIAAHhwAAAAAXNyABl4c2J0aS5hcGkuTWV0aG9kUGFyYW1ldGVyH0WuF9NJsOoCAARaAApoYXNEZWZhdWx0TAAIbW9kaWZpZXJ0AB1MeHNidGkvYXBpL1BhcmFtZXRlck1vZGlmaWVyO0wABG5hbWVxAH4ADUwAA3RwZXEAfgCEeHAAfnIAG3hzYnRpLmFwaS5QYXJhbWV0ZXJNb2RpZmllcgAAAAAAAAAAEgAAeHEAfgBydAAFUGxhaW50AARhcmdzc3IAF3hzYnRpLmFwaS5QYXJhbWV0ZXJpemVkFmzuaQPJu38CAAJMAAhiYXNlVHlwZXEAfgCLWwANdHlwZUFyZ3VtZW50c3QAEVtMeHNidGkvYXBpL1R5cGU7eHEAfgB7c3EAfgCKdAAFQXJyYXlxAH4AkHVyABFbTHhzYnRpLmFwaS5UeXBlO3T/pVp7+elBAgAAeHAAAAABc3EAfgCKdAAGU3RyaW5nc3EAfgCOc3EAfgCRdXEAfgCUAAAAA3NxAH4AlnQABGphdmFzcQB+AJZ0AARsYW5ncQB+AJtzcQB+AHd1cQB+AFoAAAAAc3EAfgB3dXEAfgCvAAAAAnNxAH4AinQABk9iamVjdHEAfgCzc3EAfgCKdAADQW55cQB+AJB1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAAnNyABF4c2J0aS5hcGkuUGFja2FnZX5Zj/auzjlYAgABTAAEbmFtZXEAfgANeHB0AAxvcmcucG9sdWNpb25zcQB+AMR0AANvcmdzcgAVeHNidGkuYXBpLkNvbXBpbGF0aW9u7frgw2rooEICAAJKAAlzdGFydFRpbWVbAAdvdXRwdXRzdAAaW0x4c2J0aS9hcGkvT3V0cHV0U2V0dGluZzt4cAAAAV9dt9WjdXIAGltMeHNidGkuYXBpLk91dHB1dFNldHRpbmc7f2rC86eHpUICAAB4cAAAAAFzcgAXeHNidGkuYXBpLk91dHB1dFNldHRpbmd62ZpHdPsdewIAAkwAD291dHB1dERpcmVjdG9yeXEAfgANTAAPc291cmNlRGlyZWN0b3J5cQB+AA14cHQAPy9ob21lL3ZhbGVudGluYS9JZGVhUHJvamVjdHMvcG9sdWNpb24vdGFyZ2V0L3NjYWxhLTIuMTEvY2xhc3Nlc3QAAS91cgACW0Ks8xf4BghU4AIAAHhwAAAAFL3gkicl1g0AEzHyqfGeAGs3ic4x
+external apis:
+0 items
+source infos:
+4 items
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/Job.scala -> 
+AAAAAAAAAAA=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/SocketTextStreamWordCount.scala -> 
+AAAAAAAAAAA=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/example/WordCount.scala -> 
+AAAAAAAAAAA=
+/home/valentina/IdeaProjects/polucion/src/main/scala/org/polucion/Polucion.scala -> 
+AAAAAAAAAAA=
+compilations:
+2 items
+0 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABXSxpab11cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQATi9ob21lL3ZhbGVudGluYS9Eb2N1bWVudG9zL1VDTS9URk0vcG9sdWNpb24vcG9sdWNpb24vdGFyZ2V0L3NjYWxhLTIuMTEvY2xhc3Nlc3QAAS8=
+1 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABX1231aN1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAPy9ob21lL3ZhbGVudGluYS9JZGVhUHJvamVjdHMvcG9sdWNpb24vdGFyZ2V0L3NjYWxhLTIuMTEvY2xhc3Nlc3QAAS8=

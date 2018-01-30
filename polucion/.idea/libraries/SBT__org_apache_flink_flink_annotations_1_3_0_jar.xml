@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.flink:flink-annotations:1.3.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.flink/flink-annotations/jars/flink-annotations-1.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.flink/flink-annotations/srcs/flink-annotations-1.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
