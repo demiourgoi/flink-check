@@ -19,11 +19,13 @@ object Polucion {
     env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime)
 
     //Obtiene los datos del puerto 9000
-    //Un programa python inserta valores aleatorios en este puerto
+    //Un programa Scala inserta valores aleatorios en este puerto
     val text = env.socketTextStream("localhost", 9000, '\n')
 
     //Transforma los datos leidos a tuplas (polucion, sensor)
-    val mapped = text.map { x => (x.split(",")(0).toInt, x.split(",")(1).toInt) }
+    val mapped = text.map { x => (x.split(",")(0).toInt, x.split(",")(1).toInt)}
+
+
 
     //Separa los streams por sensor
     val keyValue = mapped.keyBy(1)
@@ -33,6 +35,7 @@ object Polucion {
 
     //Maximo nivel de polucion
     val maxPollution = 20
+
 
     //Numero de ventanas a esperar para cambiar el estado de la alarma
     val windows = 3
@@ -50,6 +53,7 @@ object Polucion {
     //Equivalente para desactivarse.
     val accumulateWindow = countWindowVal.aggregate(new AccumulateWindows(windows))
 
+
     //Se separan los flujos de datos por sensor.
     //Se aplica un map que mantenga el estado de la alarma (activada o desactivada) y la active
     //o desactive segun los datos que reciba y su estado anterior.
@@ -57,10 +61,9 @@ object Polucion {
     accumulateWindow.keyBy(1)
       .mapWithState((in: (Int, Int), alarm: Option[Boolean]) =>
         alarm match {
-          case Some(c) => if(c && in._1 == 0) ( "Alarma desactivada en sensor " + in._2, Some(false) ) else if (!c && in._1 == 2) ("Alarma activada en sensor " + in._2, Some(true) ) else ("Nada", Some(c))
-          case None => if(in._1 == 2) ("Alarma activada en sensor " + in._2, Some(true) ) else ("Nada", Some(false))
+          case Some(c) => if(c && in._1 == 0) ( "Alarma desactivada en sensor " + in._2, Some(false) ) else if (!c && in._1 == 2) ("Alarma activada en sensor " + in._2, Some(true) ) else ("Nada en sensor " + in._2, Some(c))
+          case None => if(in._1 == 2) ("Alarma activada en sensor " + in._2, Some(true) ) else ("Nada en sensor " + in._2, Some(false))
         }).print()
-
 
     //Ejecutar el programa
     env.execute()
