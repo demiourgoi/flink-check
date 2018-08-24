@@ -4,7 +4,7 @@
 		module="mainrunner$sbt_2.10"
 		revision="0.1-SNAPSHOT"
 		status="integration"
-		publication="20171027135231"
+		publication="20180524122838"
 	/>
 	<configurations>
 		<conf name="default" visibility="public"/>

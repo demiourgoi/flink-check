@@ -5,7 +5,6 @@
 [debug] 	confs: [default]
 [debug] 	validate = true
 [debug] 	refresh = false
-[debug] no default cache defined: set to /home/valentina/.ivy2/cache
 [debug] resolving dependencies for configuration 'default'
 [debug] == resolving dependencies for mainrunner#mainrunner$sbt_2.10;0.1-SNAPSHOT [default]
 [debug] == resolving dependencies mainrunner#mainrunner$sbt_2.10;0.1-SNAPSHOT->org.scala-sbt#sbt;0.13.15 [default->default(compile)]
@@ -2370,9 +2369,9 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.15!apply-macro.jar
 [debug] 	[NOT REQUIRED] org.scala-sbt#template-resolver;0.1!template-resolver.jar
 [debug] 	[NOT REQUIRED] org.jboss.interceptor#jboss-interceptor-api;1.1!jboss-interceptor-api.jar
-[debug] :: resolution report :: resolve 1931ms :: artifacts dl 90ms
-[debug] 	report for mainrunner#mainrunner$sbt_2.10;0.1-SNAPSHOT default produced in /home/valentina/IdeaProjects/polucion/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sbt_2.10-default.xml
-[debug] 	resolve done (1931ms resolve - 90ms download)
+[debug] :: resolution report :: resolve 386ms :: artifacts dl 11ms
+[debug] 	report for mainrunner#mainrunner$sbt_2.10;0.1-SNAPSHOT default produced in /home/valentina/IdeaProjects/TFM/polucion/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sbt_2.10-default.xml
+[debug] 	resolve done (386ms resolve - 11ms download)
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: mainrunner#mainrunner$sources_2.10;0.1-SNAPSHOT
 [debug] 	confs: [default]
@@ -2786,7 +2785,6 @@
 [info] Resolving org.scala-sbt#actions;0.13.15 ...
 [debug] sbt-chain: Checking cache for: dependency: org.scala-sbt#actions;0.13.15 {default=[compile, default(compile)]}
 [debug] sbt-chain: module revision found in cache: org.scala-sbt#actions;0.13.15
-[debug] no default cache defined: set to /home/valentina/.ivy2/cache
 [debug] 	found org.scala-sbt#actions;0.13.15 in sbt-chain
 [debug] == resolving dependencies mainrunner#mainrunner$sources_2.10;0.1-SNAPSHOT->org.scala-sbt#actions;0.13.15 [default->default(compile)]
 [debug] == resolving dependencies mainrunner#mainrunner$sources_2.10;0.1-SNAPSHOT->org.scala-sbt#classfile;0.13.15 [default->compile]
@@ -3504,6 +3502,6 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#logic;0.13.15!logic.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-sbt#main-settings;0.13.15!main-settings.jar(src)
 [debug] 	[NOT REQUIRED] com.eed3si9n#sbt-assembly;0.14.1!sbt-assembly.jar(src)
-[debug] :: resolution report :: resolve 358ms :: artifacts dl 44ms
-[debug] 	report for mainrunner#mainrunner$sources_2.10;0.1-SNAPSHOT default produced in /home/valentina/IdeaProjects/polucion/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.10-default.xml
-[debug] 	resolve done (358ms resolve - 44ms download)
+[debug] :: resolution report :: resolve 144ms :: artifacts dl 16ms
+[debug] 	report for mainrunner#mainrunner$sources_2.10;0.1-SNAPSHOT default produced in /home/valentina/IdeaProjects/TFM/polucion/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.10-default.xml
+[debug] 	resolve done (144ms resolve - 16ms download)

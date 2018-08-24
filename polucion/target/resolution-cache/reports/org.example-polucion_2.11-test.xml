@@ -7,15 +7,15 @@
 		revision="0.1-SNAPSHOT"
 		conf="test"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20171027134956"/>
+		date="20180524122834"/>
 	<dependencies>
 		<module organisation="org.scalacheck" name="scalacheck_2.11">
-			<revision name="1.13.4" status="release" pubdate="20161101151546" resolver="public" artresolver="public" homepage="http://www.scalacheck.org" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="1">
+			<revision name="1.13.4" status="release" pubdate="20161101151546" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scalacheck.org" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="1">
 				<license name="BSD-style" url="http://www.opensource.org/licenses/bsd-license.php"/>
-				<metadata-artifact status="successful" details="" size="1592" time="48" location="/home/valentina/.ivy2/cache/org.scalacheck/scalacheck_2.11/ivy-1.13.4.xml" searched="true" original-local-location="/home/valentina/.ivy2/cache/org.scalacheck/scalacheck_2.11/ivy-1.13.4.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalacheck/scalacheck_2.11/1.13.4/scalacheck_2.11-1.13.4.pom"/>
+				<metadata-artifact status="no" details="" size="2797" time="0" location="/home/valentina/.ivy2/cache/org.scalacheck/scalacheck_2.11/ivy-1.13.4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalacheck/scalacheck_2.11/1.13.4/scalacheck_2.11-1.13.4.pom"/>
 				<caller organisation="org.example" name="polucion_2.11" conf="test, compile, runtime" rev="1.13.4" rev-constraint-default="1.13.4" rev-constraint-dynamic="1.13.4" callerrev="0.1-SNAPSHOT"/>
 				<artifacts>
-					<artifact name="scalacheck_2.11" type="jar" ext="jar" status="successful" details="" size="3093888" time="615" location="/home/valentina/.ivy2/cache/org.scalacheck/scalacheck_2.11/jars/scalacheck_2.11-1.13.4.jar">
+					<artifact name="scalacheck_2.11" type="jar" ext="jar" status="no" details="" size="3093888" time="0" location="/home/valentina/.ivy2/cache/org.scalacheck/scalacheck_2.11/jars/scalacheck_2.11-1.13.4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalacheck/scalacheck_2.11/1.13.4/scalacheck_2.11-1.13.4.jar"/>
 					</artifact>
 				</artifacts>

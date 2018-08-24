@@ -4,7 +4,11 @@ import org.apache.flink.api.common.functions.AggregateFunction
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+import org.apache.flink.streaming.api.windowing.assigners.{EventTimeSessionWindows, GlobalWindows, TumblingEventTimeWindows}
 import org.apache.flink.streaming.api.windowing.time.Time
+import org.apache.flink.streaming.api.windowing.windows.TimeWindow
+import org.apache.flink.streaming.runtime.operators.windowing.WindowOperator
+import org.apache.flink.streaming.runtime.operators.windowing.functions.InternalAggregateProcessAllWindowFunction
 
 
 
@@ -33,6 +37,7 @@ object Polucion {
     //Recoge los datos en ventanas de 5 segundos
     val tumblingWindow  = keyValue.timeWindow(Time.seconds(5))
 
+
     //Maximo nivel de polucion
     val maxPollution = 20
 
@@ -52,7 +57,6 @@ object Polucion {
     //'n' ventanas seguidas.
     //Equivalente para desactivarse.
     val accumulateWindow = countWindowVal.aggregate(new AccumulateWindows(windows))
-
 
     //Se separan los flujos de datos por sensor.
     //Se aplica un map que mantenga el estado de la alarma (activada o desactivada) y la active

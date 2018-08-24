@@ -113,7 +113,7 @@ object polutionGenerator {
     }
     Thread.sleep(10000)
     //Cierra el servidor
-    server.close()
+    server.close
   }
 
 
