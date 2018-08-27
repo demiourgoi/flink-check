@@ -78,55 +78,65 @@ object WinGen{
     } yield head ++ tail
   }
 
+  def union[A](gs1 : Gen[List[List[A]]], gs2 : Gen[List[List[A]]]) : Gen[List[List[A]]] = {
+    for {
+      xs1 <- gs1
+      xs2 <- gs2
+    } yield concat2(xs1,xs2)
+  }
+
+  def concat2[A](list : List[List[A]], other : List[List[A]]) : List[List[A]] = {
+    list.zipAll(other, List.empty, List.empty).map(xs12 => xs12._1 ++ xs12._2)
+  }
+
   /**GENERADORES*/
 
-  def until[A](bg1 : Gen[List[A]], bg2 : Gen[List[A]], time: Int) : Gen[List[List[A]]] =
+  def until[A](lg1 : Gen[List[A]], lg2 : Gen[List[A]], time: Int) : Gen[List[List[A]]] =
       if (time <= 0)
         Gen.const(List.empty)
       else if (time == 1)
-        ofNList(bg2)
+        ofNList(lg2)
       else
         for {
           proofOffset <- Gen.choose(0, time - 1)
-          prefix <- always(bg1, proofOffset)
-          dsg2Proof <- laterN(proofOffset, bg2)
+          prefix <- always(lg1, proofOffset)
+          dsg2Proof <- laterN(proofOffset, lg2)
         } yield prefix ++ dsg2Proof.filter(e => e != List.empty)
 
 
 
-  def eventually[A](bg : Gen[List[A]], time: Int) : Gen[List[List[A]]] = {
+  def eventually[A](lg : Gen[List[A]], time: Int) : Gen[List[List[A]]] = {
     val i = Gen.choose(0, time - 1).sample.get
 
     if (time < 0) Gen.const(List.empty)
-    else laterN(i, bg)
+    else laterN(i, lg)
   }
 
 
-  def always[A](bg : Gen[List[A]], time: Int) : Gen[List[List[A]]] =
+  def always[A](lg : Gen[List[A]], time: Int) : Gen[List[List[A]]] =
       if (time <= 0) // supporting size == 0 is needed by the calls to always from until and release
         Gen.const(List.empty)
       else
-        Gen.listOfN(time, bg)
+        Gen.listOfN(time, lg)
 
 
-  def release[A](bg1 : Gen[List[A]], bg2 : Gen[List[A]], time: Int) : Gen[List[List[A]]] =
+  def release[A](lg1 : Gen[List[A]], lg2 : Gen[List[A]], time: Int) : Gen[List[List[A]]] =
       if (time <= 0)
         Gen.const(List.empty)
       else if (time == 1) for {
         isReleased <- arbitrary[Boolean]
-        proof <- if (isReleased) (concatToList(bg1, bg2)) else ofNList(bg2)
+        proof <- if (isReleased) (union(ofNList(lg1), ofNList(lg2))) else ofNList(lg2)
       } yield proof
       else for {
         isReleased <- arbitrary[Boolean]
         ds <- if (!isReleased)
-                always(bg2, time)
+                always(lg2, time)
               else for {
                 proofOffset <- Gen.choose(0, time - 1)
-                prefix <- always(bg2, proofOffset)
-                ending <- laterN(proofOffset, concat(bg1, bg2))
+                prefix <- always(lg2, proofOffset)
+                ending <- laterN(proofOffset, concat(lg1, lg2))
                } yield prefix ++ ending.filter(e => e != List.empty)
       } yield ds
-
 
 
   //Pasamos los datos en listas a ventanas
@@ -151,7 +161,7 @@ object WinGen{
     val noPol = ofN(size,genNoPol)
 
     //println(always(pol, 3).sample.get)
-    val a = always(pol,time)
+    val a = union(always(ofN(2, 3), 10), until(ofN(2,0), ofN(2,1), 10))
     println(a.sample.get)
 
     val env = StreamExecutionEnvironment.getExecutionEnvironment
