@@ -6,6 +6,10 @@ import org.scalacheck.Gen
 import org.scalacheck.Arbitrary.arbitrary
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.streaming.api.scala._
+import org.apache.flink.streaming.api.windowing.assigners.WindowAssigner
+import org.apache.flink.streaming.api.windowing.assigners.GlobalWindows
+import org.apache.flink.streaming.api.windowing.triggers.{CountTrigger, PurgingTrigger, Trigger}
+import org.apache.flink.streaming.api.windowing.windows.GlobalWindow
 
 
 
@@ -15,6 +19,10 @@ object WinGen{
   val maxPollution = 20
   val numSensor = 3
 
+
+  def gen = for{
+    g <- Gen.choose(1,100)
+  } yield g
 
   //Generador de datos con polucion (mayores o iguales que maxPollution)
   def genPol = for {
@@ -106,10 +114,11 @@ object WinGen{
 
 
   def eventually[A](lg : Gen[List[A]], time: Int) : Gen[List[List[A]]] = {
-    val i = Gen.choose(0, time - 1).sample.get
-
-    if (time < 0) Gen.const(List.empty)
-    else laterN(i, lg)
+    if (time <= 0) Gen.const(List.empty)
+    else {
+      val i = Gen.choose(0, time - 1).sample.get
+      laterN(i, lg)
+    }
   }
 
 
@@ -140,40 +149,63 @@ object WinGen{
 
 
   //Pasamos los datos en listas a ventanas
-  //TODO
-  def toWindows[A](data: Gen[List[List[A]]], env: StreamExecutionEnvironment) = {
-    val list = data.sample.get
-    val size = list.head.length
+  def toWindowsList[A](data: Gen[List[List[A]]], env: StreamExecutionEnvironment) = {
+    val list: List[List[Any]] = data.sample.get
+    //val size = list.head.length
     //Cambiamos las listas vacias por listas con un valor especial para que posteriormente representen ventanas vacias
-    val d = list.map(e => if(e == List.empty) List.fill(size)(-1) else e)
-    val stream = env.fromCollection(d.flatten)
+    var d = list.map(e => if(e == List()) List.fill(1)(-1) else e)
+    if(d == List.empty) d = List.fill(1)(List.fill(1)(-1))
+    //val df = d.flatten
+    println("MAP: " + d)
+    val stream = env.fromCollection(d)
+    //stream.map(x => println(x))
     //Divide el stream en ventanas
-    stream.countWindowAll(size + 1)
+    stream.countWindowAll(1)
+  }
+
+  def toWindows[A](data: Gen[List[List[A]]], env: StreamExecutionEnvironment) = {
+    val list: List[List[Any]] = data.sample.get
+    //val size = list.head.length
+    //Cambiamos las listas vacias por listas con un valor especial para que posteriormente representen ventanas vacias
+    var d = list.map(e => if(e == List()) List.fill(1)(-1) else e)
+    if(d == List.empty) d = List.fill(1)(List.fill(1)(-1))
+    val df = d.flatten
+    println("MAP: " + df)
+    val stream = env.fromCollection(df)
+    //stream.map(x => println(x))
+    //Divide el stream en ventanas
+    //stream.windowAll(GlobalWindows.create()).trigger(PurgingTrigger.of(CountTrigger.of(1)))
+
+    stream
+      .windowAll(GlobalWindows.create().asInstanceOf[WindowAssigner[Any, GlobalWindow]])
+      .trigger(PurgingTrigger.of(CustomCountTrigger.of().asInstanceOf[Trigger[Any, GlobalWindow]]))
   }
 
 
 
   def main(args: Array[String]): Unit = {
-    val size = 1//size windows
-    val time = 6//instantes
+    val size =1//size windows
+    val time = 5//instantes
 
     val pol = ofN(size,genPol)
     val noPol = ofN(size,genNoPol)
 
-    //println(always(pol, 3).sample.get)
-    val a = union(always(ofN(2, 3), 10), until(ofN(2,0), ofN(2,1), 10))
-    println(a.sample.get)
+    val a = always(noPol,5)
+   // val a = eventually(noPol, time)
+
+    val data = a.sample.get
+    println(data)
 
     val env = StreamExecutionEnvironment.getExecutionEnvironment
-    toWindows[(Int,Int)](a, env).fold(""){(acc, v) => println(acc)
+
+    toWindowsList(a, env).fold(""){(acc, v) => println(acc+v)
                                                         acc + v}
 
 
 
+
+
     env.execute()
-
-
-
 
 
   }
