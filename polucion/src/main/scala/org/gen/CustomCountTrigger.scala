@@ -20,7 +20,6 @@ class CustomCountTrigger[W <:Window] extends Trigger[List[Any], W]{
 
 
   @throws[Exception] override def onElement(element: List[Any], timestamp: Long, window: W, ctx: Trigger.TriggerContext): TriggerResult = {
-    println("onElement")
     val count = ctx.getPartitionedState(stateDesc)
     count.add(1L)
     if (count.get >= element.length) {

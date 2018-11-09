@@ -6,6 +6,7 @@
 [debug] 	confs: [default]
 [debug] 	validate = true
 [debug] 	refresh = false
+[debug] no default cache defined: set to /home/valentina/.ivy2/cache
 [debug] resolving dependencies for configuration 'default'
 [debug] == resolving dependencies for org.example#polucion$sbt_2.10;0.1-SNAPSHOT [default]
 [debug] == resolving dependencies org.example#polucion$sbt_2.10;0.1-SNAPSHOT->org.scala-sbt#sbt;0.13.15 [default->default(compile)]
@@ -2370,9 +2371,9 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.15!apply-macro.jar
 [debug] 	[NOT REQUIRED] org.scala-sbt#template-resolver;0.1!template-resolver.jar
 [debug] 	[NOT REQUIRED] org.jboss.interceptor#jboss-interceptor-api;1.1!jboss-interceptor-api.jar
-[debug] :: resolution report :: resolve 1557ms :: artifacts dl 55ms
+[debug] :: resolution report :: resolve 2289ms :: artifacts dl 36ms
 [debug] 	report for org.example#polucion$sbt_2.10;0.1-SNAPSHOT default produced in /home/valentina/IdeaProjects/TFM/polucion/target/resolution-cache/reports/org.example-polucion$sbt_2.10-default.xml
-[debug] 	resolve done (1557ms resolve - 55ms download)
+[debug] 	resolve done (2289ms resolve - 36ms download)
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: org.example#polucion$sources_2.10;0.1-SNAPSHOT
 [debug] 	confs: [default]
@@ -2819,6 +2820,7 @@
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-reflect;2.10.6 {default=[master(*), default, compile, runtime(*), runtime, default(compile), compile(*), master, master(compile)]} => dependency: org.scala-lang#scala-reflect;2.10.6 {default=[master(*), default, compile, runtime(*), runtime, default(compile), compile(*), master, master(compile)]}
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.6 {default=[default, master(*), compile, runtime(*), runtime, default(compile), compile(*), master, master(compile)]} => dependency: org.scala-lang#scala-library;2.10.6 {default=[default, master(*), compile, runtime(*), runtime, default(compile), compile(*), master, master(compile)]}
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-compiler;2.10.6 {default=[default, compile, runtime, default(compile), master, master(*), runtime(*), compile(*)]} => dependency: org.scala-lang#scala-compiler;2.10.6 {default=[default, compile, runtime, default(compile), master, master(*), runtime(*), compile(*)]}
+[debug] no default cache defined: set to /home/valentina/.ivy2/cache
 [info] Resolving org.scala-sbt#cache;0.13.15 ...
 [debug] sbt-chain: Checking cache for: dependency: org.scala-sbt#cache;0.13.15 {default=[compile, default(compile)]}
 [debug] sbt-chain: module revision found in cache: org.scala-sbt#cache;0.13.15
@@ -2978,7 +2980,6 @@
 [debug] sbt-chain: module revision found in cache: org.ow2.asm#asm-tree;5.0.4
 [debug] 	found org.ow2.asm#asm-tree;5.0.4 in sbt-chain
 [debug] == resolving dependencies org.example#polucion$sources_2.10;0.1-SNAPSHOT->org.ow2.asm#asm-tree;5.0.4 [default->runtime]
-[debug] no default cache defined: set to /home/valentina/.ivy2/cache
 [debug] == resolving dependencies org.example#polucion$sources_2.10;0.1-SNAPSHOT->org.ow2.asm#asm-tree;5.0.4 [default->compile]
 [debug] == resolving dependencies org.example#polucion$sources_2.10;0.1-SNAPSHOT->org.ow2.asm#asm-tree;5.0.4 [default->master]
 [debug] == resolving dependencies org.example#polucion$sources_2.10;0.1-SNAPSHOT->org.ow2.asm#asm-tree;5.0.4 [default->compile]
@@ -3504,6 +3505,6 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#logic;0.13.15!logic.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-sbt#main-settings;0.13.15!main-settings.jar(src)
 [debug] 	[NOT REQUIRED] com.eed3si9n#sbt-assembly;0.14.1!sbt-assembly.jar(src)
-[debug] :: resolution report :: resolve 246ms :: artifacts dl 25ms
+[debug] :: resolution report :: resolve 330ms :: artifacts dl 21ms
 [debug] 	report for org.example#polucion$sources_2.10;0.1-SNAPSHOT default produced in /home/valentina/IdeaProjects/TFM/polucion/target/resolution-cache/reports/org.example-polucion$sources_2.10-default.xml
-[debug] 	resolve done (246ms resolve - 25ms download)
+[debug] 	resolve done (330ms resolve - 21ms download)

@@ -4,7 +4,7 @@
 		module="polucion_2.11"
 		revision="0.1-SNAPSHOT"
 		status="integration"
-		publication="20180524122834"
+		publication="20181105141452"
 	>
 		<description>
 		polucion
@@ -37,5 +37,10 @@
 		<dependency org="org.apache.flink" name="flink-scala_2.11" rev="1.3.0" conf="provided->default(compile)"/>
 		<dependency org="org.apache.flink" name="flink-streaming-scala_2.11" rev="1.3.0" conf="provided->default(compile)"/>
 		<dependency org="org.scalacheck" name="scalacheck_2.11" rev="1.13.4" conf="compile->default(compile);test->default(compile)"/>
+		<dependency org="org.scalaz" name="scalaz-core_2.11" rev="7.2.26" conf="compile->default(compile)"/>
+		<dependency org="org.specs2" name="specs2-core_2.11" rev="3.8.4" conf="compile->default(compile)"/>
+		<dependency org="org.specs2" name="specs2-scalacheck_2.11" rev="3.8.4" conf="compile->default(compile)"/>
+		<dependency org="org.specs2" name="specs2-matcher-extra_2.11" rev="3.8.4" conf="compile->default(compile)"/>
+		<dependency org="org.specs2" name="specs2-junit_2.11" rev="3.8.4" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>

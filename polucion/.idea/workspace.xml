@@ -1,9 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c7257910-9279-4cfb-a438-8d733751656c" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/org/gen/CustomCountTrigger.scala" />
+    <list default="true" id="c7257910-9279-4cfb-a438-8d733751656c" name="Default" comment="Nuevo tipo ListStream. Clase Formula añadida. Funcion test con listas.">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__junit_junit_4_12_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_hamcrest_hamcrest_core_1_3_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_xml_2_11_1_0_5_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scalaz_scalaz_concurrent_2_11_7_2_3_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scalaz_scalaz_core_2_11_7_2_26_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scalaz_scalaz_effect_2_11_7_2_3_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_specs2_classycle_1_4_3_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_specs2_specs2_analysis_2_11_3_8_4_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_specs2_specs2_codata_2_11_3_8_4_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_specs2_specs2_common_2_11_3_8_4_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_specs2_specs2_core_2_11_3_8_4_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_specs2_specs2_junit_2_11_3_8_4_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_specs2_specs2_matcher_2_11_3_8_4_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_specs2_specs2_matcher_extra_2_11_3_8_4_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_specs2_specs2_scalacheck_2_11_3_8_4_jar.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/org/gen/ListStream.scala" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/org/test/Formula.scala" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/org/test/Test.scala" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/mainRunner-build.iml" afterPath="$PROJECT_DIR$/.idea/modules/mainRunner-build.iml" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/mainRunner.iml" afterPath="$PROJECT_DIR$/.idea/modules/mainRunner.iml" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/root-build.iml" afterPath="$PROJECT_DIR$/.idea/modules/root-build.iml" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/root.iml" afterPath="$PROJECT_DIR$/.idea/modules/root.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/build.sbt" afterPath="$PROJECT_DIR$/build.sbt" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sbt_2.10/0.1-SNAPSHOT/resolved.xml.properties" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sbt_2.10/0.1-SNAPSHOT/resolved.xml.properties" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sbt_2.10/0.1-SNAPSHOT/resolved.xml.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sbt_2.10/0.1-SNAPSHOT/resolved.xml.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sources_2.10/0.1-SNAPSHOT/resolved.xml.properties" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sources_2.10/0.1-SNAPSHOT/resolved.xml.properties" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sources_2.10/0.1-SNAPSHOT/resolved.xml.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sources_2.10/0.1-SNAPSHOT/resolved.xml.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sources_2.11/0.1-SNAPSHOT/resolved.xml.properties" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sources_2.11/0.1-SNAPSHOT/resolved.xml.properties" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sources_2.11/0.1-SNAPSHOT/resolved.xml.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner$sources_2.11/0.1-SNAPSHOT/resolved.xml.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner_2.11/0.1-SNAPSHOT/resolved.xml.properties" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner_2.11/0.1-SNAPSHOT/resolved.xml.properties" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner_2.11/0.1-SNAPSHOT/resolved.xml.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/mainrunner/mainrunner_2.11/0.1-SNAPSHOT/resolved.xml.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sbt_2.10-default.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sbt_2.10-default.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.10-default.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.10-default.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-compile-internal.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-compile-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-compile.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-compile.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-docs.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-docs.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-optional.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-optional.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-plugin.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-plugin.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-pom.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-pom.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-provided.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-provided.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-runtime-internal.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-runtime-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-runtime.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-runtime.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-scala-tool.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-scala-tool.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-sources.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-sources.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-test-internal.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-test-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-test.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.11-test.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-compile-internal.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-compile-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-compile.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-compile.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-docs.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-docs.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-optional.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-optional.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-plugin.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-plugin.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-pom.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-pom.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-provided.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-provided.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-runtime-internal.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-runtime-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-runtime.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-runtime.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-scala-tool.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-scala-tool.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-sources.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-sources.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-test-internal.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-test-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-test.xml" afterPath="$PROJECT_DIR$/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner_2.11-test.xml" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/$global/dependencyPositions/$global/streams/update_cache_2.11/input_dsp" afterPath="$PROJECT_DIR$/mainRunner/target/streams/$global/dependencyPositions/$global/streams/update_cache_2.11/input_dsp" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/$global/dependencyPositions/$global/streams/update_cache_2.11/output_dsp" afterPath="$PROJECT_DIR$/mainRunner/target/streams/$global/dependencyPositions/$global/streams/update_cache_2.11/output_dsp" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/$global/ivyConfiguration/$global/streams/out" afterPath="$PROJECT_DIR$/mainRunner/target/streams/$global/ivyConfiguration/$global/streams/out" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/$global/projectDescriptors/$global/streams/out" afterPath="$PROJECT_DIR$/mainRunner/target/streams/$global/projectDescriptors/$global/streams/out" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/$global/update/$global/streams/out" afterPath="$PROJECT_DIR$/mainRunner/target/streams/$global/update/$global/streams/out" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/$global/update/$global/streams/update_cache_2.11/inputs" afterPath="$PROJECT_DIR$/mainRunner/target/streams/$global/update/$global/streams/update_cache_2.11/inputs" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/$global/update/$global/streams/update_cache_2.11/output" afterPath="$PROJECT_DIR$/mainRunner/target/streams/$global/update/$global/streams/update_cache_2.11/output" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/$global/updateClassifiers/$global/streams/out" afterPath="$PROJECT_DIR$/mainRunner/target/streams/$global/updateClassifiers/$global/streams/out" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/$global/updateSbtClassifiers/$global/streams/out" afterPath="$PROJECT_DIR$/mainRunner/target/streams/$global/updateSbtClassifiers/$global/streams/out" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/compile/externalDependencyClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/mainRunner/target/streams/compile/externalDependencyClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/compile/managedClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/mainRunner/target/streams/compile/managedClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/runtime/externalDependencyClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/mainRunner/target/streams/runtime/externalDependencyClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/runtime/managedClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/mainRunner/target/streams/runtime/managedClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/test/externalDependencyClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/mainRunner/target/streams/test/externalDependencyClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/mainRunner/target/streams/test/managedClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/mainRunner/target/streams/test/managedClasspath/$global/streams/export" />
       <change beforePath="$PROJECT_DIR$/project/target/resolution-cache/default/polucion-build/scala_2.10/sbt_0.13/0.1-SNAPSHOT/resolved.xml.properties" afterPath="$PROJECT_DIR$/project/target/resolution-cache/default/polucion-build/scala_2.10/sbt_0.13/0.1-SNAPSHOT/resolved.xml.properties" />
       <change beforePath="$PROJECT_DIR$/project/target/resolution-cache/default/polucion-build/scala_2.10/sbt_0.13/0.1-SNAPSHOT/resolved.xml.xml" afterPath="$PROJECT_DIR$/project/target/resolution-cache/default/polucion-build/scala_2.10/sbt_0.13/0.1-SNAPSHOT/resolved.xml.xml" />
       <change beforePath="$PROJECT_DIR$/project/target/resolution-cache/reports/default-polucion-build-compile-internal.xml" afterPath="$PROJECT_DIR$/project/target/resolution-cache/reports/default-polucion-build-compile-internal.xml" />
@@ -31,7 +104,57 @@
       <change beforePath="$PROJECT_DIR$/project/target/streams/runtime/externalDependencyClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/project/target/streams/runtime/externalDependencyClasspath/$global/streams/export" />
       <change beforePath="$PROJECT_DIR$/project/target/streams/runtime/fullClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/project/target/streams/runtime/fullClasspath/$global/streams/export" />
       <change beforePath="$PROJECT_DIR$/project/target/streams/runtime/managedClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/project/target/streams/runtime/managedClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/gen/CustomCountTrigger.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/gen/CustomCountTrigger.scala" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/org/gen/WinGen.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/gen/WinGen.scala" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sbt_2.10/0.1-SNAPSHOT/resolved.xml.properties" afterPath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sbt_2.10/0.1-SNAPSHOT/resolved.xml.properties" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sbt_2.10/0.1-SNAPSHOT/resolved.xml.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sbt_2.10/0.1-SNAPSHOT/resolved.xml.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sources_2.10/0.1-SNAPSHOT/resolved.xml.properties" afterPath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sources_2.10/0.1-SNAPSHOT/resolved.xml.properties" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sources_2.10/0.1-SNAPSHOT/resolved.xml.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sources_2.10/0.1-SNAPSHOT/resolved.xml.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sources_2.11/0.1-SNAPSHOT/resolved.xml.properties" afterPath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sources_2.11/0.1-SNAPSHOT/resolved.xml.properties" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sources_2.11/0.1-SNAPSHOT/resolved.xml.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion$sources_2.11/0.1-SNAPSHOT/resolved.xml.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion_2.11/0.1-SNAPSHOT/resolved.xml.properties" afterPath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion_2.11/0.1-SNAPSHOT/resolved.xml.properties" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion_2.11/0.1-SNAPSHOT/resolved.xml.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/org.example/polucion_2.11/0.1-SNAPSHOT/resolved.xml.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sbt_2.10-default.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sbt_2.10-default.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.10-default.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.10-default.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-compile-internal.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-compile-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-compile.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-compile.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-docs.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-docs.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-optional.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-optional.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-plugin.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-plugin.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-pom.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-pom.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-provided.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-provided.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-runtime-internal.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-runtime-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-runtime.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-runtime.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-scala-tool.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-scala-tool.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-sources.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-sources.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-test-internal.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-test-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-test.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion$sources_2.11-test.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-compile-internal.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-compile-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-compile.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-compile.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-docs.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-docs.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-optional.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-optional.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-plugin.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-plugin.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-pom.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-pom.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-provided.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-provided.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-runtime-internal.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-runtime-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-runtime.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-runtime.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-scala-tool.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-scala-tool.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-sources.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-sources.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-test-internal.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-test-internal.xml" />
+      <change beforePath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-test.xml" afterPath="$PROJECT_DIR$/target/resolution-cache/reports/org.example-polucion_2.11-test.xml" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/dependencyPositions/$global/streams/update_cache_2.11/input_dsp" afterPath="$PROJECT_DIR$/target/streams/$global/dependencyPositions/$global/streams/update_cache_2.11/input_dsp" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/dependencyPositions/$global/streams/update_cache_2.11/output_dsp" afterPath="$PROJECT_DIR$/target/streams/$global/dependencyPositions/$global/streams/update_cache_2.11/output_dsp" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/update/$global/streams/out" afterPath="$PROJECT_DIR$/target/streams/$global/update/$global/streams/out" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/update/$global/streams/update_cache_2.11/inputs" afterPath="$PROJECT_DIR$/target/streams/$global/update/$global/streams/update_cache_2.11/inputs" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/update/$global/streams/update_cache_2.11/output" afterPath="$PROJECT_DIR$/target/streams/$global/update/$global/streams/update_cache_2.11/output" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/updateClassifiers/$global/streams/out" afterPath="$PROJECT_DIR$/target/streams/$global/updateClassifiers/$global/streams/out" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/updateSbtClassifiers/$global/streams/out" afterPath="$PROJECT_DIR$/target/streams/$global/updateSbtClassifiers/$global/streams/out" />
+      <change beforePath="$PROJECT_DIR$/target/streams/compile/externalDependencyClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/target/streams/compile/externalDependencyClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/target/streams/compile/managedClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/target/streams/compile/managedClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/target/streams/runtime/externalDependencyClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/target/streams/runtime/externalDependencyClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/target/streams/runtime/managedClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/target/streams/runtime/managedClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/externalDependencyClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/target/streams/test/externalDependencyClasspath/$global/streams/export" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/managedClasspath/$global/streams/export" afterPath="$PROJECT_DIR$/target/streams/test/managedClasspath/$global/streams/export" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/mainRunner/target/" />
@@ -51,6 +174,23 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="SBT">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="polucion" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="polucion" />
   </component>
@@ -59,7 +199,7 @@
       <file leaf-file-name="polutionGenerator.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/org/polucion/polutionGenerator.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-828">
+            <state relative-caret-position="18">
               <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding>
                 <element signature="e#22#48#0" expanded="true" />
@@ -71,8 +211,8 @@
       <file leaf-file-name="CustomCountTrigger.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/org/gen/CustomCountTrigger.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+            <state relative-caret-position="18">
+              <caret line="36" column="43" lean-forward="false" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
               <folding>
                 <element signature="e#17#79#0" expanded="true" />
               </folding>
@@ -80,13 +220,71 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WinGen.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WinGen.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/org/gen/WinGen.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-675">
-              <caret line="164" column="0" lean-forward="true" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+            <state relative-caret-position="-981">
+              <caret line="169" column="7" lean-forward="true" selection-start-line="169" selection-start-column="7" selection-end-line="169" selection-end-column="28" />
               <folding>
-                <element signature="e#19#44#0" expanded="true" />
+                <element signature="e#18#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Polucion.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/org/polucion/Polucion.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="699">
+              <caret line="96" column="7" lean-forward="true" selection-start-line="96" selection-start-column="7" selection-end-line="96" selection-end-column="7" />
+              <folding>
+                <element signature="e#22#84#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ListStream.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/org/gen/ListStream.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="7" column="47" lean-forward="false" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+              <folding>
+                <element signature="e#17#42#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Formula.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/Formula.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
+              <folding>
+                <element signature="e#86#118#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.sbt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.sbt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="347">
+              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Test.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/Test.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#19#52#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -117,6 +315,15 @@
       <find>asinst</find>
       <find>object</find>
       <find>of</find>
+      <find>next</find>
+      <find>nextFormula</find>
+      <find>case class alw</find>
+      <find>Formula</find>
+      <find>Formula[T]</find>
+      <find>always</find>
+      <find>: Formula[T]</find>
+      <find>must be</find>
+      <find>equal</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -133,12 +340,15 @@
         <option value="$PROJECT_DIR$/src/main/scala/org/example/WordCount.scala" />
         <option value="$PROJECT_DIR$/src/main/resources/datos2" />
         <option value="$PROJECT_DIR$/src/test/scala/Formula.scala" />
-        <option value="$PROJECT_DIR$/build.sbt" />
         <option value="$PROJECT_DIR$/src/main/scala/org/polucion/polutionGenerator.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/polucion/Polucion.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/gen/GlobalWindowsCountExample.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/gen/CustomCountTrigger.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/org/gen/ListStream.scala" />
+        <option value="$PROJECT_DIR$/build.sbt" />
         <option value="$PROJECT_DIR$/src/main/scala/org/gen/WinGen.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/org/test/Test.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/org/test/Formula.scala" />
       </list>
     </option>
   </component>
@@ -146,6 +356,12 @@
     <ignored-facets>
       <facet id="root/invalid/Python" />
     </ignored-facets>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="31" />
@@ -169,7 +385,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -187,13 +402,6 @@
               <item name="polucion" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="polucion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="polucion" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="polucion" type="b2602c69:ProjectViewProjectNode" />
@@ -228,12 +436,22 @@
               <item name="org" type="462c0819:PsiDirectoryNode" />
               <item name="polucion" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="polucion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="polucion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -266,7 +484,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.WinGen">
+  <component name="RunManager" selected="Specs2.Demo">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -282,6 +500,25 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="org.polucion.Polucion" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="mainRunner" />
+      <envs />
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="org.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="org.test.Test" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -383,6 +620,21 @@
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+    </configuration>
+    <configuration name="Demo" type="Specs2RunConfiguration" factoryName="Specs2" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="root" />
+      <setting name="path" value="org.test.Demo" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <envs />
+      <setting name="testKind" value="Class" />
+      <setting name="path" value="org.test.Demo" />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -523,21 +775,25 @@
       <envs />
       <method />
     </configuration>
-    <list size="3">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Polucion" />
       <item index="1" class="java.lang.String" itemvalue="Application.polutionGenerator" />
       <item index="2" class="java.lang.String" itemvalue="Application.WinGen" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Test" />
+      <item index="4" class="java.lang.String" itemvalue="Specs2.Demo" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Application.WinGen" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Polucion" />
-        <item index="2" class="java.lang.String" itemvalue="Application.polutionGenerator" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Specs2.Demo" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Test" />
+        <item index="2" class="java.lang.String" itemvalue="Application.WinGen" />
+        <item index="3" class="java.lang.String" itemvalue="Application.Polucion" />
+        <item index="4" class="java.lang.String" itemvalue="Application.polutionGenerator" />
       </list>
     </recent_temporary>
   </component>
   <component name="SbtLocalSettings">
-    <option name="lastUpdateTimestamp" value="1527157724660" />
+    <option name="lastUpdateTimestamp" value="1541682119996" />
     <option name="availableProjects">
       <map>
         <entry>
@@ -616,10 +872,49 @@
       <option name="project" value="LOCAL" />
       <updated>1535370060801</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="toWindowsList terminada. CustomCountTrigger en proceso.">
+      <created>1536581629047</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1536581629047</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
-  <component name="TodoView">
+  <component name="TestHistory">
+    <history-entry file="Demo - 2018.11.09 at 16h 40m 20s.xml">
+      <configuration name="Demo" configurationId="Specs2RunConfiguration" />
+    </history-entry>
+    <history-entry file="Demo - 2018.11.09 at 16h 40m 47s.xml">
+      <configuration name="Demo" configurationId="Specs2RunConfiguration" />
+    </history-entry>
+    <history-entry file="Demo - 2018.11.09 at 16h 41m 19s.xml">
+      <configuration name="Demo" configurationId="Specs2RunConfiguration" />
+    </history-entry>
+    <history-entry file="Demo - 2018.11.09 at 16h 41m 39s.xml">
+      <configuration name="Demo" configurationId="Specs2RunConfiguration" />
+    </history-entry>
+    <history-entry file="Demo - 2018.11.09 at 16h 47m 19s.xml">
+      <configuration name="Demo" configurationId="Specs2RunConfiguration" />
+    </history-entry>
+    <history-entry file="Demo - 2018.11.09 at 18h 46m 09s.xml">
+      <configuration name="Demo" configurationId="Specs2RunConfiguration" />
+    </history-entry>
+    <history-entry file="Demo - 2018.11.09 at 18h 46m 38s.xml">
+      <configuration name="Demo" configurationId="Specs2RunConfiguration" />
+    </history-entry>
+    <history-entry file="Demo - 2018.11.09 at 18h 46m 52s.xml">
+      <configuration name="Demo" configurationId="Specs2RunConfiguration" />
+    </history-entry>
+    <history-entry file="Demo - 2018.11.09 at 19h 11m 56s.xml">
+      <configuration name="Demo" configurationId="Specs2RunConfiguration" />
+    </history-entry>
+    <history-entry file="Demo - 2018.11.09 at 19h 12m 08s.xml">
+      <configuration name="Demo" configurationId="Specs2RunConfiguration" />
+    </history-entry>
+  </component>
+  <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -633,20 +928,22 @@
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.494852" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.481982" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="sbt" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32903227" sideWeight="0.48970398" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.47425997" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="sbt" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.4923077" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31612903" sideWeight="0.494852" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32258064" sideWeight="0.52574" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32903227" sideWeight="0.510296" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" x="131" y="96" width="1402" height="697" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24967825" sideWeight="0.50769234" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32258064" sideWeight="0.5045045" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31612903" sideWeight="0.505148" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34684685" sideWeight="0.4948718" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3024453" sideWeight="0.4948718" order="0" side_tool="false" content_ui="combo" />
       <window_info id="sbt-shell-toolwindow" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.49227798" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24967825" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24967825" sideWeight="0.4923077" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.497426" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25225225" sideWeight="0.5051282" order="3" side_tool="true" content_ui="tabs" />
@@ -654,12 +951,10 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="131" y="96" width="1402" height="697" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -703,7 +998,9 @@
     <MESSAGE value="Generador de polucion en Scala" />
     <MESSAGE value="WinGen con generadores en listas" />
     <MESSAGE value="Correccion del 'release'" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correccion del 'release'" />
+    <MESSAGE value="toWindowsList terminada. CustomCountTrigger en proceso." />
+    <MESSAGE value="Nuevo tipo ListStream. Clase Formula añadida. Funcion test con listas." />
+    <option name="LAST_COMMIT_MESSAGE" value="Nuevo tipo ListStream. Clase Formula añadida. Funcion test con listas." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -716,47 +1013,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/gen/CustomCountTrigger.scala" />
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/polucion/Polucion.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1980">
           <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/polucion/polutionGenerator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="25" column="11" lean-forward="false" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
-          <folding>
-            <element signature="e#22#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.apache.flink/flink-streaming-java_2.11/srcs/flink-streaming-java_2.11-1.3.0-sources.jar!/org/apache/flink/streaming/api/environment/StreamExecutionEnvironment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27414">
-          <caret line="1523" column="0" lean-forward="false" selection-start-line="1523" selection-start-column="0" selection-end-line="1523" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/gen/WinGen.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3276">
-          <caret line="182" column="30" lean-forward="false" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="30" />
-          <folding>
-            <element signature="e#19#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/polucion/Polucion.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1980">
-          <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -782,7 +1042,7 @@
         <state relative-caret-position="1332">
           <caret line="74" column="9" lean-forward="true" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
           <folding>
-            <element signature="e#19#44#0" expanded="true" />
+            <element signature="e#18#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -791,7 +1051,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1980">
           <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -810,7 +1069,7 @@
         <state relative-caret-position="1440">
           <caret line="80" column="24" lean-forward="true" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
           <folding>
-            <element signature="e#19#44#0" expanded="true" />
+            <element signature="e#18#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -819,7 +1078,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1980">
           <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -838,7 +1096,7 @@
         <state relative-caret-position="1440">
           <caret line="80" column="24" lean-forward="true" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
           <folding>
-            <element signature="e#19#44#0" expanded="true" />
+            <element signature="e#18#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -847,7 +1105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1980">
           <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,7 +1123,7 @@
         <state relative-caret-position="3024">
           <caret line="168" column="34" lean-forward="true" selection-start-line="167" selection-start-column="8" selection-end-line="168" selection-end-column="34" />
           <folding>
-            <element signature="e#19#44#0" expanded="true" />
+            <element signature="e#18#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -875,7 +1132,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1980">
           <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -894,7 +1150,7 @@
         <state relative-caret-position="2250">
           <caret line="125" column="13" lean-forward="false" selection-start-line="125" selection-start-column="13" selection-end-line="125" selection-end-column="13" />
           <folding>
-            <element signature="e#19#44#0" expanded="true" />
+            <element signature="e#18#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -903,7 +1159,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -922,7 +1177,7 @@
         <state relative-caret-position="1170">
           <caret line="65" column="11" lean-forward="false" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
           <folding>
-            <element signature="e#19#44#0" expanded="true" />
+            <element signature="e#18#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -931,7 +1186,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="738">
           <caret line="41" column="25" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -964,7 +1218,7 @@
         <state relative-caret-position="792">
           <caret line="44" column="38" lean-forward="false" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
           <folding>
-            <element signature="e#19#44#0" expanded="true" />
+            <element signature="e#18#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1019,21 +1273,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/polucion/Polucion.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="5" column="54" lean-forward="false" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/org.apache.flink/flink-streaming-java_2.11/srcs/flink-streaming-java_2.11-1.3.0-sources.jar!/org/apache/flink/streaming/api/windowing/triggers/CountTrigger.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="385">
           <caret line="93" column="4" lean-forward="false" selection-start-line="93" selection-start-column="4" selection-end-line="93" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1041,7 +1284,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="733" column="37" lean-forward="false" selection-start-line="733" selection-start-column="37" selection-end-line="733" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1049,7 +1291,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="722" column="74" lean-forward="false" selection-start-line="722" selection-start-column="57" selection-end-line="722" selection-end-column="74" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1057,7 +1298,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
           <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1065,7 +1305,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
           <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1073,7 +1312,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="254">
           <caret line="215" column="0" lean-forward="false" selection-start-line="215" selection-start-column="0" selection-end-line="215" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1081,7 +1319,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="245">
           <caret line="433" column="4" lean-forward="false" selection-start-line="433" selection-start-column="4" selection-end-line="433" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1089,7 +1326,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
           <caret line="1498" column="0" lean-forward="false" selection-start-line="1498" selection-start-column="0" selection-end-line="1498" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1097,7 +1333,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
           <caret line="628" column="18" lean-forward="false" selection-start-line="628" selection-start-column="18" selection-end-line="628" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1105,13 +1340,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
           <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.apache.flink/flink-core/srcs/flink-core-1.3.0-sources.jar!/org/apache/flink/api/common/state/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="36" column="9" lean-forward="false" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/polucion/polutionGenerator.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-828">
+        <state relative-caret-position="18">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding>
             <element signature="e#22#48#0" expanded="true" />
@@ -1121,8 +1362,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/gen/CustomCountTrigger.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        <state relative-caret-position="18">
+          <caret line="36" column="43" lean-forward="false" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
           <folding>
             <element signature="e#17#79#0" expanded="true" />
           </folding>
@@ -1131,10 +1372,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/gen/WinGen.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-675">
-          <caret line="164" column="0" lean-forward="true" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+        <state relative-caret-position="-981">
+          <caret line="169" column="7" lean-forward="true" selection-start-line="169" selection-start-column="7" selection-end-line="169" selection-end-column="28" />
           <folding>
-            <element signature="e#19#44#0" expanded="true" />
+            <element signature="e#18#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/polucion/Polucion.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="699">
+          <caret line="96" column="7" lean-forward="true" selection-start-line="96" selection-start-column="7" selection-end-line="96" selection-end-column="7" />
+          <folding>
+            <element signature="e#22#84#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/gen/ListStream.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="7" column="47" lean-forward="false" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+          <folding>
+            <element signature="e#17#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.sbt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/Test.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#19#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/Formula.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
+          <folding>
+            <element signature="e#86#118#0" expanded="true" />
           </folding>
         </state>
       </provider>
