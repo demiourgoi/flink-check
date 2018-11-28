@@ -97,7 +97,7 @@ object WinGen{
     new ListStream[A](list.toList.zipAll(other.toList, List.empty, List.empty).map(xs12 => xs12._1 ++ xs12._2))
   }
 
-  /**GENERADORES*/
+  /**GENERADORES**/
 
   def until[A](lg1 : Gen[List[A]], lg2 : Gen[List[A]], time: Int) : Gen[ListStream[A]] =
     if (time <= 0)
@@ -129,6 +129,7 @@ object WinGen{
       Gen.listOfN(time, lg)
 
 
+
   def release[A](lg1 : Gen[List[A]], lg2 : Gen[List[A]], time: Int) : Gen[ListStream[A]] = {
     if (time <= 0)
       Gen.const(List.empty)
@@ -154,7 +155,7 @@ object WinGen{
     } yield prefix.toList ++ ending.toList.filter(e => e != List.empty)
   }
 
-
+  /**VENTANAS**/
   //Pasamos los datos en listas a ventanas
   def toWindowsList[A](data: Gen[ListStream[A]], env: StreamExecutionEnvironment) = {
     val list: List[List[Any]] = data.sample.get.toList
@@ -163,7 +164,7 @@ object WinGen{
     var d = list.map(e => if(e == List()) List.fill(1)(-1) else e)
     if(d == List.empty) d = List.fill(1)(List.fill(1)(-1))
     //val df = d.flatten
-    println("MAP: " + d)
+    //println("MAP: " + d)
     val stream = env.fromCollection(d)
     //stream.map(x => println(x))
     //Divide el stream en ventanas
@@ -216,15 +217,16 @@ object WinGen{
     val pol = ofN(size,genPol)
     val noPol = ofN(size,genNoPol)
 
-    val a = always(noPol,time)
+    //val a = always(noPol,time)
+    val a = concat(ofN(2, ofN(1, Gen.const("adios"))), ofN(6, ofN(1, Gen.const("hola"))))
     // val a = eventually(noPol, time)
 
     val data = a.sample.get
-    println(data)
+    println("DATA: " + data)
 
     val env = StreamExecutionEnvironment.getExecutionEnvironment
 
-    toWindows(a, env).fold(""){(acc, v) => println(acc+v)
+    toWindowsList(a, env).fold(""){(acc, v) => println(acc+v)
       acc + v}
 
 

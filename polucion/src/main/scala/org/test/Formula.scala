@@ -334,7 +334,7 @@ case class Solved[T](status : Prop.Status) extends NextFormula[T] {
   *  used  in Now, to enable a partial implementation of safeWordLength
   * */
 abstract class TimedAtomsConsumer[T](fun: Time => Function[T, Formula[T]])
-  extends Function[Time, Function[T, Formula[T]]]{
+  extends Function[Time, Function[T, Formula[T]]] with Serializable{
 
   override def apply(time: Time): (T => Formula[T]) = fun(time)
   /** @return false iff fun always returns a Solved formula
