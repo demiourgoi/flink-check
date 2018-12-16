@@ -1,4 +1,4 @@
-package org.polucion
+package org.pollution
 
 import java.io.PrintStream
 import java.net.{ServerSocket, Socket}
@@ -21,7 +21,7 @@ class SensorThread(it: Int, id: Int, client: Socket) extends Runnable {
   Estas variables solo son necesarias para manipular los valores aleatorios y así forzar
   un comportamiento determinado en el programa.
    */
-  var polution = 0
+  var pollution = 0
   var start = 0
   var end   = 0
 
@@ -55,9 +55,9 @@ class SensorThread(it: Int, id: Int, client: Socket) extends Runnable {
         }
 
         //Calculo de la polucion mediante el numero aleatorio y los limites del rango
-        polution = start + r.nextInt( (end - start) + 1 )
+        pollution = start + r.nextInt( (end - start) + 1 )
         //Se crea el mensaje a enviar con la polucion y el sensor que la ha detectado
-        val message = polution + "," + sensor + '\n'
+        val message = pollution + "," + sensor + '\n'
         //Se envia el mensaje
         out.print(message)
         Thread.sleep(500)
@@ -76,8 +76,9 @@ class SensorThread(it: Int, id: Int, client: Socket) extends Runnable {
 }
 
 
+
 //Aqui se abre el servidor y se crean los sensores (threads)
-object polutionGenerator {
+object PollutionGenerator {
 
   //Numero de datos a generar por sensor
   val iterations = 200
@@ -97,7 +98,7 @@ object polutionGenerator {
 
     //Creacion de los sensores (threads)
     1 to numSensor foreach { x =>
-      println("creando sensores")
+      println("Creando sensores...")
       //Hay que enviarles el numero de datos que deben generar, su identificador, y la conexion con el cliente
       val thread = new Thread(new SensorThread(iterations, x, client))
       //Se guarda cada thread en la lista
@@ -106,7 +107,7 @@ object polutionGenerator {
       thread.start()
       Thread.sleep(500)
     }
-    println("sensores creados")
+    println("Sensores creados")
     //Espera a que todos los threads acaben
     for(i <- 0 to numSensor-1){
       list(i).join()

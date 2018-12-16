@@ -3,6 +3,8 @@ package org.gen
 import org.scalacheck.Gen
 import scala.language.implicitConversions
 
+
+
 object ListStreamConversions{
   implicit def transformFromGen[A](gen : Gen[List[List[A]]]) : Gen[ListStream[A]] = gen.map(x => new ListStream[A](x))
   implicit def transformToGen[A](gen : Gen[ListStream[A]]) : Gen[List[List[A]]] = gen.map(x => x.toList)

@@ -8,7 +8,15 @@ import org.apache.flink.api.common.typeutils.base.LongSerializer
 import org.apache.flink.streaming.api.windowing.triggers.TriggerResult
 import org.apache.flink.api.common.typeutils.base.TypeSerializerSingleton
 
-//TODO
+/**
+  * SIN USO
+  * La funcion de este trigger era poder tener un numero de datos diferente en cada ventana.
+  * Como los datos se generan en listas, la idea era ver la longitud de cada lista y disparar el trigger
+  * una vez de tenga el mismo numero de datos que hay en la lista, y asi poder tener los datos por separado
+  * sin necesidad de juntarlos en listas.
+  * Sin embargo, una vez programado el trigger, se vio el sinsentido de la idea, ya que el trigger no puede
+  * extraer los datos de la lista para meterlos en una ventana.
+  */
 class CustomCountTrigger[W <:Window] extends Trigger[List[Any], W]{
 
 

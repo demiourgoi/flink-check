@@ -4,7 +4,7 @@
 		module="polucion-build"
 		revision="0.1-SNAPSHOT"
 		status="integration"
-		publication="20181126131711"
+		publication="20181203201305"
 		e:sbtVersion="0.13" e:scalaVersion="2.10"
 	>
 		<description>

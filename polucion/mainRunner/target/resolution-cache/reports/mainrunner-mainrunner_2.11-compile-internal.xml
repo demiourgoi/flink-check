@@ -7,10 +7,10 @@
 		revision="0.1-SNAPSHOT"
 		conf="compile-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20181105141456"/>
+		date="20181203201650"/>
 	<dependencies>
 		<module organisation="org.example" name="polucion_2.11">
-			<revision name="0.1-SNAPSHOT" status="integration" pubdate="20181105141452" resolver="inter-project" artresolver="inter-project" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="1">
+			<revision name="0.1-SNAPSHOT" status="integration" pubdate="20181203201647" resolver="inter-project" artresolver="inter-project" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="1">
 				<metadata-artifact status="failed" details="" size="0" time="0" searched="false"/>
 				<caller organisation="mainrunner" name="mainrunner_2.11" conf="compile-internal, compile, provided, optional" rev="0.1-SNAPSHOT" rev-constraint-default="0.1-SNAPSHOT" rev-constraint-dynamic="0.1-SNAPSHOT" callerrev="0.1-SNAPSHOT"/>
 				<artifacts>

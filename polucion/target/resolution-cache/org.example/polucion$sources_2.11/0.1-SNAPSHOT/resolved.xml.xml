@@ -4,7 +4,7 @@
 		module="polucion$sources_2.11"
 		revision="0.1-SNAPSHOT"
 		status="integration"
-		publication="20181108140157"
+		publication="20181203201653"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
