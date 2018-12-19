@@ -150,7 +150,7 @@ class DemoPollution extends Specification
   }
 
 
-//TODO
+
   def checkGenPol = {
     type U = (Int, Int)
     val env = StreamExecutionEnvironment.getExecutionEnvironment

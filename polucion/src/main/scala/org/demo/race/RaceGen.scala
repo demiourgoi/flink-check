@@ -2,7 +2,7 @@ package org.demo.race
 
 import org.scalacheck.Gen
 
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.{ListBuffer, Map}
 
 object RaceGen {
 
@@ -49,16 +49,65 @@ object RaceGen {
     genRunnerRace(runner,50)
   }
 
-  def race(idRunners: List[String]): List[(String, Int, Int, Int)] = {
+  def race(idRunners: List[String]): List[List[(String, Int)]] = {
 
 
     var r = new ListBuffer[(String, Int, Int, Int)]()
     for(id <-idRunners) {
       r ++= raceRunner(id)
+    }
+    order(r)
+  }
+
+  def order(list: ListBuffer[(String, Int, Int, Int)]): List[List[(String,Int)]] ={
+    var id = ""
+    var cont = 0
+    var inOrder = Map[Int, ListBuffer[(String, Int)]]()
+    var newEntry = ("", 0)
+    var result = new ListBuffer[List[(String,Int)]]()
+    var i = 1
+
+    for(runner <- list) {
+
+      if (id != runner._1) {
+        id = runner._1
+        cont = 1
+      }
+      if (!inOrder.contains(cont)) {
+        inOrder += cont -> new ListBuffer[(String, Int)]
+      }
+
+      newEntry = (runner._1, runner._4)
+      inOrder.update(cont, inOrder(cont) += newEntry)
+      cont += 1
+    }
+
+    while(inOrder.contains(i)){
+      result += inOrder(i).toList
+      i += 1
+    }
+
+    result.toList
+  }
+
+  /*def race(idRunners: List[String]): List[(String, Int, Int, Int)] = {
+
+    var runners = new ListBuffer[(String, Int, Int, Int)]()
+    var metas = Map[String, Int]()
+
+
+    //Inicializacion
+    for(id <-idRunners) {
+       runners += initRunner(id).sample.get
+    }
+
+
+    for(r <- runners) {
 
     }
-    r.toList
+
   }
+  */
 
 
 
@@ -73,7 +122,12 @@ object RaceGen {
 
 
  def main(args: Array[String]): Unit ={
-   
+   val list = List("Kirby", "Molang", "Piupiu", "Pusheen", "Gudetama")
+    val r = race(list)
+   for(l <- r){
+     println(l)
+   }
+
 
  }
 
