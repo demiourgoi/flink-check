@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c7257910-9279-4cfb-a438-8d733751656c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/demo/pollution/DemoPollution.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/demo/pollution/DemoPollution.scala" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/org/demo/race/RaceGen.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/demo/race/RaceGen.scala" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -59,8 +58,8 @@
       <file leaf-file-name="RaceGen.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/race/RaceGen.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+            <state relative-caret-position="228">
+              <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
               <folding>
                 <element signature="e#23#48#0" expanded="true" />
               </folding>
@@ -752,7 +751,14 @@
       <option name="project" value="LOCAL" />
       <updated>1545232165176</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="RaceGen modificado">
+      <created>1545241826415</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1545241826415</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -877,7 +883,8 @@
     <MESSAGE value="Funcion test casi terminada" />
     <MESSAGE value="Test completo. Clases extra. Demos empezadas." />
     <MESSAGE value="Reorganizacion. Demo para KeyedStreamTest. RaceGen empezado." />
-    <option name="LAST_COMMIT_MESSAGE" value="Reorganizacion. Demo para KeyedStreamTest. RaceGen empezado." />
+    <MESSAGE value="RaceGen modificado" />
+    <option name="LAST_COMMIT_MESSAGE" value="RaceGen modificado" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1284,8 +1291,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/race/RaceGen.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+        <state relative-caret-position="228">
+          <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
           <folding>
             <element signature="e#23#48#0" expanded="true" />
           </folding>

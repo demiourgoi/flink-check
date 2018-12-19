@@ -90,24 +90,7 @@ object RaceGen {
     result.toList
   }
 
-  /*def race(idRunners: List[String]): List[(String, Int, Int, Int)] = {
 
-    var runners = new ListBuffer[(String, Int, Int, Int)]()
-    var metas = Map[String, Int]()
-
-
-    //Inicializacion
-    for(id <-idRunners) {
-       runners += initRunner(id).sample.get
-    }
-
-
-    for(r <- runners) {
-
-    }
-
-  }
-  */
 
 
 
@@ -122,11 +105,7 @@ object RaceGen {
 
 
  def main(args: Array[String]): Unit ={
-   val list = List("Kirby", "Molang", "Piupiu", "Pusheen", "Gudetama")
-    val r = race(list)
-   for(l <- r){
-     println(l)
-   }
+
 
 
  }
