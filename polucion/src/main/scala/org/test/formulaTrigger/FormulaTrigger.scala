@@ -1,12 +1,12 @@
-package org.test
+package org.test.formulaTrigger
 
-import org.apache.flink.streaming.api.windowing.windows.Window
-import org.apache.flink.streaming.api.windowing.triggers.Trigger
 import org.apache.flink.api.common.functions.AggregateFunction
 import org.apache.flink.api.common.state.AggregatingStateDescriptor
-import org.apache.flink.streaming.api.windowing.triggers.TriggerResult
 import org.apache.flink.api.java.typeutils.TypeExtractor
+import org.apache.flink.streaming.api.windowing.triggers.{Trigger, TriggerResult}
+import org.apache.flink.streaming.api.windowing.windows.Window
 import org.scalacheck.Prop
+import org.test.{NextFormula, Time}
 
 
 

@@ -1,7 +1,8 @@
-package org.test
+package org.test.streamTest
 
 import org.apache.flink.api.common.functions.AggregateFunction
 import org.scalacheck.Prop
+import org.test.{NextFormula, Time, WindowResult}
 
 
 class ForEachStreamElem[U](formula: NextFormula[U], times: Int, numData: Int) extends AggregateFunction[Any, WindowResult, (Boolean, Prop.Status)] {

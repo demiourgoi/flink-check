@@ -1,5 +1,4 @@
-package org.test
-
+package org.test.keyedStreamTest
 
 import org.apache.flink.api.common.functions.RichFlatMapFunction
 import org.apache.flink.api.common.state.{ValueState, ValueStateDescriptor}
@@ -9,9 +8,10 @@ import org.apache.flink.util.Collector
 import org.scalacheck.Prop
 import org.specs2.{ScalaCheck, Specification}
 import org.test.Formula.always
+import org.test.{NextFormula, Time}
 
 
-class FormulaWindow[Key, U](formula : NextFormula[U]) extends RichFlatMapFunction[(Key,U), (Key,Prop.Status)]{
+class KeyedStreamTest[Key, U](formula : NextFormula[U]) extends RichFlatMapFunction[(Key,U), (Key,Prop.Status)]{
 
   private var form: ValueState[NextFormula[U]] = _
 
@@ -29,8 +29,8 @@ class FormulaWindow[Key, U](formula : NextFormula[U]) extends RichFlatMapFunctio
 
     // update the count
     val newForm = currentForm.consume(Time(1))(input._2)
-    println("valor: " + input)
-    println("formula: " + newForm.result.getOrElse(Prop.Undecided))
+    //println("valor: " + input)
+    //println("formula: " + newForm.result.getOrElse(Prop.Undecided))
 
     // update the state
     form.update(newForm)

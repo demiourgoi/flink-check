@@ -59,44 +59,6 @@ object PollutionGen {
     }
   }
 
-
-
-
-  def alarmControl(gen: Gen[(Int, Int)], trigger: Int, maxPol: Int) = for {
-    pol <- gen
-  } yield updateAlarm(pol, trigger, maxPol)
-
-
-  //Cambiar genPol a List[(Int,Int)]
-  def updateAlarm(pol: (Int,Int), trigger: Int, maxPol: Int) = {
-
-    if (alarm.get(pol._2) == None) {
-      alarm += (pol._2 -> false)
-      control += (pol._2 -> 0)
-    }
-
-    if (pol._1 >= maxPol) {
-      if (control(pol._2) != trigger) {
-        control(pol._2) = control(pol._2) + 1
-      }
-    }
-    else{
-      if (control(pol._2) != 0) {
-        control(pol._2) = control(pol._2) - 1
-      }
-    }
-
-    if (control(pol._2) == 0) {
-      alarm(pol._2) = false
-    }
-    else if(control(pol._2) == trigger) {
-      alarm(pol._2) = true
-    }
-
-    alarm
-
-  }
-
   def initControl(numSensor: Int): Map[Int, Int] = {
     var control = Map[Int, Int]()
     for(i<- 1 to numSensor){

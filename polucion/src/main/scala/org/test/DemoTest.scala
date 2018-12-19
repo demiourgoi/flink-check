@@ -10,10 +10,6 @@ import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.gen.ListStreamConversions._
 import org.gen.WinGen
 import org.test.Test.test
-import org.apache.flink.streaming.api.scala._
-import org.apache.flink.streaming.api.windowing.windows.GlobalWindow
-import org.gen.WinGen.{concat, ofN}
-import org.pollution.PollutionForTestStream
 
 
 class DemoTest extends Specification
@@ -23,7 +19,7 @@ class DemoTest extends Specification
 
   def is =
     sequential ^ s2"""    Simple demo Specs2 for a formula
-      - where a simple formula must hold on a list ${testPollutionStream}
+      - where a simple formula must hold on a list ${testAlways}
       - where a simple formula must hold on a list ${testRelease}
       - where a simple formula must hold on a list ${testUntil}
       - where a simple formula must hold on a list ${testEventually}
@@ -31,43 +27,10 @@ class DemoTest extends Specification
     """
 
 
-  def testPollutionStream = {
-    type U = (Int, Int)
-    val times = 10
-    val numData = 8
-    val env = StreamExecutionEnvironment.getExecutionEnvironment
-    val stream = PollutionForTestStream.demoPol(env).countWindowAll(1)
-    val f1 : Formula[U] = (u : U) => (u._1 == 1)
-    val f2 : Formula[U] = (u : U) => (u._1 == 2)
-    val formula : Formula[U] = (u : U) => f1 until f2 on times
-    val result = Test.testStream[U](stream.asInstanceOf[AllWindowedStream[Any, GlobalWindow]], formula, env, times, numData)
-    print("Polucion: ")
-    result.print
-    env.execute()
-    result.toString
-  }
-
-  def testAlwaysStream = {
-    type U = String
-    val times = 8
-    val numData = 8
-    val env = StreamExecutionEnvironment.getExecutionEnvironment
-    val ds = env.fromCollection(List("hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola"))
-    val window = ds.countWindowAll(1)
-    val formula : Formula[U] = always { (u : U) =>
-      u contains "hola"
-    } during times
-    val result = Test.testStream[U](window.asInstanceOf[AllWindowedStream[Any, GlobalWindow]], formula, env, times, numData)
-    print("Always: ")
-    result.print
-    env.execute()
-    result.toString
-  }
-
 
   def testAlways = {
     type U = String
-    val times = 10
+    val times = 8
     val numData = 8
     val numTests = 100
     val env = StreamExecutionEnvironment.getExecutionEnvironment
@@ -77,7 +40,7 @@ class DemoTest extends Specification
       checkThree(u)
     } during times
     val result = test[U](genData, formula, env, numTests)
-    print("Always: ")
+    println("Always: ")
     result.print
     //println(result)
     env.execute()
@@ -95,13 +58,14 @@ class DemoTest extends Specification
     type U = String
     val times = 8
     val numData = times
+    val numTests = 20
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val genData: Gen[List[List[U]]] = WinGen.eventually[String](WinGen.ofN[String](1, Gen.const("hola")), numData)
     val formula : Formula[List[U]] = later { (u : List[U]) =>
       u contains "hola"
     } during times
-    val result = test[U](genData, formula, env, times)
-    print("Eventually: ")
+    val result = test[U](genData, formula, env, numTests)
+    println("Eventually: ")
     result.print
     //println(result)
     env.execute()
@@ -112,13 +76,14 @@ class DemoTest extends Specification
     type U = String
     val times = 8
     val numData = times
+    val numTests = 10
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val genData: Gen[List[List[U]]] = WinGen.until[String](WinGen.ofN[String](1, Gen.const("hola")), WinGen.ofN[String](1, Gen.const("adios")), numData)
     val f1 : Formula[List[U]] = (u : List[U]) => (u contains ("hola"))
     val f2 : Formula[List[U]] = (u : List[U]) => (u contains ("adios"))
     val formula : Formula[List[U]] = (u : List[U]) => f1 until f2 on times
-    val result = test[U](genData, formula, env, 10)
-    print("Until: ")
+    val result = test[U](genData, formula, env, numTests)
+    println("Until: ")
     result.print
     //println(result)
     env.execute()
@@ -129,13 +94,14 @@ class DemoTest extends Specification
     type U = String
     val times = 8
     val numData = times
+    val numTests = 10
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val genData: Gen[List[List[U]]] = WinGen.release[String](WinGen.ofN[String](1, Gen.const("hola")), WinGen.ofN[String](1, Gen.const("adios")), numData)
     val f1 : Formula[List[U]] = (u : List[U]) => (u contains ("hola"))
     val f2 : Formula[List[U]] = (u : List[U]) => (u contains ("adios"))
     val formula : Formula[List[U]] = (u : List[U]) => f1 release f2 on times
-    val result = test[U](genData, formula, env, times)
-    print("Release: ")
+    val result = test[U](genData, formula, env, numTests)
+    println("Release: ")
     result.print
     //println(result)
     env.execute()

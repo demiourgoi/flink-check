@@ -32,6 +32,7 @@ class DemoPollution extends Specification
       - where the polution data is always high $alwaysPol
       - where we eventually get pollution $eventuallyPol
       - where the alarm must activate $checkAlarm
+      - where pollution data is generated randomly $checkGenPol
       """
 
 
@@ -149,7 +150,29 @@ class DemoPollution extends Specification
   }
 
 
-  //always(Pol until noPol until Pol)
+//TODO
+  def checkGenPol = {
+    type U = (Int, Int)
+    val env = StreamExecutionEnvironment.getExecutionEnvironment
+    val numWindows = 10
+    val numSensor = 4
+    val maxPol = 20
+    //Ventanas de 1 solo dato porque nos interesa mirar los datos de polucion de forma individual.
+    val data = WinGen.ofN(1, PollutionGen.genDataPol(1,100,numSensor))
+    val gen = WinGen.always(data, numWindows)
+    val pollution: Formula[List[U]] = (u : List[U]) => checkPol(u, maxPol)
+    val noPollution: Formula[List[U]] = (u : List[U]) => checkNoPol(u, maxPol)
+    val noPolUntilPol: Formula[List[U]] = (u : List[U]) => noPollution until pollution on numWindows
+    val polUntilNoPol: Formula[List[U]] = (u : List[U]) => pollution until noPollution on numWindows
+    val untilFormula: Formula[List[U]] = noPolUntilPol or polUntilNoPol
+    println("CheckGenPol")
+    val result = Test.test[U](gen, untilFormula, env, 100)
+    result.print
+    env.execute()
+    result.toString
+  }
+
+
 
   /**Incluyendo alarma*/
   //always(noPol) -> always(alarma=false)

@@ -10,6 +10,7 @@ import org.gen.ListStream
 import org.gen.WinGen
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.api.windowing.windows.GlobalWindow
+import org.test.streamTest.ForEachStreamElem
 
 
 //VERSION BUENA
