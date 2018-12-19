@@ -73,9 +73,7 @@ object RaceGen {
 
 
  def main(args: Array[String]): Unit ={
-   val list = List("Kirby", "Molang", "Piupiu", "Pusheen", "Gudetama")
-
-     println(race(list))
+   
 
  }
 
