@@ -158,7 +158,7 @@ object WinGen{
   //SIN USO
   //La idea era pasar los datos a ventanas haciendo uso de un trigger para que cada ventana
   //tuviera un numero diferente de datos sin necesidad de agruparlos en listas
-  def toWindows[A](data: Gen[ListStream[A]], env: StreamExecutionEnvironment) = {
+  def toWindowsTrigger[A](data: Gen[ListStream[A]], env: StreamExecutionEnvironment) = {
     val list: List[List[Any]] = data.sample.get.toList
     val stream = env.fromCollection(list:::List(null)::Nil)
     stream

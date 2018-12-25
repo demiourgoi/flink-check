@@ -78,7 +78,8 @@ object PollutionGen {
 
   def alarmController(data: List[(Int, Int)], numSensor: Int, maxPol: Int, trigger: Int): Boolean ={
     var control = initControl(numSensor)
-    var alarm = initAlarm(numSensor) //Map[Int, Boolean]()
+    var alarm = initAlarm(numSensor)//Map[Int, Boolean]()
+    var result = false
 
     for(d <- data){
 
@@ -100,11 +101,11 @@ object PollutionGen {
         alarm(d._2) = true
       }
     }
-
-    var result = false
       for(i<-1 to numSensor){
       result = result || alarm(i)
     }
+
+
     result
   }
 

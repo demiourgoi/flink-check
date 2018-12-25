@@ -16,6 +16,7 @@ class DemoKeyedStreamTest extends Specification
   with ResultMatchers
   with Serializable {
 
+
   def is =
     sequential ^ s2"""
     Simple demo Specs2 for a formula
@@ -24,6 +25,11 @@ class DemoKeyedStreamTest extends Specification
       - where Tom and Ana are fine ${patientTest2}
       - where Tom isn't healthy, and Ana's state is still unknown ${patientTest3}
     """
+
+
+  def normal(u : Int) = (3 <= u ) && (u <= 7)
+  def low(u: Int) = (u < 3)
+  def high(u : Int) = (u > 7)
 
 
   def simpleTest : String = {
@@ -55,6 +61,7 @@ class DemoKeyedStreamTest extends Specification
 
     env.execute()
     return res.toString
+    null
   }
 
   def patientTest1 : String = {
@@ -65,13 +72,11 @@ class DemoKeyedStreamTest extends Specification
     val high : Formula[U] = { (u : U) => u > 7}
     val low : Formula[U] = { (u : U) => u < 3 }
 
-    val eventuallyHigh : Formula[U] = later { (u : U) => high } during 6
-    val eventuallyLow : Formula[U] = later { (u : U) => low } during 6
-    val alwaysNormal : Formula[U] = always{ (u : U) => normal} during 12
+    val eventuallyHigh : Formula[U] = later { (u : U) => this.high(u) } during 6
+    val eventuallyLow : Formula[U] = later { (u : U) => this.low(u) } during 6
+    val alwaysNormal : Formula[U] = always{ (u : U) => this.normal(u) } during 12
 
-    val formula : Formula[U] = {
-      alwaysNormal or ( !alwaysNormal ==> ( high and eventuallyLow) or ( low and eventuallyHigh))
-    }
+    val formula : Formula[U] = alwaysNormal or ( {(u:U) => high} and eventuallyLow) or ( {(u:U) => low} and eventuallyHigh) and ((!alwaysNormal and {(u:U) => normal}) ==> eventuallyHigh or eventuallyLow)
 
 
     println("Patient test 1")
@@ -106,19 +111,17 @@ class DemoKeyedStreamTest extends Specification
     val high : Formula[U] = { (u : U) => u > 7}
     val low : Formula[U] = { (u : U) => u < 3 }
 
-    val eventuallyHigh : Formula[U] = later { (u : U) => high } during 6
-    val eventuallyLow : Formula[U] = later { (u : U) => low } during 6
-    val alwaysNormal : Formula[U] = always{ (u : U) => normal} during 12
+    val eventuallyHigh : Formula[U] = later { (u : U) => this.high(u) } during 6
+    val eventuallyLow : Formula[U] = later { (u : U) => this.low(u) } during 6
+    val alwaysNormal : Formula[U] = always{ (u : U) => this.normal(u) } during 12
 
-    val formula : Formula[U] = {
-      alwaysNormal or( !alwaysNormal ==> ( high and eventuallyLow) or ( low and eventuallyHigh))
-    }
+    val formula : Formula[U] = alwaysNormal or ( {(u:U) => high} and eventuallyLow) or ( {(u:U) => low} and eventuallyHigh) and ((!alwaysNormal and {(u:U) => normal}) ==> eventuallyHigh or eventuallyLow)
 
     println("Patient test 2")
     env.getConfig.disableSysoutLogging()
     val res = env.fromCollection(List(
       ("Tom", 4),
-      ("Tom", 8),
+      ("Tom", 4),
       ("Ana", 2),
       ("Tom", 4),
       ("Tom", 5),
@@ -152,34 +155,21 @@ class DemoKeyedStreamTest extends Specification
     val high : Formula[U] = { (u : U) => u > 7}
     val low : Formula[U] = { (u : U) => u < 3 }
 
-    val eventuallyHigh : Formula[U] = later { (u : U) => high } during 6
-    val eventuallyLow : Formula[U] = later { (u : U) => low } during 6
-    val alwaysNormal : Formula[U] = always{ (u : U) => normal} during 12
+    val eventuallyHigh : Formula[U] = later { (u : U) => this.high(u) } during 6
+    val eventuallyLow : Formula[U] = later { (u : U) => this.low(u) } during 6
+    val alwaysNormal : Formula[U] = always{ (u : U) => this.normal(u) } during 12
 
 
-    val formula : Formula[U] = {
-      alwaysNormal or( !alwaysNormal ==> (high and eventuallyLow) or (low and eventuallyHigh))
-    }
+    val formula : Formula[U] = alwaysNormal or ( {(u:U) => high} and eventuallyLow) or ( {(u:U) => low} and eventuallyHigh) and ((!alwaysNormal and {(u:U) => normal}) ==> eventuallyHigh or eventuallyLow)
 
-
-
-
-
-   /*val formula : Formula[U] = { (u: U) =>
-      (always{ u : U => (3 <= u ) and (u <= 7) } during 12) or  (((_ : U) => u > 7) and (later { (u : U) => u < 3 } during 6)) or (((_ : U) => u < 3) and (later { (u : U) => u > 7 } during 6))
-    }*/
 
     println("Patient test 3")
     env.getConfig.disableSysoutLogging()
     val res = env.fromCollection(List(
       ("Tom", 4),
-      ("Tom", 4),
+      ("Tom", 8),
       ("Ana", 2),
-      ("Tom", 4),
-      ("Tom", 4),
-      ("Tom", 4),
-      ("Tom", 4),
-      ("Tom", 4),
+      ("Tom", 2),
       ("Tom", 4),
       ("Tom", 4),
       ("Tom", 4),
@@ -192,6 +182,8 @@ class DemoKeyedStreamTest extends Specification
     )).keyBy(_._1)
       .flatMap(new KeyedStreamTest[String,U](formula.nextFormula))
 
+
+
     res.print()
 
     env.execute()
@@ -203,6 +195,5 @@ class DemoKeyedStreamTest extends Specification
 
 
 }
-
 
 

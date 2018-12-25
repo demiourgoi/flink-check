@@ -3,6 +3,8 @@ package org.test
 import org.apache.flink.api.common.functions.AggregateFunction
 import org.scalacheck.Prop
 
+import scala.collection.mutable.ListBuffer
+
 class WindowResult( r: (Boolean, Prop.Status)){
   var result = r
 }
@@ -13,6 +15,7 @@ class ForEachWindow[U](formula: NextFormula[List[U]]) extends AggregateFunction[
   var f = formula
   var cont = 0
   var done = false
+  var saveData: ListBuffer[List[U]] = ListBuffer()
 
 
   def createAccumulator(): WindowResult = {
@@ -39,6 +42,7 @@ class ForEachWindow[U](formula: NextFormula[List[U]]) extends AggregateFunction[
     if (f.result.isEmpty && data!=List(null)) {
       f = f.consume(Time(1))(data.asInstanceOf[List[U]])
     } //}
+    saveData = saveData += data.asInstanceOf[List[U]]
     if(data == List(null)) done = true
     cont += 1
   }
@@ -48,7 +52,14 @@ class ForEachWindow[U](formula: NextFormula[List[U]]) extends AggregateFunction[
     /*val resul = !f.result.isEmpty && !done
     if (!f.result.isEmpty) done = true
     (resul, f.result.getOrElse(Prop.Undecided))*/
-    if(done) (true, f.result.getOrElse(Prop.Undecided))
+    if(done) {
+      /*if(f.result.getOrElse(Prop.Undecided) == Prop.Undecided){
+
+      println("Undecided: " + saveData)
+      println(saveData.length)
+      }*/
+      (true, f.result.getOrElse(Prop.Undecided))
+    }
     else (false, f.result.getOrElse(Prop.Undecided))
   }
 }

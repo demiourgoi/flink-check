@@ -7,7 +7,6 @@
 [debug] 	refresh = false
 [debug] resolving dependencies for configuration 'default'
 [debug] == resolving dependencies for mainrunner#mainrunner$sbt_2.10;0.1-SNAPSHOT [default]
-[debug] no default cache defined: set to /home/valentina/.ivy2/cache
 [debug] == resolving dependencies mainrunner#mainrunner$sbt_2.10;0.1-SNAPSHOT->org.scala-sbt#sbt;0.13.15 [default->default(compile)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.6 {default=[default(compile)]} => dependency: org.scala-lang#scala-library;2.10.6 {default=[default(compile)]}
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-reflect;2.10.6 {default=[default(compile)]} => dependency: org.scala-lang#scala-reflect;2.10.6 {default=[default(compile)]}
@@ -2370,9 +2369,9 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.15!apply-macro.jar
 [debug] 	[NOT REQUIRED] org.scala-sbt#template-resolver;0.1!template-resolver.jar
 [debug] 	[NOT REQUIRED] org.jboss.interceptor#jboss-interceptor-api;1.1!jboss-interceptor-api.jar
-[debug] :: resolution report :: resolve 1191ms :: artifacts dl 31ms
+[debug] :: resolution report :: resolve 591ms :: artifacts dl 14ms
 [debug] 	report for mainrunner#mainrunner$sbt_2.10;0.1-SNAPSHOT default produced in /home/valentina/IdeaProjects/TFM/polucion/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sbt_2.10-default.xml
-[debug] 	resolve done (1191ms resolve - 31ms download)
+[debug] 	resolve done (591ms resolve - 14ms download)
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: mainrunner#mainrunner$sources_2.10;0.1-SNAPSHOT
 [debug] 	confs: [default]
@@ -2914,7 +2913,6 @@
 [debug] == resolving dependencies mainrunner#mainrunner$sources_2.10;0.1-SNAPSHOT->org.scala-sbt#collections;0.13.15 [default->default(compile)]
 [debug] == resolving dependencies mainrunner#mainrunner$sources_2.10;0.1-SNAPSHOT->org.spire-math#jawn-parser_2.10;0.6.0 [default->master(*)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-reflect;2.10.6 {default=[master(*), default, compile, runtime(*), runtime, default(compile), compile(*), master, master(compile)]} => dependency: org.scala-lang#scala-reflect;2.10.6 {default=[master(*), default, compile, runtime(*), runtime, default(compile), compile(*), master, master(compile)]}
-[debug] no default cache defined: set to /home/valentina/.ivy2/cache
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.6 {default=[default, master(*), compile, runtime(*), runtime, default(compile), compile(*), master, master(compile)]} => dependency: org.scala-lang#scala-library;2.10.6 {default=[default, master(*), compile, runtime(*), runtime, default(compile), compile(*), master, master(compile)]}
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-compiler;2.10.6 {default=[default, compile, runtime, default(compile), master, master(*), runtime(*), compile(*)]} => dependency: org.scala-lang#scala-compiler;2.10.6 {default=[default, compile, runtime, default(compile), master, master(*), runtime(*), compile(*)]}
 [info] Resolving org.spire-math#jawn-parser_2.10;0.6.0 ...
@@ -3504,6 +3502,6 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#logic;0.13.15!logic.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-sbt#main-settings;0.13.15!main-settings.jar(src)
 [debug] 	[NOT REQUIRED] com.eed3si9n#sbt-assembly;0.14.1!sbt-assembly.jar(src)
-[debug] :: resolution report :: resolve 385ms :: artifacts dl 34ms
+[debug] :: resolution report :: resolve 210ms :: artifacts dl 32ms
 [debug] 	report for mainrunner#mainrunner$sources_2.10;0.1-SNAPSHOT default produced in /home/valentina/IdeaProjects/TFM/polucion/mainRunner/target/resolution-cache/reports/mainrunner-mainrunner$sources_2.10-default.xml
-[debug] 	resolve done (385ms resolve - 34ms download)
+[debug] 	resolve done (210ms resolve - 32ms download)

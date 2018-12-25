@@ -10,7 +10,8 @@ import org.test.Formula._
 import org.test.{Formula, Test}
 import org.demo.pollution.PollutionGen._
 
-
+import org.apache.flink.api.common.JobExecutionResult
+import java.util.concurrent.TimeUnit
 
 
 class DemoPollution extends Specification
@@ -18,26 +19,24 @@ class DemoPollution extends Specification
   with ScalaCheck
   with Serializable {
 
-  // Spark configuration
-  /*override def sparkMaster : String = "local[*]"
-  val batchInterval = Duration(500)
-  override def batchDuration = batchInterval
-  override def defaultParallelism = 4
-  override def enableCheckpointing = true*/
 
   def is =
     sequential ^ s2"""
       - where all the sensor Id must be under the number of sensors $sensorIdsOk
-      - where the polution data is always low $neverPol
-      - where the polution data is always high $alwaysPol
-      - where we eventually get pollution $eventuallyPol
+      - where the pollution data is always low $neverPol
+      - where the pollution data is always high $alwaysPol
+      - where we eventually get pollution (most times) $eventuallyPol
       - where the alarm must activate $checkAlarm
       - where pollution data is generated randomly $checkGenPol
+      - where the alarm is on when we get pollution and off when we don't $alarmOn
       """
 
 
-  //Incluir posibilidad de que haya listas de varios tamaños (para que cada ventana pueda tener un numero distinto de datos)
+
   def sensorIdsOk = {
+    val t1 = System.nanoTime
+
+
     type U = (Int, Int)
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val numWindows = 10
@@ -52,7 +51,14 @@ class DemoPollution extends Specification
     val result = Test.test[U](gen, formula, env, 100)
     result.print
 
+    /*val benchmark = env.execute("My Flink Job")
+    System.out.println("The job took " + benchmark.getNetRuntime(TimeUnit.SECONDS) + " seconds to execute")*/
+
     env.execute()
+
+    println("Duration: " +  (System.nanoTime() - t1) / 1e9d)
+
+
     result.toString
 
   }
@@ -74,10 +80,14 @@ class DemoPollution extends Specification
     println("Running neverPol")
     val result = Test.test[U](gen, formula, env, 100)
     result.print
-    env.execute()
+     env.execute()
+
+
+
     result.toString
 
   }
+
 
 
 
@@ -97,12 +107,16 @@ class DemoPollution extends Specification
     val result = Test.test[U](gen, formula, env, 100)
     result.print
     env.execute()
+
+
     result.toString
 
   }
 
 
-
+  //Esta prueba puede llegar a dar false si todos los datos generados son menores que 20, o todos
+  //son mayores o iguales que 20. No sería un error, ya que el generador genera datos entre 1 y 100,
+  //pero ocurre pocas veces.
   def eventuallyPol = {
     type U = (Int, Int)
     val env = StreamExecutionEnvironment.getExecutionEnvironment
@@ -119,33 +133,8 @@ class DemoPollution extends Specification
     val result = Test.test[U](gen, formula, env, 100)
     result.print
     env.execute()
-    result.toString
-  }
 
-  //Hacerla, o bien para que al tener todos los sensores polucion, se compruebe que se activan todas las alarmas,
-  //o enfocado a que compruebe uno de los sensores y su alarma
-  def checkAlarm = {
-    type U = (Int, Int)
-    val env = StreamExecutionEnvironment.getExecutionEnvironment
-    val numWindows = 20
-    val numSensor = 5
-    val maxPol = 20
-    val data = WinGen.ofN(5, PollutionGen.genPol(maxPol,numSensor))
-    val gen = WinGen.always(data, numWindows)
-    val alwaysPol: Formula[List[U]] = always { (u : List[U]) =>
-      checkPol(u, maxPol)
-    } during numWindows
 
-    val eventuallyAlarm: Formula[List[U]] = later { (u : List[U]) =>
-      PollutionGen.alarmController(u,numSensor,maxPol,3)
-    } during numWindows
-
-    val formula = alwaysPol ==> eventuallyAlarm
-
-    println("Running checkAlarm")
-    val result = Test.test[U](gen, formula, env, 100)
-    result.print
-    env.execute()
     result.toString
   }
 
@@ -174,12 +163,60 @@ class DemoPollution extends Specification
 
 
 
-  /**Incluyendo alarma*/
-  //always(noPol) -> always(alarma=false)
-  //always(pol) -> always(alarme=true)
-  //noPol and eventuallyPol -> eventually(alarma=true)
+  def checkAlarm = {
+    type U = (Int, Int)
+    val env = StreamExecutionEnvironment.getExecutionEnvironment
+    val numWindows = 20
+    val numSensor = 1
+    val maxPol = 20
+    val data = WinGen.ofN(5, PollutionGen.genPol(maxPol,numSensor))
+    val gen = WinGen.always(data, numWindows)
+    //val poll: Formula[List[U]] = {(u : List[U]) => u.filter( x => x._1 >= maxPol).size == u.size}
+    val alwaysPol: Formula[List[U]] = always { (u : List[U]) =>
+      checkPol(u, maxPol)
+      //poll
+    } during numWindows
+
+    val eventuallyAlarm: Formula[List[U]] = later { (u : List[U]) =>
+      PollutionGen.alarmController(u,numSensor,maxPol,3)
+    } during numWindows
+
+    val formula = alwaysPol ==> eventuallyAlarm
+
+    println("Running checkAlarm")
+    val result = Test.test[U](gen, formula, env, 100)
+    result.print
+    env.execute()
+    result.toString
+  }
 
 
+  def alarmOn = {
+    type U = (Int, Int)
+    val env = StreamExecutionEnvironment.getExecutionEnvironment
+    val numWindows = 20
+    val numSensor = 1
+    val maxPol = 20
+    val dataPol = WinGen.ofN(5, PollutionGen.genPol(maxPol,numSensor))
+    val dataNoPol = WinGen.ofN(5, PollutionGen.genNoPol(maxPol,numSensor))
+    val gen = WinGen.until(dataNoPol, dataPol, numWindows)
+    //val poll: Formula[List[U]] = {(u : List[U]) => u.filter( x => x._1 >= maxPol).size == u.size}
+
+    val noPol : Formula[List[U]] = (u : List[U]) => checkNoPol(u, maxPol)
+    val pol : Formula[List[U]] = (u : List[U]) => checkPol(u, maxPol)
+    val noPolUntilPol : Formula[List[U]] = (u : List[U]) => noPol until pol on numWindows
+    val alarm_off : Formula[List[U]] = (u : List[U]) => !alarmController(u,numSensor,maxPol,3)
+    val alarm_on : Formula[List[U]] = (u : List[U]) => alarmController(u,numSensor,maxPol,3)
+    val noAlarmUntilAlarm : Formula[List[U]] = (u : List[U]) => alarm_off until alarm_on on numWindows
+    val formula = noPolUntilPol ==> noAlarmUntilAlarm
+
+
+    println("Running alarmOn")
+    val result = Test.test[U](gen, formula, env, 100)
+    result.print
+    env.execute()
+    result.toString
+  }
 
 
 }
