@@ -1,13 +1,14 @@
 package org.test.keyedStreamTest
 
 import org.apache.flink.api.scala._
-import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+import org.apache.flink.streaming.api.scala.{KeyedStream, StreamExecutionEnvironment}
 import org.scalacheck.Prop
 import org.specs2.matcher.ResultMatchers
 import org.specs2.{ScalaCheck, Specification}
 import org.test.Formula
 import org.test.Formula._
 import org.test.Formula.{always, later}
+import org.test.Test
 
 
 
@@ -43,6 +44,19 @@ class DemoKeyedStreamTest extends Specification
 
     println("Simple test")
     env.getConfig.disableSysoutLogging()
+    /*val stream = env.fromCollection(List(
+      (1, "hola"),
+      (2, "hola"),
+      (1, "hola"),
+      (1, "hola"),
+      (1, "hola"),
+      (1, "hola"),
+      (1, "hola"),
+      (1, "hola"),
+      (2, "hola"),
+      (2, "adios")
+    )).keyBy(_._1)
+    val res = Test.keyedTest(stream.asInstanceOf[KeyedStream[(Any, U), Int]], formula, env)*/
     val res = env.fromCollection(List(
       (1, "hola"),
       (2, "hola"),

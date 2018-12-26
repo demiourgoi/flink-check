@@ -219,4 +219,6 @@ class DemoPollution extends Specification
   }
 
 
+  //Nueva prueba en la que haga union de dos generadores de polucion y busque un Nopol release pol o al reves
+
 }

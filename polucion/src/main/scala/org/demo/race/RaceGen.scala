@@ -1,6 +1,6 @@
 package org.demo.race
 
-import org.gen.ListStream
+import org.gen.{ListStream, WinGen}
 import org.scalacheck.{Arbitrary, Gen}
 import org.gen.ListStreamConversions._
 import org.scalacheck.util.Buildable
@@ -16,7 +16,9 @@ object RaceGen {
 
   var previousPos: Map[String, (Int, String)]= Map[String, (Int, String)]()
 
-  var winner = false
+  var winnerArrived = false
+  var winner = List[String]()
+  var hola = "Hola"
 
   //Dopado para velocidad > 8
   //Velocidad entre 1 y 10
@@ -55,7 +57,9 @@ object RaceGen {
   } yield (id, speedMin, speedMax, 0)
 */
 
-  def initRunnerList(id: List[String]): Gen[List[(String, Int, Int, Int, String)]] = {
+  def initRunnerList(id: List[String]): Gen[List[(String, Int, Int, Int, String, Boolean)]] = {
+    winnerArrived = false
+    previousPos = Map[String, (Int, String)]()
     if (id.isEmpty) for {
     tl <- Gen.const(Nil)
     } yield tl
@@ -64,12 +68,12 @@ object RaceGen {
       for {
         speedMin <- Gen.choose(1, 10)
         speedMax <- Gen.choose(speedMin, 10)
-      } yield (id.head, speedMin, speedMax, 0, "Authorized")::initRunnerList(id.tail).sample.get
+      } yield (id.head, speedMin, speedMax, 0, "Authorized", false)::initRunnerList(id.tail).sample.get
     }
   }
 
 
-  def genNewPos(initPos: List[(String, Int, Int, Int, String)]): Gen[List[(String, Int, Int, Int, String)]] = {
+  def genNewPos(initPos: List[(String, Int, Int, Int, String, Boolean)]): Gen[List[(String, Int, Int, Int, String, Boolean)]] = {
     if (initPos.isEmpty) for {
       tl <- Gen.const(Nil)
     } yield tl
@@ -78,24 +82,22 @@ object RaceGen {
       val runner = initPos.head
       for{
         distance <- Gen.choose(runner._2, runner._3)
-      } yield banRunner((runner._1,runner._2,runner._3,runner._4 + distance, runner._5))::genNewPos(initPos.tail).sample.get
+      } yield banRunner((runner._1,runner._2,runner._3,runner._4 + distance, runner._5, runner._6))::genNewPos(initPos.tail).sample.get
     }
   }
 
 
 
-  def genRace(id: List[String], goal: Int): Gen[ListStream[(String, Int, String)]] = {
-    winner = false
-    previousPos = Map[String, (Int, String)]()
+  def genRace(id: List[String], goal: Int): Gen[ListStream[(String, Int, String, Boolean)]] = {
     for{
       init <-initRunnerList(id)
-    } yield init.map(x => (x._1, x._4, x._5))::genRaceAux(init, goal).sample.get
+    } yield init.map(x => (x._1, x._4, x._5, x._6))::genRaceAux(init, goal).sample.get
   }
 
 
-  def genRaceAux(runners: List[(String, Int, Int, Int, String)], goal: Int): Gen[ListStream[(String, Int, String)]] = {
-    /*if(!winner){
-      winner = getWinner(runners, goal)
+  def genRaceAux(runners: List[(String, Int, Int, Int, String, Boolean)], goal: Int): Gen[ListStream[(String, Int, String, Boolean)]] = {
+   /* if(!winnerArrived){
+      winnerArrived = getWinner(runners, goal)
     }*/
     val updateGoal = runners.filter(r => r._4 < goal)
     val updateBanned = updateGoal.filter(r => r._5 != "Banned")
@@ -106,21 +108,39 @@ object RaceGen {
     else {
       for {
         p <- genNewPos(updateBanned)
-      }yield p.map(x => (x._1, x._4, x._5))::genRaceAux(p,goal).sample.get
+      }yield p.map(x => findWinner((x._1, x._4, x._5, x._6),goal))::genRaceAux(p,goal).sample.get
     }
   }
 
 
-  def banRunner(runner: (String, Int, Int, Int, String)): (String, Int, Int, Int, String) = {
-    if((runner._5 != "Banned") && checkSpeed((runner._1, runner._4, runner._5))){
+  def banRunner(runner: (String, Int, Int, Int, String, Boolean)): (String, Int, Int, Int, String, Boolean) = {
+    if((runner._5 != "Banned") && checkSpeed((runner._1, runner._4, runner._5, runner._6))){
       //println(runner._1 + " banned from competition.")
-      (runner._1, runner._2, runner._3, runner._4, "Banned")
+      (runner._1, runner._2, runner._3, runner._4, "Banned", runner._6)
+    }
+    else  runner
+  }
+
+  def findWinner(runner: (String, Int, String, Boolean), goal: Int): (String, Int, String, Boolean) = {
+    if(!winnerArrived && (runner._2 >= goal) && (runner._3 != "Banned")){
+      winnerArrived = true
+      (runner._1, runner._2, runner._3, true)
     }
     else  runner
   }
 
 
-  def checkSpeed(runner: (String, Int, String)): Boolean = {
+
+  def nRaces(gen: Gen[ListStream[(String, Int, String, Boolean)]], n: Int): Gen[ListStream[(String, Int, String, Boolean)]] ={
+    if(n == 0) Gen.const(Nil)
+    else if(n == 1) gen
+    else if(n == 2) WinGen.concat(gen, gen)
+    else WinGen.concat(gen,nRaces(gen, n-1))
+  }
+
+
+
+  def checkSpeed(runner: (String, Int, String, Boolean)): Boolean = {
     var banned = runner._3 == "Banned"
     if(!previousPos.contains(runner._1)){
       previousPos += runner._1 -> (runner._2, runner._3)
@@ -135,7 +155,7 @@ object RaceGen {
     banned
   }
 
-  def checkAllSpeeds(runners: List[(String, Int, String)]): Boolean = {
+  def checkAllSpeeds(runners: List[(String, Int, String, Boolean)]): Boolean = {
     var banned = false
     for(runner <- runners) {
       banned = banned || checkSpeed(runner)
@@ -145,22 +165,19 @@ object RaceGen {
 
 
 
-  def checkNumberOfRunners(u: List[(String,Int)], numRunners: Int): Boolean = {
-    u.size <= numRunners
+
+  def getWinner(runners: List[(String, Int, Int, Int, String, Boolean)], goal: Int): Boolean ={
+    val winners = runners.filter(_._6)
+    //println("Ganadores: " + winners)
+   !winners.isEmpty
   }
 
 
-
-  def getWinner(runners: List[(String, Int, Int, Int, String)], goal: Int): Boolean ={
-    val winners = runners.filter(r => r._4 >= goal)
-    if(!winners.isEmpty){
-      println("Winner(s): " + winners.map(w => w._1))
-      true
-    }
-    else false
+  def isWinner(runner: (String, Int, String, Boolean)): Boolean ={
+    runner._4
   }
 
-  def isBanned(runner: (String, Int, String)): Boolean ={
+  def isBanned(runner: (String, Int, String, Boolean)): Boolean ={
     runner._3 == "Banned"
   }
 
@@ -270,14 +287,20 @@ object RaceGen {
 
 
     // println(genRace(list, 50).sample.get)
-  for(i <- 1 to 3) {
+  /*for(i <- 1 to 3) {
     val r = genRace(list, 50).sample.get
     for (l <- r) {
       println(l)
     }
     println()
-  }
+  }*/
 
+
+   val gen = genRace(list, 50)
+   val u = nRaces(gen, 3).sample.get
+   for(l <- u){
+     println(l)
+   }
  }
 
 

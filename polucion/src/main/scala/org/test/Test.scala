@@ -1,6 +1,7 @@
 package org.test
 
 
+import org.apache.flink.api.java.tuple.Tuple
 import org.scalacheck.{Gen, Prop}
 import org.specs2.runner.JUnitRunner
 import org.specs2.ScalaCheck
@@ -10,6 +11,7 @@ import org.gen.ListStream
 import org.gen.WinGen
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.api.windowing.windows.GlobalWindow
+import org.test.keyedStreamTest.KeyedStreamTest
 import org.test.streamTest.ForEachStreamElem
 
 
@@ -52,7 +54,17 @@ object Test {
   }
 
 
+  def keyedTest[U](stream: KeyedStream[(Any, U), Int], form: Formula[U], env: StreamExecutionEnvironment): DataStream[(Any,Prop.Status)] = {
+    env.getConfig.disableSysoutLogging()
+    var currFormula = form.nextFormula
+    val formulaCopy : NextFormula[U] = currFormula
+    val result = stream.flatMap(new KeyedStreamTest[Any,U](currFormula))
+    //val dataStream: DataStream[Prop.Status] = env.fromCollection(List(Prop.Undecided))
+    result.print()
 
+    env.execute()
+    result
+  }
 
   def test[U](gen: Gen[ListStream[U]], form: Formula[List[U]], env: StreamExecutionEnvironment, times: Int): DataStream[String] = {
     env.getConfig.disableSysoutLogging()
@@ -61,9 +73,16 @@ object Test {
       val w = WinGen.toWindowsList(gen, env)
       val formulaCopy: NextFormula[List[U]] = currFormula
       val resultWindows = w.aggregate(new ForEachWindow[U](formulaCopy))
-      val result = resultWindows.union(testAux(gen, form, env, times - 1))
-      val finalResult = result.filter(_._1).countWindowAll(times).aggregate(new TestFinalResult(times))
-    finalResult.filter(_._1).map(_._2)
+      if(times == 1) {
+        val result = resultWindows
+        val finalResult = result.filter(_._1).countWindowAll(times).aggregate(new TestFinalResult(times))
+        finalResult.filter(_._1).map(_._2)
+      }
+    else{
+        val result = resultWindows.union(testAux(gen, form, env, times - 1))
+        val finalResult = result.filter(_._1).countWindowAll(times).aggregate(new TestFinalResult(times))
+        finalResult.filter(_._1).map(_._2)
+      }
   }
 
     def testAux[U](gen: Gen[ListStream[U]], form: Formula[List[U]], env: StreamExecutionEnvironment, times: Int): DataStream[(Boolean,Prop.Status)] = {
