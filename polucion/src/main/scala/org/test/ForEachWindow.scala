@@ -32,13 +32,7 @@ class ForEachWindow[U](formula: NextFormula[List[U]]) extends AggregateFunction[
 
 
   def add(data: List[Any], wr: WindowResult) = {
-    //println("add")
-    /*data.asInstanceOf[List[U]].foreach(elem => if (wr.formula.result.isEmpty) {
-      println("Adding " + elem)
-      wr.formula = wr.formula.consume(Time(1))(elem)
-      println(wr.formula)
-    })*/
-    //if(cont < times) {
+
     if (f.result.isEmpty && data!=List(null)) {
       f = f.consume(Time(1))(data.asInstanceOf[List[U]])
     } //}

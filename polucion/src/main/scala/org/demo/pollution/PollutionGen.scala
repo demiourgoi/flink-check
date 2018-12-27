@@ -59,6 +59,17 @@ object PollutionGen {
     }
   }
 
+  def checkAnyPol(list: List[(Int, Int)], maxPol: Int): Boolean = list match {
+    case Nil => true
+    case l => l.filter( x => x._1 >= maxPol).size > 0
+  }
+
+  def checkAnyNoPol(list: List[(Int, Int)], maxPol: Int): Boolean = list match {
+    case Nil => true
+    case l => l.filter( x => x._1 < maxPol).size > 0
+  }
+
+
   def initControl(numSensor: Int): Map[Int, Int] = {
     var control = Map[Int, Int]()
     for(i<- 1 to numSensor){

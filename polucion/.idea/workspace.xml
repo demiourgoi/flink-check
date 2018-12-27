@@ -4,10 +4,10 @@
     <list default="true" id="c7257910-9279-4cfb-a438-8d733751656c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/org/demo/pollution/DemoPollution.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/demo/pollution/DemoPollution.scala" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/demo/pollution/PollutionGen.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/demo/pollution/PollutionGen.scala" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/org/demo/race/DemoRace.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/demo/race/DemoRace.scala" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/org/demo/race/RaceGen.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/demo/race/RaceGen.scala" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/test/Test.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/test/Test.scala" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/test/keyedStreamTest/DemoKeyedStreamTest.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/test/keyedStreamTest/DemoKeyedStreamTest.scala" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/test/ForEachWindow.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/test/ForEachWindow.scala" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/mainRunner/target/" />
@@ -53,41 +53,61 @@
         <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/race/RaceGen.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
-              <caret line="68" column="34" lean-forward="true" selection-start-line="68" selection-start-column="34" selection-end-line="68" selection-end-column="36" />
+              <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WinGen.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/org/gen/WinGen.scala">
+      <file leaf-file-name="DemoPollution.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/pollution/DemoPollution.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2182">
-              <caret line="25" column="6" lean-forward="false" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DemoRace.scala" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/race/DemoRace.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="99" column="51" lean-forward="false" selection-start-line="99" selection-start-column="51" selection-end-line="99" selection-end-column="51" />
+            <state relative-caret-position="378">
+              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding>
-                <element signature="e#23#93#0" expanded="true" />
+                <element signature="e#28#98#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Test.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/Test.scala">
+      <file leaf-file-name="ForEachWindow.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/ForEachWindow.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="65" column="10" lean-forward="false" selection-start-line="65" selection-start-column="10" selection-end-line="65" selection-end-column="10" />
+            <state relative-caret-position="360">
+              <caret line="53" column="9" lean-forward="false" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PollutionGen.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/pollution/PollutionGen.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="66" column="14" lean-forward="false" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DemoTest.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/DemoTest.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="427">
+              <caret line="108" column="3" lean-forward="false" selection-start-line="108" selection-start-column="3" selection-end-line="108" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DemoRace.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/race/DemoRace.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="753">
+              <caret line="83" column="39" lean-forward="false" selection-start-line="83" selection-start-column="39" selection-end-line="83" selection-end-column="39" />
               <folding>
-                <element signature="e#19#63#0" expanded="true" />
+                <element signature="e#23#93#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -203,13 +223,13 @@
         <option value="$PROJECT_DIR$/src/main/scala/org/Main.scala" />
         <option value="$PROJECT_DIR$/build.sbt" />
         <option value="$PROJECT_DIR$/src/main/scala/org/gen/WinGen.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/org/test/ForEachWindow.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/org/demo/pollution/PollutionGen.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/org/demo/pollution/DemoPollution.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/test/Test.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/test/keyedStreamTest/DemoKeyedStreamTest.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/demo/race/DemoRace.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/org/demo/pollution/PollutionGen.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/demo/race/RaceGen.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/org/demo/pollution/DemoPollution.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/org/test/ForEachWindow.scala" />
       </list>
     </option>
   </component>
@@ -247,7 +267,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -349,6 +368,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -382,7 +402,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Specs2.DemoRace">
+  <component name="RunManager" selected="Specs2.DemoPollution">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -670,10 +690,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Specs2.DemoRace" />
-        <item index="1" class="java.lang.String" itemvalue="Specs2.DemoKeyedStreamTest" />
-        <item index="2" class="java.lang.String" itemvalue="Application.RaceGen" />
-        <item index="3" class="java.lang.String" itemvalue="Specs2.DemoPollution" />
+        <item index="0" class="java.lang.String" itemvalue="Specs2.DemoPollution" />
+        <item index="1" class="java.lang.String" itemvalue="Specs2.DemoRace" />
+        <item index="2" class="java.lang.String" itemvalue="Specs2.DemoKeyedStreamTest" />
+        <item index="3" class="java.lang.String" itemvalue="Application.RaceGen" />
         <item index="4" class="java.lang.String" itemvalue="Specs2.DemoTestStream" />
       </list>
     </recent_temporary>
@@ -821,39 +841,46 @@
       <option name="project" value="LOCAL" />
       <updated>1545769526260</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="DemoRace terminado.">
+      <created>1545855846889</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1545855846889</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="DemoKeyedStreamTest - 2018.12.26 at 19h 19m 15s.xml">
-      <configuration name="DemoKeyedStreamTest" configurationId="Specs2RunConfiguration" />
+    <history-entry file="DemoPollution - 2018.12.27 at 14h 17m 08s.xml">
+      <configuration name="DemoPollution" configurationId="Specs2RunConfiguration" />
     </history-entry>
-    <history-entry file="DemoKeyedStreamTest - 2018.12.26 at 19h 19m 33s.xml">
-      <configuration name="DemoKeyedStreamTest" configurationId="Specs2RunConfiguration" />
+    <history-entry file="DemoPollution - 2018.12.27 at 14h 18m 12s.xml">
+      <configuration name="DemoPollution" configurationId="Specs2RunConfiguration" />
     </history-entry>
-    <history-entry file="DemoKeyedStreamTest - 2018.12.26 at 19h 25m 31s.xml">
-      <configuration name="DemoKeyedStreamTest" configurationId="Specs2RunConfiguration" />
+    <history-entry file="DemoPollution - 2018.12.27 at 14h 19m 48s.xml">
+      <configuration name="DemoPollution" configurationId="Specs2RunConfiguration" />
     </history-entry>
-    <history-entry file="DemoRace - 2018.12.26 at 19h 25m 52s.xml">
-      <configuration name="DemoRace" configurationId="Specs2RunConfiguration" />
+    <history-entry file="DemoPollution - 2018.12.27 at 14h 20m 58s.xml">
+      <configuration name="DemoPollution" configurationId="Specs2RunConfiguration" />
     </history-entry>
-    <history-entry file="DemoRace - 2018.12.26 at 19h 26m 26s.xml">
-      <configuration name="DemoRace" configurationId="Specs2RunConfiguration" />
+    <history-entry file="DemoPollution - 2018.12.27 at 17h 57m 28s.xml">
+      <configuration name="DemoPollution" configurationId="Specs2RunConfiguration" />
     </history-entry>
-    <history-entry file="DemoRace - 2018.12.26 at 19h 27m 40s.xml">
-      <configuration name="DemoRace" configurationId="Specs2RunConfiguration" />
+    <history-entry file="DemoPollution - 2018.12.27 at 17h 58m 58s.xml">
+      <configuration name="DemoPollution" configurationId="Specs2RunConfiguration" />
     </history-entry>
-    <history-entry file="DemoRace - 2018.12.26 at 19h 38m 16s.xml">
-      <configuration name="DemoRace" configurationId="Specs2RunConfiguration" />
+    <history-entry file="DemoPollution - 2018.12.27 at 18h 00m 35s.xml">
+      <configuration name="DemoPollution" configurationId="Specs2RunConfiguration" />
     </history-entry>
-    <history-entry file="DemoRace - 2018.12.26 at 21h 19m 37s.xml">
-      <configuration name="DemoRace" configurationId="Specs2RunConfiguration" />
+    <history-entry file="DemoPollution - 2018.12.27 at 18h 01m 38s.xml">
+      <configuration name="DemoPollution" configurationId="Specs2RunConfiguration" />
     </history-entry>
-    <history-entry file="DemoRace - 2018.12.26 at 21h 22m 16s.xml">
-      <configuration name="DemoRace" configurationId="Specs2RunConfiguration" />
+    <history-entry file="DemoPollution - 2018.12.27 at 18h 04m 47s.xml">
+      <configuration name="DemoPollution" configurationId="Specs2RunConfiguration" />
     </history-entry>
-    <history-entry file="DemoRace - 2018.12.26 at 21h 23m 03s.xml">
-      <configuration name="DemoRace" configurationId="Specs2RunConfiguration" />
+    <history-entry file="DemoPollution - 2018.12.27 at 18h 05m 06s.xml">
+      <configuration name="DemoPollution" configurationId="Specs2RunConfiguration" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -876,11 +903,11 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39096776" sideWeight="0.45495495" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24967825" sideWeight="0.50769234" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2929032" sideWeight="0.545045" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29032257" sideWeight="0.545045" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31612903" sideWeight="0.505148" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24967825" sideWeight="0.4948718" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25933075" sideWeight="0.4948718" order="0" side_tool="false" content_ui="combo" />
       <window_info id="sbt-shell-toolwindow" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.49227798" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24967825" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24967825" sideWeight="0.4923077" order="1" side_tool="false" content_ui="tabs" />
@@ -948,7 +975,8 @@
     <MESSAGE value="Reorganizacion. Demo para KeyedStreamTest. RaceGen empezado." />
     <MESSAGE value="RaceGen modificado" />
     <MESSAGE value="DemoPollutionterminado. RaceGen mejorado. Nuevas pruebas en DemoRace." />
-    <option name="LAST_COMMIT_MESSAGE" value="DemoPollutionterminado. RaceGen mejorado. Nuevas pruebas en DemoRace." />
+    <MESSAGE value="DemoRace terminado." />
+    <option name="LAST_COMMIT_MESSAGE" value="DemoRace terminado." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1238,14 +1266,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/DemoTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="81" column="4" lean-forward="false" selection-start-line="81" selection-start-column="4" selection-end-line="83" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalacheck/scalacheck_2.11/srcs/scalacheck_2.11-1.13.4-sources.jar!/org/scalacheck/Gen.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -1278,32 +1298,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/pollution/PollutionGen.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/pollution/DemoPollution.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-241">
-          <caret line="177" column="23" lean-forward="false" selection-start-line="174" selection-start-column="38" selection-end-line="177" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/ForEachWindow.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="59" column="9" lean-forward="false" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
-          <folding>
-            <element signature="e#18#80#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/keyedStreamTest/KeyedStreamTest.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-288">
@@ -1322,20 +1316,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/Test.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="65" column="10" lean-forward="false" selection-start-line="65" selection-start-column="10" selection-end-line="65" selection-end-column="10" />
+          <folding>
+            <element signature="e#19#63#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/gen/WinGen.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2182">
+        <state relative-caret-position="18">
           <caret line="25" column="6" lean-forward="false" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/Test.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/race/DemoRace.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="65" column="10" lean-forward="false" selection-start-line="65" selection-start-column="10" selection-end-line="65" selection-end-column="10" />
+        <state relative-caret-position="753">
+          <caret line="83" column="39" lean-forward="false" selection-start-line="83" selection-start-column="39" selection-end-line="83" selection-end-column="39" />
           <folding>
-            <element signature="e#19#63#0" expanded="true" />
+            <element signature="e#23#93#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1343,18 +1347,42 @@
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/race/RaceGen.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
-          <caret line="68" column="34" lean-forward="true" selection-start-line="68" selection-start-column="34" selection-end-line="68" selection-end-column="36" />
+          <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/race/DemoRace.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/pollution/PollutionGen.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="99" column="51" lean-forward="false" selection-start-line="99" selection-start-column="51" selection-end-line="99" selection-end-column="51" />
+        <state relative-caret-position="408">
+          <caret line="66" column="14" lean-forward="false" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/ForEachWindow.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="53" column="9" lean-forward="false" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/demo/pollution/DemoPollution.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
-            <element signature="e#23#93#0" expanded="true" />
+            <element signature="e#28#98#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/test/DemoTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="108" column="3" lean-forward="false" selection-start-line="108" selection-start-column="3" selection-end-line="108" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>

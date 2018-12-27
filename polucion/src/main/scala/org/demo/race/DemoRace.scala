@@ -1,7 +1,6 @@
 package org.demo.race
 
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
-import org.gen.{ListStream, WinGen}
 import org.specs2.matcher.ResultMatchers
 import org.specs2.runner.JUnitRunner
 import org.specs2.{ScalaCheck, Specification}
@@ -9,7 +8,6 @@ import org.test.Formula._
 import org.test.{Formula, Not, Test}
 import org.demo.race.RaceGen._
 import org.scalacheck.Gen
-import org.scalacheck.Prop.{False, True}
 
 
 
@@ -19,12 +17,6 @@ class DemoRace extends Specification
   with ScalaCheck
   with Serializable {
 
-  // Spark configuration
-  /*override def sparkMaster : String = "local[*]"
-  val batchInterval = Duration(500)
-  override def batchDuration = batchInterval
-  override def defaultParallelism = 4
-  override def enableCheckpointing = true*/
 
   def is =
     sequential ^ s2"""
@@ -42,7 +34,7 @@ class DemoRace extends Specification
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val numWindows = 10
     val runners = List("Kirby", "Molang", "Piupiu", "Pusheen", "Gudetama")
-    val gen = genRace(runners, 50)
+    val gen = genRace(runners, 50,1,10)
     val formula : Formula[List[U]] = always { (u : List[U]) =>
       u.size <= runners.size
     } during numWindows
@@ -65,7 +57,7 @@ class DemoRace extends Specification
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val numWindows = 50
     val runners = List("Kirby", "Molang", "Piupiu", "Pusheen", "Gudetama")
-    val gen = genRace(runners, 50)
+    val gen = genRace(runners, 50,1,10)
     val formula : Formula[List[U]] = later { (u : List[U]) =>
       var banned = false
       for(runner <- u) {
@@ -84,9 +76,9 @@ class DemoRace extends Specification
   def checkBannedRunner= {
     type U = (String, Int, String, Boolean)
     val env = StreamExecutionEnvironment.getExecutionEnvironment
-    val numWindows = 60
+    val numWindows = 100
     val runners = List("Kirby", "Molang", "Piupiu", "Pusheen", "Gudetama")
-    val gen = genRace(runners, 50)
+    val gen = genRace(runners, 900,9,10)
     val runnerSpeedWrong: Formula[List[U]] = (u: List[U]) => {
       val l = u.filter(r => r._1 == "Piupiu")
       if(l.size > 0) checkSpeed(l.head)
@@ -114,9 +106,9 @@ class DemoRace extends Specification
   def bannedNeverWin = {
     type U = (String,Int, String, Boolean)
     val env = StreamExecutionEnvironment.getExecutionEnvironment
-    val numWindows = 100
+    val numWindows = 25
     val runners = List("Kirby", "Molang", "Piupiu", "Pusheen", "Gudetama")
-    val gen = genRace(runners, 50)
+    val gen = genRace(runners, 50,10,10)
     val gen2 = nRaces(gen,5)
     val runnerBanned: Formula[List[U]] = (u : List[U]) => {
       val l = u.filter(r => r._1 == "Pusheen")
@@ -146,9 +138,9 @@ class DemoRace extends Specification
   def notBannedAlwaysWin = {
     type U = (String,Int, String, Boolean)
     val env = StreamExecutionEnvironment.getExecutionEnvironment
-    val numWindows = 60
+    val numWindows = 30
     val runners = List("Kirby", "Molang", "Piupiu", "Pusheen", "Gudetama")
-    val gen = genRace(runners, 50)
+    val gen = genRace(runners, 50,5,5)
     val gen2 = nRaces(gen,3)
     val runnerBanned: Formula[List[U]] = (u : List[U]) => {
       val l = u.filter(r => r._1 == "Kirby")
@@ -162,8 +154,11 @@ class DemoRace extends Specification
       val l = u.filter(r => r._1 == "Kirby")
       if(l.size > 0) isWinner(l.head)
       else false
+    } during 10
+    val alwaysWins: Formula[List[U]] = always {(u : List[U]) =>
+      eventuallyWins
     } during numWindows
-    val formula : Formula[List[U]] = (neverBanned ==> eventuallyWins)
+    val formula : Formula[List[U]] = (neverBanned ==> alwaysWins)
     println("Running notBannedAlwaysWin")
     val result = Test.test[U](gen2, formula, env, 50)
     result.print

@@ -26,38 +26,12 @@ object RaceGen {
   //Incluir que un corredor tenga mas probabilidad de doparse si pierde mas de N veces?
   //(id, pos, time?)
   //Si (id, pos, t2) - (id,pos,t2) > N -> descalificado/dopado
- /** def genPos(runner: (String, Int, Int), pos: Int): Gen[(String, Int)] = {
-    for {speed <- Gen.choose(runner._2, runner._3)} yield (runner._1, pos + speed)
-
-  }
-
-  /*def genInstant(gen: Gen[List[(String, Int, Int, Int)]]): Gen[List[(String, Int)]] = {
-      for {
-      runner <- gen
-      xs <- genPos(runner,0)
-    } yield xs
-  }*/
-  def genInstante(): Gen[List[(String, Int)]] = {
-    Gen.listOfN(5, genPos(("holi", 1, 10), 0))
-  }
-
-  //List(list(string,pos)) -> carrera(instante(corredor))
-  def genCarrera(gen: Gen[List[(String, Int)]]): Gen[ListStream[(String, Int)]] = {
-    for {
-      g <- gen
-      out <- Gen.listOfN(3, g)
-    } yield out
-  }
 
 
-  //Esto seria la inicializacion del corredor, falta tener su carrera.
-  def initRunner(id: String): Gen[(String, Int, Int, Int)] = for {
-    speedMin <- Gen.choose(1, 10)
-    speedMax <- Gen.choose(speedMin, 10)
-  } yield (id, speedMin, speedMax, 0)
-*/
 
-  def initRunnerList(id: List[String]): Gen[List[(String, Int, Int, Int, String, Boolean)]] = {
+ //Hacer initrunner para que todos se dopen,  y para que nadie lo haga
+
+  def initRunnerList(id: List[String], min: Int, max: Int): Gen[List[(String, Int, Int, Int, String, Boolean)]] = {
     winnerArrived = false
     previousPos = Map[String, (Int, String)]()
     if (id.isEmpty) for {
@@ -66,9 +40,9 @@ object RaceGen {
 
     else {
       for {
-        speedMin <- Gen.choose(1, 10)
-        speedMax <- Gen.choose(speedMin, 10)
-      } yield (id.head, speedMin, speedMax, 0, "Authorized", false)::initRunnerList(id.tail).sample.get
+        speedMin <- Gen.choose(min, max)
+        speedMax <- Gen.choose(speedMin, max)
+      } yield (id.head, speedMin, speedMax, 0, "Authorized", false)::initRunnerList(id.tail, min, max).sample.get
     }
   }
 
@@ -88,9 +62,9 @@ object RaceGen {
 
 
 
-  def genRace(id: List[String], goal: Int): Gen[ListStream[(String, Int, String, Boolean)]] = {
+  def genRace(id: List[String], goal: Int, min: Int, max: Int): Gen[ListStream[(String, Int, String, Boolean)]] = {
     for{
-      init <-initRunnerList(id)
+      init <-initRunnerList(id, min, max)
     } yield init.map(x => (x._1, x._4, x._5, x._6))::genRaceAux(init, goal).sample.get
   }
 
@@ -181,122 +155,11 @@ object RaceGen {
     runner._3 == "Banned"
   }
 
-  /**
-  def genList[A:Arbitrary]: Gen[List[A]] = for {
-    hd <- Arbitrary.arbitrary[A]
-    tl <- Gen.oneOf(nilGen, genList[A])
-  } yield hd::tl
-  def nilGen: Gen[List[Nothing]] = Gen.const(Nil)
-
-
-
-  def genRunnerRace(runner: Gen[(String, Int, Int, Int)], goal: Int): ListBuffer[(String, Int, Int, Int)] = {
-    val r = new ListBuffer[(String, Int, Int, Int)]()
-    r += runner.sample.get
-    var pos = r.head
-    var distance = 0
-    while (pos._4 < goal) {
-      pos = newPos(pos).sample.get
-      r += pos
-    }
-    r
-  }
-
-    def newPos(r: (String, Int, Int, Int)) = for{
-      distance <- Gen.choose(r._2, r._3)
-    } yield (r._1, r._2, r._3, r._4 + distance)
-
-
-  def raceRunner(id: String): ListBuffer[(String, Int, Int, Int)] = {
-    val runner = initRunner(id)
-    genRunnerRace(runner,50)
-  }
-
-  def race(idRunners: List[String]): List[List[(String, Int)]] = {
-
-
-    var r = new ListBuffer[(String, Int, Int, Int)]()
-    for(id <-idRunners) {
-      r ++= raceRunner(id)
-    }
-    order(r)
-  }
-
-  def order(list: ListBuffer[(String, Int, Int, Int)]): List[List[(String,Int)]] ={
-    var id = ""
-    var cont = 0
-    var inOrder = Map[Int, ListBuffer[(String, Int)]]()
-    var newEntry = ("", 0)
-    var result = new ListBuffer[List[(String,Int)]]()
-    var i = 1
-
-    for(runner <- list) {
-
-      if (id != runner._1) {
-        id = runner._1
-        cont = 1
-      }
-      if (!inOrder.contains(cont)) {
-        inOrder += cont -> new ListBuffer[(String, Int)]
-      }
-
-      newEntry = (runner._1, runner._4)
-      inOrder.update(cont, inOrder(cont) += newEntry)
-      cont += 1
-    }
-
-    while(inOrder.contains(i)){
-      result += inOrder(i).toList
-      i += 1
-    }
-
-    result.toList
-  }
-
-
-
- def genRace(idRunners: List[String]): Gen[List[List[(String,Int)]]] ={
-   for{
-     r <- race(idRunners)
-   } yield r
- }
-
-  def checkNumberOfRunners(u: List[List[List[(String,Int)]]], numRunners: Int): Boolean = {
-    var okay = true
-    for(l1 <- u) {
-      for (l2 <- l1) {
-      okay = okay && l2.size <= numRunners
-      }
-    }
-    okay
-  }
-
-
-
-  def check(d1: (String, Int), d2: (String, Int)): Unit ={
-      d1._2 - d2._2 <= maxSpeed
-  }
-
-  def updatePos(d: (String, Int)): Unit ={
-    previousPos = d
-  }
-*/
 
  def main(args: Array[String]): Unit ={
    val list = List("Kirby", "Molang", "Piupiu", "Pusheen", "Gudetama")
 
-
-    // println(genRace(list, 50).sample.get)
-  /*for(i <- 1 to 3) {
-    val r = genRace(list, 50).sample.get
-    for (l <- r) {
-      println(l)
-    }
-    println()
-  }*/
-
-
-   val gen = genRace(list, 50)
+   val gen = genRace(list, 50, 1, 10)
    val u = nRaces(gen, 3).sample.get
    for(l <- u){
      println(l)

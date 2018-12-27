@@ -2,16 +2,17 @@ package org.demo.pollution
 
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.gen.WinGen
-import org.scalacheck.Prop
+import org.scalacheck.{Gen, Prop}
 import org.specs2.matcher.ResultMatchers
 import org.specs2.runner.JUnitRunner
 import org.specs2.{ScalaCheck, Specification}
 import org.test.Formula._
 import org.test.{Formula, Test}
 import org.demo.pollution.PollutionGen._
-
 import org.apache.flink.api.common.JobExecutionResult
 import java.util.concurrent.TimeUnit
+
+import org.test.Test.test
 
 
 class DemoPollution extends Specification
@@ -29,6 +30,7 @@ class DemoPollution extends Specification
       - where the alarm must activate $checkAlarm
       - where pollution data is generated randomly $checkGenPol
       - where the alarm is on when we get pollution and off when we don't $alarmOn
+      - example to test release  $noPolReleasePol
       """
 
 
@@ -219,6 +221,23 @@ class DemoPollution extends Specification
   }
 
 
-  //Nueva prueba en la que haga union de dos generadores de polucion y busque un Nopol release pol o al reves
+  def noPolReleasePol = {
+    type U = (Int,Int)
+    val env = StreamExecutionEnvironment.getExecutionEnvironment
+    val numWindows = 20
+    val numSensor = 1
+    val maxPol = 20
+    val dataPol = WinGen.ofN(1, PollutionGen.genPol(maxPol,numSensor))
+    val dataNoPol = WinGen.ofN(1, PollutionGen.genNoPol(maxPol,numSensor))
+    val gen = WinGen.release(dataPol, dataNoPol, numWindows)
+    val noPol : Formula[List[U]] = (u : List[U]) => checkAnyNoPol(u,maxPol)
+    val pol : Formula[List[U]] = (u : List[U]) => checkAnyPol(u,maxPol)
+    val formula : Formula[List[U]] = (u : List[U]) =>pol release noPol on numWindows
+    val result = Test.test[U](gen, formula, env, 50)
+    println("Running noPolReleasePol")
+    result.print
+    env.execute()
+    result.toString
+  }
 
-}
+  }
