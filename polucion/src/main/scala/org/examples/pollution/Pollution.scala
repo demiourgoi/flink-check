@@ -1,5 +1,4 @@
-package org.Examples.pollution
-
+package org.examples.pollution
 
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.TimeCharacteristic

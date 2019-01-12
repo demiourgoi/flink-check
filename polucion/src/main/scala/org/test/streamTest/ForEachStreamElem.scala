@@ -5,10 +5,10 @@ import org.scalacheck.Prop
 import org.test.{NextFormula, Time, WindowResult}
 
 
-class ForEachStreamElem[U](formula: NextFormula[U], times: Int, numData: Int) extends AggregateFunction[Any, WindowResult, (Boolean, Prop.Status)] {
+//Evalua la formula para cada elemento del stream
+class ForEachStreamElem[U](formula: NextFormula[U]) extends AggregateFunction[Any, WindowResult, (Boolean, Prop.Status)] {
 
   var f = formula
-  var cont = 0
   var done = false
 
 
@@ -26,34 +26,19 @@ class ForEachStreamElem[U](formula: NextFormula[U], times: Int, numData: Int) ex
 
 
   def add(data: Any, wr: WindowResult) = {
-    //println(data)
-    /*data.asInstanceOf[List[U]].foreach(elem => if (wr.formula.result.isEmpty) {
-      println("Adding " + elem)
-      wr.formula = wr.formula.consume(Time(1))(elem)
-      println(wr.formula)
-    })*/
-    //if(cont < times) {
+    println(data)
     if (f.result.isEmpty) {
       f = f.consume(Time(1))(data.asInstanceOf[U])
-    } //}
-    cont += 1
+    }
 
 
   }
 
   def getResult(wr: WindowResult): (Boolean, Prop.Status) = {
 
-    //println(cont + " - " + f.result.getOrElse(Prop.Undecided) )
     val resul = !f.result.isEmpty && !done
     if (!f.result.isEmpty) done = true
     (resul, f.result.getOrElse(Prop.Undecided))
-
-
-    /*if((cont == times || cont == numData) && !done){
-      done = true
-      (true, f.result.getOrElse(Prop.Undecided))
-    }
-    else (false, f.result.getOrElse(Prop.Undecided))*/
 
 
   }

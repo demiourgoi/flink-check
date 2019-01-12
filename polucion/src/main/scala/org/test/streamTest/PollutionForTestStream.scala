@@ -4,11 +4,11 @@ import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
 import org.apache.flink.streaming.api.windowing.time.Time
-import org.pollution.{AccumulateWindows, Count}
+import org.examples.pollution.{AccumulateWindows, Count}
 import org.specs2.{ScalaCheck, Specification}
 
 
-
+//Adaptacion de la aplicacion Pollution para que devuelva el stream resultante
 object PollutionForTestStream {
 
   def demoPol(env: StreamExecutionEnvironment): DataStream[(Int, Int)] = {

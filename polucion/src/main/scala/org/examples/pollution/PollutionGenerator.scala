@@ -1,4 +1,4 @@
-package org.Examples.pollution
+package org.examples.pollution
 
 import java.io.PrintStream
 import java.net.{ServerSocket, Socket}

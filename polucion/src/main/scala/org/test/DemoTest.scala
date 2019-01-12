@@ -12,17 +12,19 @@ import org.gen.WinGen
 import org.test.Test.test
 
 
+
+//Esta clase contiene diversos tests con los que probar la funcion test
 class DemoTest extends Specification
   with ScalaCheck
   with ResultMatchers
   with Serializable {
 
   def is =
-    sequential ^ s2"""    Simple demo Specs2 for a formula
-      - where a simple formula must hold on a list ${testAlways}
-      - where a simple formula must hold on a list ${testRelease}
-      - where a simple formula must hold on a list ${testUntil}
-      - where a simple formula must hold on a list ${testEventually}
+    sequential ^ s2""" Test function demo
+      - every window must contain at least three "hola" ${testAlways}
+      - "hola" must eventually appear in a window ${testEventually}
+      - there must be windows containing "hola" until a window contains "adios" ${testUntil}
+      - there must be windows containing "hola" until a window contains both "hola" and "adios ${testRelease}
 
     """
 
@@ -34,8 +36,7 @@ class DemoTest extends Specification
     val numData = 8
     val numTests = 100
     val env = StreamExecutionEnvironment.getExecutionEnvironment
-    val genData: Gen[List[List[U]]] = WinGen.always[String](WinGen.ofN[String](6, Gen.const("hola")), numData)
-    //val data = concat(ofN(2, ofN(1, Gen.const("adios"))), ofN(6, ofN(1, Gen.const("hola"))))
+    val genData: Gen[List[List[U]]] = WinGen.always[String](WinGen.ofN[String](5, Gen.const("hola")), numData)
     val formula : Formula[List[U]] = always { (u : List[U]) =>
       checkThree(u)
     } during times
@@ -67,7 +68,6 @@ class DemoTest extends Specification
     val result = test[U](genData, formula, env, numTests)
     println("Eventually: ")
     result.print
-    //println(result)
     env.execute()
     result.toString
   }
@@ -81,11 +81,10 @@ class DemoTest extends Specification
     val genData: Gen[List[List[U]]] = WinGen.until[String](WinGen.ofN[String](1, Gen.const("hola")), WinGen.ofN[String](1, Gen.const("adios")), numData)
     val f1 : Formula[List[U]] = (u : List[U]) => (u contains ("hola"))
     val f2 : Formula[List[U]] = (u : List[U]) => (u contains ("adios"))
-    val formula : Formula[List[U]] = (u : List[U]) => f1 until f2 on times
+    val formula : Formula[List[U]] =  f1 until f2 on times
     val result = test[U](genData, formula, env, numTests)
     println("Until: ")
     result.print
-    //println(result)
     env.execute()
     result.toString
   }
@@ -99,76 +98,13 @@ class DemoTest extends Specification
     val genData: Gen[List[List[U]]] = WinGen.release[String](WinGen.ofN[String](1, Gen.const("hola")), WinGen.ofN[String](1, Gen.const("adios")), numData)
     val f1 : Formula[List[U]] = (u : List[U]) => (u contains ("hola"))
     val f2 : Formula[List[U]] = (u : List[U]) => (u contains ("adios"))
-    val formula : Formula[List[U]] = (u : List[U]) => f1 release f2 on times
+    val formula : Formula[List[U]] = f1 release f2 on times
     val result = test[U](genData, formula, env, numTests)
     println("Release: ")
     result.print
-    //println(result)
     env.execute()
     result.toString
   }
-
-
-  /*
-    def prueba2 = {
-      //val l_prueba : List[(Int,String)] = List((1,"hola"),(1,"hola"),(1,"hola"),(1,"hola"),(1,"hola"),(1,"hola"),(1,"hola"))
-      val l_prueba : List[String] = List("hola","hola","hola","hola","adios","hola","hola")
-      type U = String
-      val formula : Formula[U] = always { (u : U) =>
-        u contains "hola"
-      } during 6
-      val result = test[String](l_prueba, formula)
-      println(result)
-      result.toString
-    }
-
-
-    def prueba3 = {
-      val l_prueba : List[(Int,String)] = List((1,"hola"),(1,"hola"),(1,"hola"),(1,"hola"),(1,"hola"),(1,"hola"),(1,"hola"))
-      type U = (Int,String)
-      val formula : Formula[U] = always { (u : U) =>
-        u._1 must be_<=(3)
-      } during 6
-      val result = test[(Int,String)](l_prueba, formula)
-      println(result)
-      result.toString
-    }
-
-    def pruebaEventually = {
-      type U = List[String]
-      val g_prueba: Gen[List[U]] = WinGen.eventually[String](WinGen.ofN[String](1, Gen.const("hola")), 8)
-      val formula : Formula[U] = later[U]{ (u : U) =>
-        u contains "hola"
-      } during 8
-      val result = test[U](g_prueba, formula)
-      println(result)
-      result.toString
-    }
-
-    def pruebaUntil = {
-      type U = List[String]
-      val g_prueba: Gen[List[U]] = WinGen.until[String](WinGen.ofN[String](1, Gen.const("hola")), WinGen.ofN[String](1, Gen.const("adios")), 8)
-      val f1 : Formula[U] = (u : U) => (u contains ("hola"))
-      val f2 : Formula[U] = (u : U) => (u contains ("adios"))
-      val formula : Formula[U] = (u : U) => f1 until f2 on 8
-      val result = test[U](g_prueba, formula)
-      println(result)
-      result.toString
-    }
-
-    def pruebaRelease = {
-      type U = List[String]
-      val g_prueba: Gen[List[U]] = WinGen.release[String](WinGen.ofN[String](1, Gen.const("hola")), WinGen.ofN[String](1, Gen.const("adios")), 8)
-      val f1 : Formula[U] = (u : U) => (u contains ("hola"))
-      val f2 : Formula[U] = (u : U) => (u contains ("adios"))
-      val formula : Formula[U] = (u : U) => f1 release f2 on 8
-      val result = test[U](g_prueba, formula)
-      println(result)
-      result.toString
-    }
-
-    */
-
 
 
 }

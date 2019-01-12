@@ -1,4 +1,4 @@
-package org.Examples.pollution
+package org.examples.pollution
 
 import org.apache.flink.api.common.functions.AggregateFunction
 

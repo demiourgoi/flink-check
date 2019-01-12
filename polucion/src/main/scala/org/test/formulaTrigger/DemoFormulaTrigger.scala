@@ -10,15 +10,14 @@ import org.test.Formula
 import org.test.Formula.always
 import org.test.Formula._
 
-
+//Clase con tests para probar el trigger FormulaTrigger
 class DemoFormulaTrigger extends Specification
   with ScalaCheck
   with ResultMatchers
   with Serializable {
 
   def is =
-    sequential ^ s2"""
-    Simple demo Specs2 for a formula
+    sequential ^ s2""" FormulaTrigger demo
     - list test  ${testList}
     - Trump Twitter test ${TwitterTrumpTest}
     """

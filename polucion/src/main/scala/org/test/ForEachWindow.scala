@@ -3,19 +3,15 @@ package org.test
 import org.apache.flink.api.common.functions.AggregateFunction
 import org.scalacheck.Prop
 
-import scala.collection.mutable.ListBuffer
-
 class WindowResult( r: (Boolean, Prop.Status)){
   var result = r
 }
 
-
+//Evalua la formula 'formula' con cada elemento de cada ventana que va llegando, y devuelve el resultado de cada evaluacion
 class ForEachWindow[U](formula: NextFormula[List[U]]) extends AggregateFunction[List[Any], WindowResult, (Boolean, Prop.Status)] {
 
   var f = formula
-  var cont = 0
   var done = false
-  var saveData: ListBuffer[List[U]] = ListBuffer()
 
 
   def createAccumulator(): WindowResult = {
@@ -32,26 +28,14 @@ class ForEachWindow[U](formula: NextFormula[List[U]]) extends AggregateFunction[
 
 
   def add(data: List[Any], wr: WindowResult) = {
-
     if (f.result.isEmpty && data!=List(null)) {
       f = f.consume(Time(1))(data.asInstanceOf[List[U]])
-    } //}
-    saveData = saveData += data.asInstanceOf[List[U]]
+    }
     if(data == List(null)) done = true
-    cont += 1
   }
 
   def getResult(wr: WindowResult): (Boolean, Prop.Status) = {
-    //println(cont + " - " + f.result.getOrElse(Prop.Undecided) )
-    /*val resul = !f.result.isEmpty && !done
-    if (!f.result.isEmpty) done = true
-    (resul, f.result.getOrElse(Prop.Undecided))*/
-    if(done) {
-      /*if(f.result.getOrElse(Prop.Undecided) == Prop.Undecided){
-
-      println("Undecided: " + saveData)
-      println(saveData.length)
-      }*/
+     if(done) {
       (true, f.result.getOrElse(Prop.Undecided))
     }
     else (false, f.result.getOrElse(Prop.Undecided))

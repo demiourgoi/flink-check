@@ -9,7 +9,7 @@ import org.scalacheck.Prop
 import org.test.{NextFormula, Time}
 
 
-
+//Trigger que evalua una formula a los datos que va recibiendo y se dispara segun el resultado de dicha formula
 class FormulaTrigger[U, W <:Window](formula: NextFormula[U]) extends Trigger[U, W]{
 
   private val stateDesc = new AggregatingStateDescriptor("formula", new AggregateFormula[U](formula), TypeExtractor.getForClass(classOf[FormulaResult[U]]))
@@ -51,20 +51,16 @@ class FormulaTrigger[U, W <:Window](formula: NextFormula[U]) extends Trigger[U, 
   private class AggregateFormula[U](formula: NextFormula[U]) extends AggregateFunction[U, FormulaResult[U], Prop.Status] {
 
     def createAccumulator(): FormulaResult[U] = {
-      //println("create")
       new FormulaResult(formula, Prop.Undecided)
     }
 
 
     def merge(a: FormulaResult[U], b: FormulaResult[U]): FormulaResult[U] = {
-      //println("merge")
-      b
+      new FormulaResult(a.formula, a.result)
     }
 
 
     def add(data: U, wr: FormulaResult[U]) = {
-      //println("add")
-      // println(data)
       if (wr.formula.result.isEmpty) {
         wr.formula = wr.formula.consume(Time(1))(data)
       }
@@ -72,9 +68,7 @@ class FormulaTrigger[U, W <:Window](formula: NextFormula[U]) extends Trigger[U, 
     }
 
     def getResult(wr: FormulaResult[U]): Prop.Status = {
-      // println("getResult")
       wr.result = wr.formula.result.getOrElse(Prop.Undecided)
-      //println(wr.result)
       wr.result
     }
   }

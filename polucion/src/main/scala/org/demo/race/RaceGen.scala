@@ -3,13 +3,12 @@ package org.demo.race
 import org.gen.{ListStream, WinGen}
 import org.scalacheck.{Arbitrary, Gen}
 import org.gen.ListStreamConversions._
-import org.scalacheck.util.Buildable
 
-import scala.collection.mutable.{ListBuffer, Map}
-
+import scala.collection.mutable.Map
 
 
 
+//Contiene todos los generadores para la demo de carreras
 object RaceGen {
 
   val maxSpeed = 8
@@ -17,20 +16,8 @@ object RaceGen {
   var previousPos: Map[String, (Int, String)]= Map[String, (Int, String)]()
 
   var winnerArrived = false
-  var winner = List[String]()
-  var hola = "Hola"
 
-  //Dopado para velocidad > 8
-  //Velocidad entre 1 y 10
-  //Incluir posibilidad de que los corredores se enfaden si hay más de N participantes haciendo trampa?
-  //Incluir que un corredor tenga mas probabilidad de doparse si pierde mas de N veces?
-  //(id, pos, time?)
-  //Si (id, pos, t2) - (id,pos,t2) > N -> descalificado/dopado
-
-
-
- //Hacer initrunner para que todos se dopen,  y para que nadie lo haga
-
+  //Inicializa a todos los corredores de una carrera
   def initRunnerList(id: List[String], min: Int, max: Int): Gen[List[(String, Int, Int, Int, String, Boolean)]] = {
     winnerArrived = false
     previousPos = Map[String, (Int, String)]()
@@ -47,6 +34,7 @@ object RaceGen {
   }
 
 
+  //Genera un nuevo estado con la posicion de los corredores actualizada
   def genNewPos(initPos: List[(String, Int, Int, Int, String, Boolean)]): Gen[List[(String, Int, Int, Int, String, Boolean)]] = {
     if (initPos.isEmpty) for {
       tl <- Gen.const(Nil)
@@ -62,6 +50,7 @@ object RaceGen {
 
 
 
+  //Genera una nueva carrera
   def genRace(id: List[String], goal: Int, min: Int, max: Int): Gen[ListStream[(String, Int, String, Boolean)]] = {
     for{
       init <-initRunnerList(id, min, max)
@@ -87,6 +76,7 @@ object RaceGen {
   }
 
 
+  //Descalifica un corredor de la carrera si el corredor ha cometido una ilegalidad
   def banRunner(runner: (String, Int, Int, Int, String, Boolean)): (String, Int, Int, Int, String, Boolean) = {
     if((runner._5 != "Banned") && checkSpeed((runner._1, runner._4, runner._5, runner._6))){
       //println(runner._1 + " banned from competition.")
@@ -95,6 +85,7 @@ object RaceGen {
     else  runner
   }
 
+  //Busca al corredor que haya cruzado la meta primero
   def findWinner(runner: (String, Int, String, Boolean), goal: Int): (String, Int, String, Boolean) = {
     if(!winnerArrived && (runner._2 >= goal) && (runner._3 != "Banned")){
       winnerArrived = true
@@ -104,7 +95,7 @@ object RaceGen {
   }
 
 
-
+  //Genera n carreras
   def nRaces(gen: Gen[ListStream[(String, Int, String, Boolean)]], n: Int): Gen[ListStream[(String, Int, String, Boolean)]] ={
     if(n == 0) Gen.const(Nil)
     else if(n == 1) gen
@@ -113,7 +104,7 @@ object RaceGen {
   }
 
 
-
+  //Comprueba que a velocidad de un corredor entra dentro de lo normal
   def checkSpeed(runner: (String, Int, String, Boolean)): Boolean = {
     var banned = runner._3 == "Banned"
     if(!previousPos.contains(runner._1)){
@@ -129,6 +120,7 @@ object RaceGen {
     banned
   }
 
+  //Comprueba las velocidades de todos los corredores
   def checkAllSpeeds(runners: List[(String, Int, String, Boolean)]): Boolean = {
     var banned = false
     for(runner <- runners) {
@@ -138,19 +130,21 @@ object RaceGen {
   }
 
 
-
-
+  //Obtiene una lista con los ganadores de una carrera
+  //Utilizado solo para depuracion y para visualizar una carrera, pero no en el testing
   def getWinner(runners: List[(String, Int, Int, Int, String, Boolean)], goal: Int): Boolean ={
     val winners = runners.filter(_._6)
     //println("Ganadores: " + winners)
-   !winners.isEmpty
+   winners.nonEmpty
   }
 
 
+  //Comprueba si un corredor es o no ganador
   def isWinner(runner: (String, Int, String, Boolean)): Boolean ={
     runner._4
   }
 
+  //Comprueba si un corredor ha sido descalificado
   def isBanned(runner: (String, Int, String, Boolean)): Boolean ={
     runner._3 == "Banned"
   }

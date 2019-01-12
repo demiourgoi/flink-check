@@ -4,13 +4,13 @@ import org.apache.flink.api.common.functions.AggregateFunction
 import org.scalacheck.Prop
 
 
-
+//Contador que guarda el numero de aciertos, fallos y pruebas sin decidir que se van recibiendo
 class ResultAccum(){
   var (passed, failed, undecided) = (0,0,0)
 }
 
 
-
+//Cuenta el numero de aciertos, fallos y pruebas sin decidir obtenidas tras el test
 class TestFinalResult (times: Int)extends AggregateFunction[(Boolean,Prop.Status), ResultAccum, (Boolean, String)] {
 
   var cont = 0

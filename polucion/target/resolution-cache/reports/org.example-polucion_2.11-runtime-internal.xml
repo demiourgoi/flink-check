@@ -7,7 +7,7 @@
 		revision="0.1-SNAPSHOT"
 		conf="runtime-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20181224160934"/>
+		date="20190112210348"/>
 	<dependencies>
 		<module organisation="org.specs2" name="specs2-junit_2.11">
 			<revision name="3.8.4" status="release" pubdate="20160620111710" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://specs2.org/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="83">

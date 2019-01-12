@@ -11,31 +11,29 @@ import org.test.Formula.always
 import org.test.{NextFormula, Time}
 
 
+//Clase que aplica una formula a un KeyedStream
 class KeyedStreamTest[Key, U](formula : NextFormula[U]) extends RichFlatMapFunction[(Key,U), (Key,Prop.Status)]{
 
   private var form: ValueState[NextFormula[U]] = _
 
   override def flatMap(input: (Key,U), out: Collector[(Key,Prop.Status)]): Unit = {
 
-    // access the state value
+    //Acceder al ValueState
     val tmpCurrForm = form.value
 
-    // If it hasn't been used before, it will be null
+    //Si no se ha utilizado antes, sera null
     val currentForm = if (tmpCurrForm != null) {
       tmpCurrForm
     } else {
       formula
     }
 
-    // update the count
     val newForm = currentForm.consume(Time(1))(input._2)
-    //println("valor: " + input)
-    //println("formula: " + newForm.result.getOrElse(Prop.Undecided))
 
-    // update the state
+    //Actualiza el estado
     form.update(newForm)
 
-    // if the formula is solved
+    //Si la formula esta resuelta
     if (!newForm.result.getOrElse(Prop.Undecided).equals(Prop.Undecided)) {
       out.collect(input._1, newForm.result.getOrElse(Prop.Undecided))
       form.clear()

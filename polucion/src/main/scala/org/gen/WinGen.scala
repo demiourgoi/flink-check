@@ -13,6 +13,10 @@ import org.apache.flink.streaming.api.windowing.windows.GlobalWindow
 import org.gen.ListStreamConversions._
 
 
+/** Este objeto contiene todos los generadores necesarios para obtener datos aleatorios
+  * con los que hacer random testing, incluyendo el paso a ventanas
+ */
+
 object WinGen{
 
 
@@ -36,8 +40,8 @@ object WinGen{
   }
 
   //devuelve una lista con listas generadas por lg
-  def ofNList[T](lg : Gen[List[T]]) : Gen[ListStream[T]] = {
-    Gen.listOfN(1,lg)
+  def ofNList[T](lg : Gen[List[T]], n: Int) : Gen[ListStream[T]] = {
+    Gen.listOfN(n,lg)
   }
 
   //Devuelve una lista de listas con n listas vacias seguidas de lg
@@ -47,9 +51,6 @@ object WinGen{
       blanks = List.fill(n)(List.empty : List[A])
     } yield blanks:::list::Nil
   }
-
-
-
 
 
   //Concatena dos generadores de listas en un generador de ListStream
@@ -87,11 +88,23 @@ object WinGen{
 
   /**GENERADORES**/
 
+
+  //Devuelve un ListStream con un único elemento generado por lg
+  def now[A](lg : Gen[List[A]]): Gen[ListStream[A]] = {
+    ofNList(lg,1)
+  }
+
+  //Devuelve un ListStream con un elemento vacio seguido de un único elemento generado por lg
+  def next[A](lg : Gen[List[A]]): Gen[ListStream[A]] = {
+    laterN(1, lg)
+  }
+
+  //Genera elementos de lg1 hasta generar un elemento de lg2, antes de tener mas de 'time' elementos
   def until[A](lg1 : Gen[List[A]], lg2 : Gen[List[A]], time: Int) : Gen[ListStream[A]] =
     if (time <= 0)
       Gen.const(List.empty)
     else if (time == 1)
-      ofNList(lg2)
+      ofNList(lg2, 1)
     else
       for {
         proofOffset <- Gen.choose(0, time - 1)
@@ -100,7 +113,7 @@ object WinGen{
       } yield prefix.toList ++ dsg2Proof.toList.filter(e => e != List.empty)
 
 
-
+  //Genera elementos vacios hasta generar un elemento de lg, antes de tener mas de 'time' elementos
   def eventually[A](lg : Gen[List[A]], time: Int) : Gen[ListStream[A]] = {
     if (time <= 0) Gen.const(List.empty)
     else {
@@ -110,6 +123,7 @@ object WinGen{
   }
 
 
+  //Genera 'time' elementos con el generador lg
   def always[A](lg : Gen[List[A]], time: Int) : Gen[ListStream[A]] =
     if (time <= 0)
       Gen.const(List.empty)
@@ -118,14 +132,14 @@ object WinGen{
 
 
 
+  //Genera elementos de lg2 hasta generar la union de un elemento de lg1 y otro de lg2, antes de tener mas de 'time' elementos
   def release[A](lg1 : Gen[List[A]], lg2 : Gen[List[A]], time: Int) : Gen[ListStream[A]] = {
     if (time <= 0)
       Gen.const(List.empty)
     else if (time == 1)
       for {
         isReleased <- arbitrary[Boolean]
-        proof <- if (isReleased) (union(ofNList(lg1), ofNList(lg2)))
-        else ofNList(lg2)
+        proof <- if (isReleased) (union(ofNList(lg1,1), ofNList(lg2,1))) else ofNList(lg2,1)
       } yield proof
     else for {
       isReleased <- arbitrary[Boolean]
@@ -139,10 +153,9 @@ object WinGen{
     for {
       proofOffset <- Gen.choose(0, time - 1)
       prefix <- always(lg2, proofOffset)
-      ending <- laterN(proofOffset, concat(lg1, lg2))
-    } yield prefix.toList ++ ending.toList.filter(e => e != List.empty)
+      ending <- union(ofNList(lg1,1), ofNList(lg2,1))
+    } yield prefix ++ ending
   }
-
 
 
 

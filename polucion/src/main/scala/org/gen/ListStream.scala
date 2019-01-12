@@ -4,6 +4,10 @@ import org.scalacheck.Gen
 import scala.language.implicitConversions
 
 
+/** La clase LisStream se utiliza para representar el tipo List[List[A]].
+  * Los datos generados para ser posteriomente introducidos en ventanas deben tener ser de este tipo.
+  */
+
 
 object ListStreamConversions{
   implicit def transformFromGen[A](gen : Gen[List[List[A]]]) : Gen[ListStream[A]] = gen.map(x => new ListStream[A](x))

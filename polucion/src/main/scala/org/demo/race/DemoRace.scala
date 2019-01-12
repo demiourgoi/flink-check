@@ -11,7 +11,7 @@ import org.scalacheck.Gen
 
 
 
-
+//Clase con tests para probar la funcion test
 class DemoRace extends Specification
   with ResultMatchers
   with ScalaCheck
@@ -19,7 +19,7 @@ class DemoRace extends Specification
 
 
   def is =
-    sequential ^ s2"""
+    sequential ^ s2""" Races demo
       - where the number of runners in the race must always be below the initial number of runners $racesOk
       - where the number of runners in the race must always be below the initial number of runners $checkSpeeds
       - where the number of runners in the race must always be below the initial number of runners $checkBannedRunner

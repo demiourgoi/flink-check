@@ -11,7 +11,7 @@ import org.test.Formula.{always, later}
 import org.test.Test
 
 
-
+//Clase con tests para probar KeyedStreamTest
 class DemoKeyedStreamTest extends Specification
   with ScalaCheck
   with ResultMatchers
@@ -19,12 +19,10 @@ class DemoKeyedStreamTest extends Specification
 
 
   def is =
-    sequential ^ s2"""
-    Simple demo Specs2 for a formula
+    sequential ^ s2""" KeyedStream demo
       - where a simple formula must hold on a list ${simpleTest}
-      - where Tom is okay but Ana isn't ${patientTest1}
+      - where Tom is okay but Ana isn't at first ${patientTest1}
       - where Tom and Ana are fine ${patientTest2}
-      - where Tom isn't healthy, and Ana's state is still unknown ${patientTest3}
     """
 
 
@@ -44,19 +42,6 @@ class DemoKeyedStreamTest extends Specification
 
     println("Simple test")
     env.getConfig.disableSysoutLogging()
-    /*val stream = env.fromCollection(List(
-      (1, "hola"),
-      (2, "hola"),
-      (1, "hola"),
-      (1, "hola"),
-      (1, "hola"),
-      (1, "hola"),
-      (1, "hola"),
-      (1, "hola"),
-      (2, "hola"),
-      (2, "adios")
-    )).keyBy(_._1)
-    val res = Test.keyedTest(stream.asInstanceOf[KeyedStream[(Any, U), Int]], formula, env)*/
     val res = env.fromCollection(List(
       (1, "hola"),
       (2, "hola"),
@@ -90,7 +75,7 @@ class DemoKeyedStreamTest extends Specification
     val eventuallyLow : Formula[U] = later { (u : U) => this.low(u) } during 6
     val alwaysNormal : Formula[U] = always{ (u : U) => this.normal(u) } during 12
 
-    val formula : Formula[U] = alwaysNormal or ( {(u:U) => high} and eventuallyLow) or ( {(u:U) => low} and eventuallyHigh) and ((!alwaysNormal and {(u:U) => normal}) ==> eventuallyHigh or eventuallyLow)
+    val formula : Formula[U] = (alwaysNormal or (  {(u : U) => high} and eventuallyLow) or ( {(u : U) =>low} and eventuallyHigh)) and ((!alwaysNormal and {(u : U) =>normal}) ==> (eventuallyHigh or eventuallyLow))
 
 
     println("Patient test 1")
@@ -129,7 +114,7 @@ class DemoKeyedStreamTest extends Specification
     val eventuallyLow : Formula[U] = later { (u : U) => this.low(u) } during 6
     val alwaysNormal : Formula[U] = always{ (u : U) => this.normal(u) } during 12
 
-    val formula : Formula[U] = alwaysNormal or ( {(u:U) => high} and eventuallyLow) or ( {(u:U) => low} and eventuallyHigh) and ((!alwaysNormal and {(u:U) => normal}) ==> eventuallyHigh or eventuallyLow)
+    val formula : Formula[U] = alwaysNormal or ( {(u : U) =>high} and eventuallyLow) or ( {(u : U) =>low} and eventuallyHigh) and ((!alwaysNormal and {(u : U) =>normal}) ==> eventuallyHigh or eventuallyLow)
 
     println("Patient test 2")
     env.getConfig.disableSysoutLogging()
@@ -161,48 +146,6 @@ class DemoKeyedStreamTest extends Specification
     return res.toString
   }
 
-  def patientTest3 : String = {
-    val env = StreamExecutionEnvironment.getExecutionEnvironment
-
-    type U = Int
-    val normal : Formula[U] = { (u : U) => (3 <= u ) and (u <= 7)}
-    val high : Formula[U] = { (u : U) => u > 7}
-    val low : Formula[U] = { (u : U) => u < 3 }
-
-    val eventuallyHigh : Formula[U] = later { (u : U) => this.high(u) } during 6
-    val eventuallyLow : Formula[U] = later { (u : U) => this.low(u) } during 6
-    val alwaysNormal : Formula[U] = always{ (u : U) => this.normal(u) } during 12
-
-
-    val formula : Formula[U] = alwaysNormal or ( {(u:U) => high} and eventuallyLow) or ( {(u:U) => low} and eventuallyHigh) and ((!alwaysNormal and {(u:U) => normal}) ==> eventuallyHigh or eventuallyLow)
-
-
-    println("Patient test 3")
-    env.getConfig.disableSysoutLogging()
-    val res = env.fromCollection(List(
-      ("Tom", 4),
-      ("Tom", 8),
-      ("Ana", 2),
-      ("Tom", 2),
-      ("Tom", 4),
-      ("Tom", 4),
-      ("Tom", 4),
-      ("Tom", 4),
-      ("Tom", 4),
-      ("Tom", 4),
-      ("Ana", 5),
-      ("Ana", 5),
-      ("Ana", 5)
-    )).keyBy(_._1)
-      .flatMap(new KeyedStreamTest[String,U](formula.nextFormula))
-
-
-
-    res.print()
-
-    env.execute()
-    return res.toString
-  }
 
 
 

@@ -1,7 +1,6 @@
 package org.test
 
 
-import org.apache.flink.api.java.tuple.Tuple
 import org.scalacheck.{Gen, Prop}
 import org.specs2.runner.JUnitRunner
 import org.specs2.ScalaCheck
@@ -11,17 +10,18 @@ import org.gen.ListStream
 import org.gen.WinGen
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.api.windowing.windows.GlobalWindow
-import org.test.keyedStreamTest.KeyedStreamTest
 import org.test.streamTest.ForEachStreamElem
 
 
-//VERSION BUENA
 
 
+//Objeto con todas las funciones test desarrolladas.
+//Las que se utilizan en este proyecto son 'test' y 'testAux', y 'testStream' se utiliza en 'DemoTestStream'.
 object Test {
 
 
 
+  //Evalua la formula fom a la lista generada por gen
   def testList[U](gen: Gen[List[U]], form: Formula[U]): Prop.Status = {
     var currFormula = form.nextFormula
     gen.sample.get.foreach(elem => if (currFormula.result.isEmpty) {
@@ -31,44 +31,31 @@ object Test {
   }
 
 
-  def testStream[U](stream: AllWindowedStream[Any, GlobalWindow], form: Formula[U], env: StreamExecutionEnvironment, times: Int, numData: Int): DataStream[Prop.Status] = {
+  //Evalua la formula form al stream recibido
+  def testStream[U](stream: AllWindowedStream[Any, GlobalWindow], form: Formula[U], env: StreamExecutionEnvironment): DataStream[Prop.Status] = {
     env.getConfig.disableSysoutLogging()
     var currFormula = form.nextFormula
     val formulaCopy : NextFormula[U] = currFormula
-    val resultWindows = stream.aggregate(new ForEachStreamElem[U](formulaCopy, times, numData))
-    //val dataStream: DataStream[Prop.Status] = env.fromCollection(List(Prop.Undecided))
+    val resultWindows = stream.aggregate(new ForEachStreamElem[U](formulaCopy))
     resultWindows.filter(_._1).map(_._2)
   }
 
 
-  def testWithoutFor[U](gen: Gen[ListStream[U]], form: Formula[List[U]], env: StreamExecutionEnvironment, times: Int): DataStream[Prop.Status] = {
+  //Funcion test que solo permite hacer un test
+  def testWithoutLoop[U](gen: Gen[ListStream[U]], form: Formula[List[U]], env: StreamExecutionEnvironment, times: Int): DataStream[Prop.Status] = {
     env.getConfig.disableSysoutLogging()
-
       var currFormula = form.nextFormula
       val w = WinGen.toWindowsList(gen, env)
       val formulaCopy: NextFormula[List[U]] = currFormula
-      val resultWindows = w.aggregate(new ForEachWindow[U](formulaCopy)) //val dataStream: DataStream[Prop.Status] = env.fromCollection(List(Prop.Undecided))
-      //print(resultWindows.filter(_._1).map(_._2).asInstanceOf[Prop.Status])
+      val resultWindows = w.aggregate(new ForEachWindow[U](formulaCopy))
       resultWindows.filter(_._1).map(_._2)
-
   }
 
 
-  def keyedTest[U](stream: KeyedStream[(Any, U), Int], form: Formula[U], env: StreamExecutionEnvironment): DataStream[(Any,Prop.Status)] = {
-    env.getConfig.disableSysoutLogging()
-    var currFormula = form.nextFormula
-    val formulaCopy : NextFormula[U] = currFormula
-    val result = stream.flatMap(new KeyedStreamTest[Any,U](currFormula))
-    //val dataStream: DataStream[Prop.Status] = env.fromCollection(List(Prop.Undecided))
-    result.print()
-
-    env.execute()
-    result
-  }
-
+  //Funcion test que ejecuta el generador gen tantas veces como se indique en times, y evalua formula a los
+  //datos generados cada vez, devolviendo times resultados
   def test[U](gen: Gen[ListStream[U]], form: Formula[List[U]], env: StreamExecutionEnvironment, times: Int): DataStream[String] = {
     env.getConfig.disableSysoutLogging()
-    //for(i <- 1 to times) {
       var currFormula = form.nextFormula
       val w = WinGen.toWindowsList(gen, env)
       val formulaCopy: NextFormula[List[U]] = currFormula
@@ -87,22 +74,18 @@ object Test {
 
     def testAux[U](gen: Gen[ListStream[U]], form: Formula[List[U]], env: StreamExecutionEnvironment, times: Int): DataStream[(Boolean,Prop.Status)] = {
       env.getConfig.disableSysoutLogging()
-      //for(i <- 1 to times) {
       if(times > 1){
         var currFormula = form.nextFormula
         val w = WinGen.toWindowsList(gen, env)
         val formulaCopy: NextFormula[List[U]] = currFormula
-        val resultWindows = w.aggregate(new ForEachWindow[U](formulaCopy)) //val dataStream: DataStream[Prop.Status] = env.fromCollection(List(Prop.Undecided))
-        //print(resultWindows.filter(_._1).map(_._2).asInstanceOf[Prop.Status])
+        val resultWindows = w.aggregate(new ForEachWindow[U](formulaCopy))
         resultWindows.union(testAux(gen, form, env, times-1))
         }
        else{
         var currFormula = form.nextFormula
         val w = WinGen.toWindowsList(gen, env)
         val formulaCopy: NextFormula[List[U]] = currFormula
-        w.aggregate(new ForEachWindow[U](formulaCopy)) //val dataStream: DataStream[Prop.Status] = env.fromCollection(List(Prop.Undecided))
-        //print(resultWindows.filter(_._1).map(_._2).asInstanceOf[Prop.Status])
-
+        w.aggregate(new ForEachWindow[U](formulaCopy))
         }
       }
 
