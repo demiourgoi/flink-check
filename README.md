@@ -1,5 +1,4 @@
-# TFM
-Random testing basado en lógica temporal para Apache Flink
+# TFM: Random testing basado en lógica temporal para Apache Flink
 
 Herramienta que permite hacer uso de fórmulas de lógica temporal y generadores de ventanas con datos aleatorios para
 realizar random testing en aplicaciones de Apache Flink. 
