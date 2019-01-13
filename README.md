@@ -4,11 +4,11 @@ Herramienta que permite hacer uso de fórmulas de lógica temporal y generadores
 realizar random testing en aplicaciones de Apache Flink. 
 
 Las clases desarrolladas se encuentran en:
-https://github.com/Valcev/TFM/tree/master/polucion/src/main/scala/org
+https://github.com/Valcev/TFM/tree/master/tfm/src/main/scala/org
 
 
 ## Ejecutable
-Ejecutable disponible en: https://github.com/Valcev/TFM/tree/master/polucion/Ejecutable
+Ejecutable disponible en: https://github.com/Valcev/TFM/tree/master/tfm/Ejecutable
 
 **Es necesario tener instalada una versión de Java 1.8 o superior.**
 
