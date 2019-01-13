@@ -1,5 +1,0 @@
-test
-clean assembly
-sbt clean assembly
-clean assembly
-clean
