@@ -162,6 +162,9 @@ object WinGen{
                       implicit ev: TypeInformation[List[A]]):
   AllWindowedStream[List[A],GlobalWindow] = {
     val windowList = data.sample.get.toList
+    // FIXME: this won't work with `ForEachWindow` but using null as in original code
+    // breaks the types to Any. `org.apache.flink.api.java.utils.Option` is more
+    // reasonable if we decide to stick to the original approach
     val stream = env.fromCollection(windowList)
     stream.countWindowAll(1)
   }
