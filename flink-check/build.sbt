@@ -4,7 +4,7 @@ organization := "es.ucm.fdi"
 
 version := "0.0.1-SNAPSHOT"
 
-scalaVersion := "2.10.6"
+scalaVersion := "2.11.8"
 
 crossScalaVersions  := Seq("2.10.6")
 

@@ -9,7 +9,7 @@ version := "0.1-SNAPSHOT"
 
 organization := "es.ucm.fdi"
 
-ThisBuild / scalaVersion := "2.12.8"
+ThisBuild / scalaVersion := "2.11.8"
 
 val flinkVersion = "1.7.2"
 
