@@ -1,4 +1,4 @@
-package es.ucm.fdi.sscheck.flink.demo
+package es.ucm.fdi.sscheck.flink.demo.pollution
 
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
@@ -19,7 +19,7 @@ object Pollution {
       .map(parsePair(_))
       .assignAscendingTimestamps( _.timestamp )
     
-    val counts : DataStream[(Int, String)] = pollution1(data)
+    val counts : DataStream[(Int, EmergencyLevel.EmergencyLevel)] = pollution1(data)
 
     // execute and print result
     counts.print()
@@ -28,12 +28,12 @@ object Pollution {
   }
   
   
-  def pollution1(raw : DataStream[SensorData]) : DataStream[(Int, String)] = 
+  def pollution1(raw : DataStream[SensorData]) : DataStream[(Int, EmergencyLevel.EmergencyLevel)] =
     raw.filter(_.concentration > 180)
        .keyBy("sensor_id")
        .timeWindow(Time.seconds(3), Time.seconds(1))
        .max("concentration")
-       .map { x => (x.sensor_id, emergencyLevel(x.concentration)) }
+       .map { x => (x.sensor_id, EmergencyLevel(x.concentration)) }
     
   
   // Each line contains one sensor value in CSV: timestamp, sensor_id, concentration
@@ -42,14 +42,17 @@ object Pollution {
     SensorData(parts(0).toLong, parts(1).toInt, parts(2).toDouble)
   }
  
-  
-  def emergencyLevel(pol : Double) : String = 
-    pol match {
-      case x if x > 400.0 => "Alert"
-      case x if (x > 200.0) && (x < 400.0) => "Warning"
-      case x if (x > 180.0) && (x <= 200.0) => "Notice"
-      case x => "OK"
+  object EmergencyLevel extends Enumeration {
+    type EmergencyLevel = Value
+    val Alert, Warning, Notice, OK = Value
+
+    def apply(pol : Double) = pol match {
+      case x if x > 400.0 => Alert
+      case x if (x > 200.0) && (x < 400.0) => Warning
+      case x if (x > 180.0) && (x <= 200.0) => Notice
+      case _ => OK
     }
+  }
     
   case class SensorData(timestamp: Long, sensor_id: Int, concentration: Double)
   
