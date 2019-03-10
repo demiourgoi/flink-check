@@ -3,7 +3,7 @@ ThisBuild / resolvers ++= Seq(
     Resolver.mavenLocal
 )
 
-name := "Pollution"
+name := "flink-check-examples"
 
 version := "0.1-SNAPSHOT"
 
