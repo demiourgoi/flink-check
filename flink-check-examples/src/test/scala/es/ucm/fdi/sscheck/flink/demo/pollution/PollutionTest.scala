@@ -23,7 +23,7 @@ class PollutionTest
       """
 
   def fixture = new {
-    val env = StreamExecutionEnvironment.getExecutionEnvironment
+    val env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI()
   }
 
   def pollution1Ok = {
