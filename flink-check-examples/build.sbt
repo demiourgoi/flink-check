@@ -15,7 +15,9 @@ lazy val flinkVersion = "1.7.2"
 
 lazy val flinkDependencies = Seq(
   "org.apache.flink" %% "flink-scala" % flinkVersion % "provided",
-  "org.apache.flink" %% "flink-streaming-scala" % flinkVersion % "provided")
+  "org.apache.flink" %% "flink-streaming-scala" % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-runtime-web"  % flinkVersion % "provided"
+)
 
 lazy val specs2Version = "3.8.4"
 
