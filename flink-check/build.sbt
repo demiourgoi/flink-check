@@ -12,12 +12,13 @@ lazy val sscheckVersion = "0.3.2"
 
 lazy val specs2Version = "3.8.4"
 
-lazy val flinkVersion = "1.3.0"
+lazy val flinkVersion = "1.7.2"
 
 lazy val flinkDependencies = Seq(
-  "org.apache.flink" %% "flink-scala" % flinkVersion,
-  "org.apache.flink" %% "flink-streaming-scala" % flinkVersion,
-  "org.apache.flink" % "flink-java" % "1.3.0")
+  "org.apache.flink" %% "flink-scala" % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-streaming-scala" % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-runtime-web"  % flinkVersion % "provided"
+)
 
 libraryDependencies ++= Seq("org.scalacheck" %% "scalacheck" % "1.13.4", "org.scalacheck" %% "scalacheck" % "1.13.4" % "test")
 
