@@ -34,7 +34,9 @@ libraryDependencies += "org.specs2" %% "specs2-junit" % specs2Version
 
 libraryDependencies ++= flinkDependencies
 
-libraryDependencies += "es.ucm.fdi" %% "sscheck" % sscheckVersion % "test"
+// leads to "noSuchMethodError: akka.actor.LocalActorRefProvider.log()Lakka/event/LoggingAdapter"
+// due to multiple akka versions
+// libraryDependencies += "es.ucm.fdi" %% "sscheck" % sscheckVersion % "test"
 
 // show all the warnings: http://stackoverflow.com/questions/9415962/how-to-see-all-the-warnings-in-sbt-0-11
 scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation")
