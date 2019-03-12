@@ -22,3 +22,10 @@ in the wiki for details
 
 - Set "Use SBT shell for build and import" on the project setting
 to avoid ["Some keys were defined with the same name" issue](https://stackoverflow.com/questions/47084795/strange-sbt-bug-where-i-cannot-import-sbt-project-due-to-keys-colliding-with-the#47777860)
+
+### Troubleshooting
+
+#### Sbt `[error] java.util.concurrent.ExecutionException: java.lang.OutOfMemoryError: Metaspace`
+
+Seems to be triggered from time to time when adding `import org.apache.flink.streaming.api.scala.extensions._`.
+A workaround is restarting the Sbt shell. Looks like a Flink or Sbt issue.  
