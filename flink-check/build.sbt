@@ -17,7 +17,8 @@ lazy val flinkVersion = "1.7.2"
 lazy val flinkDependencies = Seq(
   "org.apache.flink" %% "flink-scala" % flinkVersion % "provided",
   "org.apache.flink" %% "flink-streaming-scala" % flinkVersion % "provided",
-  "org.apache.flink" %% "flink-runtime-web"  % flinkVersion % "provided"
+  "org.apache.flink" %% "flink-runtime-web"  % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-connector-filesystem"  % flinkVersion % "provided"
 )
 
 libraryDependencies ++= Seq("org.scalacheck" %% "scalacheck" % "1.13.4", "org.scalacheck" %% "scalacheck" % "1.13.4" % "test")
@@ -31,6 +32,8 @@ libraryDependencies += "org.specs2" %% "specs2-scalacheck" % specs2Version
 libraryDependencies += "org.specs2" %% "specs2-matcher-extra" % specs2Version
 
 libraryDependencies += "org.specs2" %% "specs2-junit" % specs2Version
+
+libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "2.7.4" % "provided"
 
 libraryDependencies ++= flinkDependencies
 
