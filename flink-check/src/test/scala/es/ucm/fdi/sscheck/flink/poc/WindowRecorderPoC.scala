@@ -26,8 +26,7 @@ object TimedValue {
     (timeOffset / windowSizeMillis).toInt
   }
 
-  def tumblingWindows[T](windowSize: Time)(
-    data: DataSet[TimedValue[T]]): Iterator[DataSet[TimedValue[T]]] =
+  def tumblingWindows[T](windowSize: Time)(data: DataSet[TimedValue[T]]): Iterator[TimedWindow[T]] =
     if (data.count() <= 0) Iterator.empty
     else {
 
@@ -38,14 +37,22 @@ object TimedValue {
         //(endTimestamp / windowSize.toMilliseconds).toInt
 
       Iterator.range(0, endingWindowIndex + 1).map { windowIndex =>
-        data.filter{record =>
+        val windowData = data.filter{record =>
           tumblingWindowIndex(windowSizeMillis, startTimestamp)(record.timestamp) == windowIndex
         }
+        TimedWindow(startTimestamp + windowIndex*windowSizeMillis, windowData)
       }
   }
 }
 /** @param timestamp milliseconds since epoch */
 case class TimedValue[T](timestamp: Long, value: T)
+
+/** Represents a time window with timed values. Note timestamp can be smaller than the earlier
+  * element in data, for example in a tumbling window where a new event starts at a regular rate,
+  * independently of the actual elements in the window
+  * @param timestamp milliseconds since epoch for the start of the window
+  * */
+case class TimedWindow[T](timestamp: Long, data: DataSet[TimedValue[T]])
 
 /** Converts each record into a [[TimedValue]], adding the timestamp provided
   * by [[ProcessFunction#Context]]. That means this will fail if the time characteristic
@@ -151,17 +158,16 @@ class WindowRecorderPoC
     println(s"initial timestamp for input = ${timedInput.map{_.timestamp}.reduce(scala.math.min(_, _)).collect().head}")
     println(s"initial timestamp for output = ${timedOutput.map{_.timestamp}.reduce(scala.math.min(_, _)).collect().head}")
 
-    // TODO: add start window time, for the letter
     val outputWindows = TimedValue.tumblingWindows(Time.seconds(1))(timedOutput)
     outputWindows.zipWithIndex.foreach{case (outputWindow, i) =>
-      println(s"\noutputWindow #$i")
-      outputWindow.print()
+      println(s"\noutputWindow #$i with timestamp ${outputWindow.timestamp}")
+      outputWindow.data.print()
     }
 
     val inputWindows = TimedValue.tumblingWindows(Time.seconds(1))(timedInput)
     inputWindows.zipWithIndex.foreach{case (inputWindow, i) =>
-      println(s"\ninputWindow #$i")
-      inputWindow.print()
+      println(s"\ninputWindow #$i with timestamp ${inputWindow.timestamp}")
+      inputWindow.data.print()
     }
 
     ok
