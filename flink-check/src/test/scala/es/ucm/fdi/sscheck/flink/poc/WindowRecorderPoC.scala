@@ -1,5 +1,7 @@
 package es.ucm.fdi.sscheck.flink.poc
 
+import java.util.concurrent.TimeUnit
+
 import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.api.java.io.{TypeSerializerInputFormat, TypeSerializerOutputFormat}
 import org.apache.flink.api.scala._
@@ -18,7 +20,37 @@ import org.specs2.runner.JUnitRunner
 import scala.language.{implicitConversions, reflectiveCalls}
 import scala.collection.JavaConverters._
 
+object TimedValue {
+  private[this] def tumblingWindowIndex(windowSizeMillis: Long, startTimestamp: Long)(timestamp: Long): Int = {
+    val timeOffset = timestamp - startTimestamp
+    (timeOffset / windowSizeMillis).toInt
+  }
+
+  def tumblingWindows[T](windowSize: Time)(
+    data: DataSet[TimedValue[T]]): Iterator[DataSet[TimedValue[T]]] =
+    if (data.count() <= 0) Iterator.empty
+    else {
+
+      val windowSizeMillis = windowSize.toMilliseconds
+      val startTimestamp = data.map{_.timestamp}.reduce(scala.math.min(_, _)).collect().head
+      val endTimestamp = data.map{_.timestamp}.reduce(scala.math.max(_, _)).collect().head
+      val endingWindowIndex = tumblingWindowIndex(windowSizeMillis, startTimestamp)(endTimestamp)
+        //(endTimestamp / windowSize.toMilliseconds).toInt
+
+      Iterator.range(0, endingWindowIndex + 1).map { windowIndex =>
+        data.filter{record =>
+          tumblingWindowIndex(windowSizeMillis, startTimestamp)(record.timestamp) == windowIndex
+        }
+      }
+  }
+}
+/** @param timestamp milliseconds since epoch */
 case class TimedValue[T](timestamp: Long, value: T)
+
+/** Converts each record into a [[TimedValue]], adding the timestamp provided
+  * by [[ProcessFunction#Context]]. That means this will fail if the time characteristic
+  * is ProcessingTime. So far this has been tested with event time.
+  * */
 class AddTimestamp[T] extends ProcessFunction[T, TimedValue[T]] {
   override def processElement(value: T, ctx: ProcessFunction[T, TimedValue[T]]#Context,
                               out: Collector[TimedValue[T]]): Unit = {
@@ -38,7 +70,7 @@ class WindowRecorderPoC
 
   def is =
     sequential ^ s2"""
-        where we exercise a test case and store it in a pair of files $binaryBar
+        where we exercise a test case and store it in a pair of files binaryBar
         and then we read those files $readRecordedWindows
       """
 
@@ -115,6 +147,22 @@ class WindowRecorderPoC
     val timedOutput = env.readFile(timedOutputInputFormat, "/tmp/WindowRecorderPoC/outputData")
     timedOutput.print()
     println(s"timedOutput.count ${timedOutput.count()}")
+
+    println(s"initial timestamp for input = ${timedInput.map{_.timestamp}.reduce(scala.math.min(_, _)).collect().head}")
+    println(s"initial timestamp for output = ${timedOutput.map{_.timestamp}.reduce(scala.math.min(_, _)).collect().head}")
+
+    // TODO: add start window time, for the letter
+    val outputWindows = TimedValue.tumblingWindows(Time.seconds(1))(timedOutput)
+    outputWindows.zipWithIndex.foreach{case (outputWindow, i) =>
+      println(s"\noutputWindow #$i")
+      outputWindow.print()
+    }
+
+    val inputWindows = TimedValue.tumblingWindows(Time.seconds(1))(timedInput)
+    inputWindows.zipWithIndex.foreach{case (inputWindow, i) =>
+      println(s"\ninputWindow #$i")
+      inputWindow.print()
+    }
 
     ok
   }
