@@ -27,5 +27,10 @@ to avoid ["Some keys were defined with the same name" issue](https://stackoverfl
 
 #### Sbt `[error] java.util.concurrent.ExecutionException: java.lang.OutOfMemoryError: Metaspace`
 
-Seems to be triggered from time to time when adding `import org.apache.flink.streaming.api.scala.extensions._`.
-A workaround is restarting the Sbt shell. Looks like a Flink or Sbt issue.  
+That means [Sbt needs more memory](https://stackoverflow.com/questions/8331135/how-to-prevent-java-lang-outofmemoryerror-permgen-space-at-scala-compilation)
+A workaround is shutting down Sbt, exporting `SBT_OPTS` to increase `MaxPermSize` and other options depending on 
+your host capabilities, and relaunch Sbt. Options are JVM options so they depend on your JRE version.
+
+```
+export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2G -Xmx2G"
+```
