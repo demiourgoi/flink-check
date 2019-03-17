@@ -1,24 +1,15 @@
 package es.ucm.fdi.sscheck.flink.poc
 
-import java.io.OutputStream
-
-import org.apache.flink.api.common.ExecutionConfig
-import org.apache.flink.api.common.serialization.{Encoder, SimpleStringEncoder}
 import org.apache.flink.api.common.typeinfo.TypeInformation
-import org.apache.flink.api.java.tuple.{Tuple2 => FlinkTuple2}
+import org.apache.flink.api.java.io.{TypeSerializerInputFormat, TypeSerializerOutputFormat}
 import org.apache.flink.api.scala._
 import org.apache.flink.core.fs.Path
-import org.apache.flink.core.memory.DataOutputViewStreamWrapper
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.ProcessFunction
-import org.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink
-import org.apache.flink.streaming.api.functions.sink.filesystem.bucketassigners.DateTimeBucketAssigner
-import org.apache.flink.streaming.api.scala.extensions._
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment, WindowedStream}
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow
 import org.apache.flink.util.Collector
-import org.apache.hadoop.io.IntWritable
 import org.junit.runner.RunWith
 import org.specs2.Specification
 import org.specs2.matcher.{ResultMatchers, ThrownExpectations}
@@ -26,22 +17,6 @@ import org.specs2.runner.JUnitRunner
 
 import scala.language.{implicitConversions, reflectiveCalls}
 import scala.collection.JavaConverters._
-
-
-/** Encoder that writes elements T into byte arrays using Flink's serialization. Note
-  * the resulting files won't be usable across versions of Flink even different
-  * configurations of the same program, as that can change the serialization options. This
-  * is useful only for temporal storage of data used by different parts of the same program */
-class FlinkBinarySerializationEncoder[T : TypeInformation](config: ExecutionConfig) extends Encoder[T] {
-  // see example on https://github.com/apache/flink/blob/master/flink-core/src/main/java/org/apache/flink/api/common/serialization/SimpleStringEncoder.java
-
-  val typeSerializer = implicitly[TypeInformation[T]].createSerializer(config)
-
-  override def encode(element: T, stream: OutputStream): Unit = {
-    val dataOutputView  = new DataOutputViewStreamWrapper(stream)
-    typeSerializer.serialize(element, dataOutputView)
-  }
-}
 
 case class TimedValue[T](timestamp: Long, value: T)
 class AddTimestamp[T] extends ProcessFunction[T, TimedValue[T]] {
@@ -62,11 +37,9 @@ class WindowRecorderPoC
   extends Specification with ResultMatchers with ThrownExpectations {
 
   def is =
-    s2"""
-        - where foo
-        - where readRecordedWindows
-        - where bar
-        - where $binaryBar
+    sequential ^ s2"""
+        where we exercise a test case and store it in a pair of files $binaryBar
+        and then we read those files $readRecordedWindows
       """
 
   /* This works fine with event time because [watermarks](https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_time.html#event-time-and-watermarks)
@@ -107,17 +80,18 @@ class WindowRecorderPoC
     val timedInput: DataStream[TimedValue[Int]] = input.process(new AddTimestamp())
     val timedOutput = output.process(new AddTimestamp())
 
-    val inputSink =  StreamingFileSink
-      .forRowFormat(new Path("/tmp/WindowRecorderPoC/input"),
-        new FlinkBinarySerializationEncoder[TimedValue[Int]](env.getConfig))
-      .build()
-    timedInput.addSink(inputSink)
-
-    val ouputSink =  StreamingFileSink
-      .forRowFormat(new Path("/tmp/WindowRecorderPoC/output"),
-        new FlinkBinarySerializationEncoder[TimedValue[Int]](env.getConfig))
-      .build()
-    timedOutput.addSink(ouputSink)
+    val timedInputOutputFormat = {
+      val format = new TypeSerializerOutputFormat[TimedValue[Int]]
+      format.setOutputFilePath(new Path( "/tmp/WindowRecorderPoC/inputData"))
+      format
+    }
+    timedInput.writeUsingOutputFormat(timedInputOutputFormat)
+    val timedOutputOutputFormat = {
+      val format = new TypeSerializerOutputFormat[TimedValue[Int]]
+      format.setOutputFilePath(new Path( "/tmp/WindowRecorderPoC/outputData"))
+      format
+    }
+    timedOutput.writeUsingOutputFormat(timedOutputOutputFormat)
 
 //    timedOutput.map{x => s"output($x)"}.print()
 //    timedInput.map{x => s"input($x)"}.print()
@@ -128,12 +102,19 @@ class WindowRecorderPoC
 
   def readRecordedWindows = {
     val env = ExecutionEnvironment.createLocalEnvironment(3)
-    import org.apache.flink.hadoopcompatibility.HadoopInputs
-//    val hadoopInput = HadoopInputs.readSequenceFile(classOf[IntWritable], classOf[FlinkWritable[List[Int]]], "/tmp/WindowRecorderPoC/foo")
-////    val typeInfo = implicitly[TypeInformation[Tuple2[IntWritable, ]]]
-//    val input = env.createInput(hadoopInput)
-//    input.print()
-////    println(input.count())
+
+    val timedInputInputFormat = new TypeSerializerInputFormat[TimedValue[Int]](
+      implicitly[TypeInformation[TimedValue[Int]]])
+    val inputFilePath = "/tmp/WindowRecorderPoC/inputData"
+    val timedInput = env.readFile(timedInputInputFormat, inputFilePath)
+    timedInput.print()
+    println(s"timedInput.count ${timedInput.count()}\n\n")
+
+    val timedOutputInputFormat = new TypeSerializerInputFormat[TimedValue[Int]](
+      implicitly[TypeInformation[TimedValue[Int]]])
+    val timedOutput = env.readFile(timedOutputInputFormat, "/tmp/WindowRecorderPoC/outputData")
+    timedOutput.print()
+    println(s"timedOutput.count ${timedOutput.count()}")
 
     ok
   }
