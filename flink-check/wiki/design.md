@@ -41,7 +41,7 @@ class AddTimestamp[T] extends ProcessFunction[T, TimedValue[T]] {
                               ctx: ProcessFunction[T, TimedValue[T]]#Context,
                               out: Collector[TimedValue[T]]): Unit = {
     out.collect(TimedValue(ctx.timestamp(), value))
-  
+}
 ```
 
 and we just store that using `Streaming File Sink`. Then for the _test case evaluation_ we load the recorded input an
