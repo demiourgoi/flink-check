@@ -40,7 +40,12 @@ libraryDependencies ++= flinkDependencies
 
 // leads to "noSuchMethodError: akka.actor.LocalActorRefProvider.log()Lakka/event/LoggingAdapter"
 // due to multiple akka versions
-libraryDependencies += "es.ucm.fdi" %% "sscheck-core" % sscheckVersion
+libraryDependencies += "es.ucm.fdi" %% "sscheck-core" % sscheckVersion excludeAll(
+  ExclusionRule(organization = "org.slf4j"),
+  ExclusionRule(organization = "org.specs2"),
+  ExclusionRule(organization = "org.scalatest"),
+  ExclusionRule(organization = "org.scalacheck")
+)
 
 // show all the warnings: http://stackoverflow.com/questions/9415962/how-to-see-all-the-warnings-in-sbt-0-11
 scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation")
