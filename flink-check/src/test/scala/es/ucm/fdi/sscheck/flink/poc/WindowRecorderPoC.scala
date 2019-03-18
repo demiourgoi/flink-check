@@ -13,6 +13,7 @@ import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow
 import org.apache.flink.util.Collector
 import org.junit.runner.RunWith
+import org.scalacheck.Prop
 import org.specs2.Specification
 import org.specs2.matcher.{ResultMatchers, ThrownExpectations}
 import org.specs2.runner.JUnitRunner
@@ -73,13 +74,14 @@ object TimedInt {
 
 @RunWith(classOf[JUnitRunner])
 class WindowRecorderPoC
-  extends Specification with ResultMatchers with ThrownExpectations {
+  extends Specification with ResultMatchers {
 
   def is =
     sequential ^ s2"""
-        where we exercise a test case and store it in a pair of files binaryBar
-        and then we read those files $readRecordedWindows
-      """
+where we exercise a test case and store it in a pair of files exerciseTestCase
+and then we read those files $evaluateTestCase
+and again $evaluateTestCase
+"""
 
   /* This works fine with event time because [watermarks](https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_time.html#event-time-and-watermarks)
   won't find late events, as timestamps are sorted. This wouldn't work so well with unsorted time stamps
@@ -104,7 +106,7 @@ class WindowRecorderPoC
   }
 
   def subjectAdd(xs: DataStream[Int]): DataStream[Int] = xs.map{_ + 1}
-  def binaryBar = {
+  def exerciseTestCase = {
     val f = fixture
     val env: StreamExecutionEnvironment = f.env
 
@@ -132,44 +134,47 @@ class WindowRecorderPoC
     }
     timedOutput.writeUsingOutputFormat(timedOutputOutputFormat)
 
-//    timedOutput.map{x => s"output($x)"}.print()
-//    timedInput.map{x => s"input($x)"}.print()
     env.execute()
 
     ok
   }
 
-  def readRecordedWindows = {
+  def evaluateTestCase = {
     val env = ExecutionEnvironment.createLocalEnvironment(3)
 
-    val timedInputInputFormat = new TypeSerializerInputFormat[TimedValue[Int]](
-      implicitly[TypeInformation[TimedValue[Int]]])
-    val inputFilePath = "/tmp/WindowRecorderPoC/inputData"
-    val timedInput = env.readFile(timedInputInputFormat, inputFilePath)
-    timedInput.print()
-    println(s"timedInput.count ${timedInput.count()}\n\n")
-
-    val timedOutputInputFormat = new TypeSerializerInputFormat[TimedValue[Int]](
-      implicitly[TypeInformation[TimedValue[Int]]])
-    val timedOutput = env.readFile(timedOutputInputFormat, "/tmp/WindowRecorderPoC/outputData")
-    timedOutput.print()
-    println(s"timedOutput.count ${timedOutput.count()}")
-
-    println(s"initial timestamp for input = ${timedInput.map{_.timestamp}.reduce(scala.math.min(_, _)).collect().head}")
-    println(s"initial timestamp for output = ${timedOutput.map{_.timestamp}.reduce(scala.math.min(_, _)).collect().head}")
-
-    val outputWindows = TimedValue.tumblingWindows(Time.seconds(1))(timedOutput)
-    outputWindows.zipWithIndex.foreach{case (outputWindow, i) =>
-      println(s"\noutputWindow #$i with timestamp ${outputWindow.timestamp}")
-      outputWindow.data.print()
+    def readRecordedStream[T : TypeInformation](path: String) = {
+      val timedInputInputFormat = new TypeSerializerInputFormat[TimedValue[T]](
+        implicitly[TypeInformation[TimedValue[T]]])
+      env.readFile(timedInputInputFormat, path)
     }
+
+    val timedInput = readRecordedStream[Int]("/tmp/WindowRecorderPoC/inputData")
+    val timedOutput = readRecordedStream[Int]("/tmp/WindowRecorderPoC/outputData")
+
+    type U = (DataSet[TimedValue[Int]], DataSet[TimedValue[Int]])
+    import es.ucm.fdi.sscheck.prop.tl.{Formula, Time => SscheckTime}
+    import es.ucm.fdi.sscheck.prop.tl.Formula._
+    val alwaysPositiveOutputFormula: Formula[U] = always(nowTime[U]{ (letter, time) =>
+      val (_input, output) = letter
+      val failingRecords = output.map{_.value}.filter{x => ! (x >= 0)}
+      failingRecords.count() == 0
+    }) during 3 // use 4 for none due to unconclusive always
+    var alwaysPositiveOutputNextFormula = alwaysPositiveOutputFormula.nextFormula
 
     val inputWindows = TimedValue.tumblingWindows(Time.seconds(1))(timedInput)
-    inputWindows.zipWithIndex.foreach{case (inputWindow, i) =>
-      println(s"\ninputWindow #$i with timestamp ${inputWindow.timestamp}")
-      inputWindow.data.print()
+    val outputWindows = TimedValue.tumblingWindows(Time.seconds(1))(timedOutput)
+    inputWindows.zip(outputWindows).zipWithIndex.foreach{case ((inputWindow, outputWindow), windowIndex) =>
+      val windowStartTimestamp = inputWindow.timestamp
+      assume(windowStartTimestamp == outputWindow.timestamp, println(s"input and output window are not aligned"))
+      println(s"\nChecking window #$windowIndex with timestamp ${windowStartTimestamp}")
+      inputWindow.data.map{x => s"input: $x"}.print()
+      outputWindow.data.map{x => s"output: $x"}.print()
+      println(s"alwaysPositiveOutputNextFormula.result=[${alwaysPositiveOutputNextFormula.result}]")
+      val currentLetter: U = (inputWindow.data, outputWindow.data)
+      alwaysPositiveOutputNextFormula =
+        alwaysPositiveOutputNextFormula.consume(SscheckTime(windowStartTimestamp))(currentLetter)
     }
-
-    ok
+    println(s"\n\nalwaysPositiveOutputNextFormula.result=[${alwaysPositiveOutputNextFormula.result}]")
+    alwaysPositiveOutputNextFormula.result === Some(Prop.True)
   }
 }
