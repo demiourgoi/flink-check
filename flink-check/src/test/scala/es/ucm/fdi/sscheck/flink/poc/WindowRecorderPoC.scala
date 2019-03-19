@@ -1,6 +1,11 @@
 package es.ucm.fdi.sscheck.flink.poc
 
-import java.util.concurrent.TimeUnit
+import java.nio.file.{Files, Path => JPath}
+import java.time.Instant
+
+import es.ucm.fdi.sscheck.gen.BatchGen
+import es.ucm.fdi.sscheck.prop.tl.{Formula, Time => SscheckTime}
+import es.ucm.fdi.sscheck.prop.tl.Formula._
 
 import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.api.java.io.{TypeSerializerInputFormat, TypeSerializerOutputFormat}
@@ -8,14 +13,13 @@ import org.apache.flink.api.scala._
 import org.apache.flink.core.fs.Path
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.ProcessFunction
-import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment, WindowedStream}
+import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
 import org.apache.flink.streaming.api.windowing.time.Time
-import org.apache.flink.streaming.api.windowing.windows.TimeWindow
 import org.apache.flink.util.Collector
 import org.junit.runner.RunWith
-import org.scalacheck.Prop
+import org.scalacheck.{Gen, Prop}
 import org.specs2.Specification
-import org.specs2.matcher.{ResultMatchers, ThrownExpectations}
+import org.specs2.matcher.ResultMatchers
 import org.specs2.runner.JUnitRunner
 
 import scala.language.{implicitConversions, reflectiveCalls}
@@ -35,7 +39,6 @@ object TimedValue {
       val startTimestamp = data.map{_.timestamp}.reduce(scala.math.min(_, _)).collect().head
       val endTimestamp = data.map{_.timestamp}.reduce(scala.math.max(_, _)).collect().head
       val endingWindowIndex = tumblingWindowIndex(windowSizeMillis, startTimestamp)(endTimestamp)
-        //(endTimestamp / windowSize.toMilliseconds).toInt
 
       Iterator.range(0, endingWindowIndex + 1).map { windowIndex =>
         val windowData = data.filter{record =>
@@ -72,33 +75,56 @@ object TimedInt {
   }
 }
 
+object TestCaseGenerator {
+  def createTempDir(testCaseName: String): JPath = {
+    val tempDir = Files.createTempDirectory(testCaseName)
+    tempDir.toFile.deleteOnExit()
+    tempDir
+  }
+
+  // TODO: support parallelism using SplittableIterator
+  // note ScalaCheck will already trigger the generation
+  def batchesToStream[A : TypeInformation](batches: Seq[Seq[A]])
+                        (windowSize: Time)
+                        (implicit env: StreamExecutionEnvironment): DataStream[A] = {
+    require(env.getStreamTimeCharacteristic == TimeCharacteristic.EventTime,
+      println("Event time required for converting a PDStream value into a Flink DataStream"))
+
+    // "Time-based windows have a start timestamp (inclusive) and an end timestamp (exclusive) that together
+    // describe the size of the window."
+    // https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/windows.html
+    val timestampOffsetGen = Gen.choose(min=0, max=(windowSize.toMilliseconds)-1)
+    val startEpoch = Instant.now().toEpochMilli
+    println(s"batches.zipWithIndex=[${batches.zipWithIndex}]")
+    val timedBatches = batches.zipWithIndex.flatMap{case (batch, i) =>
+      batch.map{value =>
+        val offset = timestampOffsetGen.sample.getOrElse(0L)
+        assume(offset >= 0)
+        val timestamp = startEpoch + (i * (windowSize.toMilliseconds)) + offset
+        TimedValue(timestamp, value)
+      }
+    }.sortBy(_.timestamp)
+
+    println(s"timedBatches=[${timedBatches}]")
+
+    // This works fine with event time because [watermarks](https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_time.html#event-time-and-watermarks)
+    // won't find late events, as timestamps are sorted. This wouldn't work so well with unsorted time stamps
+    env.fromCollection(timedBatches)
+      .assignAscendingTimestamps( _.timestamp)
+      .map(_.value)
+  }
+}
+
 @RunWith(classOf[JUnitRunner])
 class WindowRecorderPoC
   extends Specification with ResultMatchers {
 
   def is =
     sequential ^ s2"""
-where we exercise a test case and store it in a pair of files exerciseTestCase
-and then we read those files $evaluateTestCase
-and again $evaluateTestCase
+where we exercise a test case, store it in a pair of files, and then we read and evaluate
+      the recorded test execution $generateExerciseAndEvaluateTestCase
+and again $generateExerciseAndEvaluateTestCase
 """
-
-  /* This works fine with event time because [watermarks](https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_time.html#event-time-and-watermarks)
-  won't find late events, as timestamps are sorted. This wouldn't work so well with unsorted time stamps
-  * */
-  // expect csv with schema (timestamp millis, int value)
-  val inputPDstreamDataPath = getClass.getResource("/timed_int_pdstream_01.csv").getPath
-  def eventTimeIntStream(path: String)(implicit env: StreamExecutionEnvironment): DataStream[Int] = {
-    env.readTextFile(path)
-      .map(TimedInt(_))
-      .assignAscendingTimestamps( _.timestamp)
-      .map(_.value)
-  }
-
-  def discretize(xs: DataStream[Int]): WindowedStream[Int, Int, TimeWindow] =
-    xs.keyBy(identity[Int] _)
-    .timeWindow(Time.seconds(1))
-
 
   def fixture = new {
     val env = StreamExecutionEnvironment.createLocalEnvironment()
@@ -106,54 +132,42 @@ and again $evaluateTestCase
   }
 
   def subjectAdd(xs: DataStream[Int]): DataStream[Int] = xs.map{_ + 1}
-  def exerciseTestCase = {
+
+  def generateExerciseAndEvaluateTestCase = {
     val f = fixture
-    val env: StreamExecutionEnvironment = f.env
+    val testCaseInputRecordPath = TestCaseGenerator.createTempDir("WindowRecorderPoC-Input")
+    val testCaseOutputRecordPath = TestCaseGenerator.createTempDir("WindowRecorderPoC-Output")
+    println(
+      s"""
+         |testCaseInputRecordPath=[${testCaseInputRecordPath}],
+         |testCaseOutputRecordPath=[${testCaseOutputRecordPath}]"""".stripMargin)
 
-    // we have to get from TimedInt to Int in order to be able to apply
-    // the test subject as is: the timestamps are still on the Flink runtime
-    val input = env.readTextFile(inputPDstreamDataPath)
-      .map(TimedInt(_))
-      .assignAscendingTimestamps( _.timestamp)
-      .map(_.value)
-    val output = subjectAdd(input)
+    val letterSize = Time.seconds(1)
 
-    val timedInput: DataStream[TimedValue[Int]] = input.process(new AddTimestamp())
-    val timedOutput = output.process(new AddTimestamp())
+    {
+      implicit val env: StreamExecutionEnvironment = f.env
 
-    val timedInputOutputFormat = {
-      val format = new TypeSerializerOutputFormat[TimedValue[Int]]
-      format.setOutputFilePath(new Path( "/tmp/WindowRecorderPoC/inputData"))
-      format
+      println(s"Starting test case generation and exercise")
+      val gen = BatchGen.always(BatchGen.ofNtoM(3, 5, Gen.choose(0,100)), 3)
+      val testCase = gen.sample.get
+      println(s"Generated test case ${testCase}")
+      val input = TestCaseGenerator.batchesToStream(testCase)(letterSize)
+      val output = subjectAdd(input)
+
+      val timedInput: DataStream[TimedValue[Int]] = input.process(new AddTimestamp())
+      val timedOutput = output.process(new AddTimestamp())
+      def storeDataStream[A : TypeInformation](stream: DataStream[A])(outputDir: String): Unit = {
+        val format = new TypeSerializerOutputFormat[A]
+        format.setOutputFilePath(new Path(outputDir))
+        stream.writeUsingOutputFormat(format)
+      }
+      storeDataStream(timedInput)(testCaseInputRecordPath.toString)
+      storeDataStream(timedOutput)(testCaseOutputRecordPath.toString)
+      env.execute()
+      println(s"Completed test case generation and exercise")
     }
-    timedInput.writeUsingOutputFormat(timedInputOutputFormat)
-    val timedOutputOutputFormat = {
-      val format = new TypeSerializerOutputFormat[TimedValue[Int]]
-      format.setOutputFilePath(new Path( "/tmp/WindowRecorderPoC/outputData"))
-      format
-    }
-    timedOutput.writeUsingOutputFormat(timedOutputOutputFormat)
-
-    env.execute()
-
-    ok
-  }
-
-  def evaluateTestCase = {
-    val env = ExecutionEnvironment.createLocalEnvironment(3)
-
-    def readRecordedStream[T : TypeInformation](path: String) = {
-      val timedInputInputFormat = new TypeSerializerInputFormat[TimedValue[T]](
-        implicitly[TypeInformation[TimedValue[T]]])
-      env.readFile(timedInputInputFormat, path)
-    }
-
-    val timedInput = readRecordedStream[Int]("/tmp/WindowRecorderPoC/inputData")
-    val timedOutput = readRecordedStream[Int]("/tmp/WindowRecorderPoC/outputData")
 
     type U = (DataSet[TimedValue[Int]], DataSet[TimedValue[Int]])
-    import es.ucm.fdi.sscheck.prop.tl.{Formula, Time => SscheckTime}
-    import es.ucm.fdi.sscheck.prop.tl.Formula._
     val alwaysPositiveOutputFormula: Formula[U] = always(nowTime[U]{ (letter, time) =>
       val (_input, output) = letter
       val failingRecords = output.map{_.value}.filter{x => ! (x >= 0)}
@@ -161,20 +175,59 @@ and again $evaluateTestCase
     }) during 3 // use 4 for none due to unconclusive always
     var alwaysPositiveOutputNextFormula = alwaysPositiveOutputFormula.nextFormula
 
-    val inputWindows = TimedValue.tumblingWindows(Time.seconds(1))(timedInput)
-    val outputWindows = TimedValue.tumblingWindows(Time.seconds(1))(timedOutput)
-    inputWindows.zip(outputWindows).zipWithIndex.foreach{case ((inputWindow, outputWindow), windowIndex) =>
-      val windowStartTimestamp = inputWindow.timestamp
-      assume(windowStartTimestamp == outputWindow.timestamp, println(s"input and output window are not aligned"))
-      println(s"\nChecking window #$windowIndex with timestamp ${windowStartTimestamp}")
-      inputWindow.data.map{x => s"input: $x"}.print()
-      outputWindow.data.map{x => s"output: $x"}.print()
-      println(s"alwaysPositiveOutputNextFormula.result=[${alwaysPositiveOutputNextFormula.result}]")
-      val currentLetter: U = (inputWindow.data, outputWindow.data)
-      alwaysPositiveOutputNextFormula =
-        alwaysPositiveOutputNextFormula.consume(SscheckTime(windowStartTimestamp))(currentLetter)
+    {
+      println(s"Starting test case evaluation")
+      val env = ExecutionEnvironment.createLocalEnvironment(3)
+
+      def readRecordedStream[T : TypeInformation](path: String) = {
+        val timedInputInputFormat = new TypeSerializerInputFormat[TimedValue[T]](
+          implicitly[TypeInformation[TimedValue[T]]])
+        env.readFile(timedInputInputFormat, path)
+      }
+
+      val timedInput = readRecordedStream[Int](testCaseInputRecordPath.toString)
+      val timedOutput = readRecordedStream[Int](testCaseOutputRecordPath.toString)
+
+      val inputWindows = TimedValue.tumblingWindows(letterSize)(timedInput)
+      val outputWindows = TimedValue.tumblingWindows(letterSize)(timedOutput)
+      inputWindows.zip(outputWindows).zipWithIndex.foreach{case ((inputWindow, outputWindow), windowIndex) =>
+        val windowStartTimestamp = inputWindow.timestamp
+        assume(windowStartTimestamp == outputWindow.timestamp, println(s"input and output window are not aligned"))
+        println(s"\nChecking window #$windowIndex with timestamp ${windowStartTimestamp}")
+        inputWindow.data.map{x => s"input: $x"}.print()
+        outputWindow.data.map{x => s"output: $x"}.print()
+        println(s"alwaysPositiveOutputNextFormula.result=[${alwaysPositiveOutputNextFormula.result}]")
+        val currentLetter: U = (inputWindow.data, outputWindow.data)
+        alwaysPositiveOutputNextFormula =
+          alwaysPositiveOutputNextFormula.consume(SscheckTime(windowStartTimestamp))(currentLetter)
+      }
     }
+
     println(s"\n\nalwaysPositiveOutputNextFormula.result=[${alwaysPositiveOutputNextFormula.result}]")
+    println(s"Completed test case evaluation")
     alwaysPositiveOutputNextFormula.result === Some(Prop.True)
   }
 }
+
+/*
+Bug
+
+Generated test case PDStream(Batch(1, 23, 94), Batch(34, 3, 16, 93, 31), Batch(68, 48, 35))
+timedBatches=[List(TimedValue(1552970062846,1), TimedValue(1552970063331,94), TimedValue(1552970063360,23), TimedValue(1552970063768,31), TimedValue(1552970063897,93), TimedValue(1552970063944,34), TimedValue(1552970064189,16), TimedValue(1552970064550,3), TimedValue(1552970064686,35), TimedValue(1552970064862,68), TimedValue(1552970065432,48))]
+Completed test case generation and exercise
+Starting test case evaluation
+
+Checking window #0 with timestamp 1552970062846
+input: TimedValue(1552970063360,23)
+input: TimedValue(1552970063768,31)
+input: TimedValue(1552970063331,94)
+input: TimedValue(1552970062846,1)
+output: TimedValue(1552970063331,95)
+
+31 should be in the second window
+
+>>> 1552970063768 - 1552970062846
+922
+
+The timestamp was assigned wrong on `TestCaseGenerator.batchesToStream`
+* */
