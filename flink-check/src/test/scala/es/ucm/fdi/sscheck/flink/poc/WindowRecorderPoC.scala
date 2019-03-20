@@ -31,12 +31,12 @@ object TimedValue {
     (timeOffset / windowSizeMillis).toInt
   }
 
-  def tumblingWindows[T](windowSize: Time)(data: DataSet[TimedValue[T]]): Iterator[TimedWindow[T]] =
+  def tumblingWindows[T](windowSize: Time, startTime: Time)
+                        (data: DataSet[TimedValue[T]]): Iterator[TimedWindow[T]] =
     if (data.count() <= 0) Iterator.empty
     else {
-
       val windowSizeMillis = windowSize.toMilliseconds
-      val startTimestamp = data.map{_.timestamp}.reduce(scala.math.min(_, _)).collect().head
+      val startTimestamp = startTime.toMilliseconds
       val endTimestamp = data.map{_.timestamp}.reduce(scala.math.max(_, _)).collect().head
       val endingWindowIndex = tumblingWindowIndex(windowSizeMillis, startTimestamp)(endTimestamp)
 
@@ -83,10 +83,19 @@ object TestCaseGenerator {
   }
 
   // TODO: support parallelism using SplittableIterator
-  // note ScalaCheck will already trigger the generation
+  /** Converts batches that represents a sequence of windows into a DataStream where is record is assigned
+    * an event time computed interpreting the each batch in batches as a tumbling window of size windowSize
+    * with the first window starting at startEpoch. Inside the window, the timestamp of each record is a
+    * random value between the window start (inclusive) and the windows end (exclusive)
+    *
+    * Note: there is no warranty that for each window has a record with the window start time as timestamp.
+    * This also allows this method to support empty windows.
+    * Note: the DatasStream is created with [[StreamExecutionEnvironment#fromCollection]] so it is not parallel
+    */
   def batchesToStream[A : TypeInformation](batches: Seq[Seq[A]])
-                        (windowSize: Time)
-                        (implicit env: StreamExecutionEnvironment): DataStream[A] = {
+                                          (windowSize: Time,
+                                           startTime: Time = Time.milliseconds(Instant.now().toEpochMilli))
+                                          (implicit env: StreamExecutionEnvironment): DataStream[A] = {
     require(env.getStreamTimeCharacteristic == TimeCharacteristic.EventTime,
       println("Event time required for converting a PDStream value into a Flink DataStream"))
 
@@ -94,18 +103,16 @@ object TestCaseGenerator {
     // describe the size of the window."
     // https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/windows.html
     val timestampOffsetGen = Gen.choose(min=0, max=(windowSize.toMilliseconds)-1)
-    val startEpoch = Instant.now().toEpochMilli
     println(s"batches.zipWithIndex=[${batches.zipWithIndex}]")
     val timedBatches = batches.zipWithIndex.flatMap{case (batch, i) =>
       batch.map{value =>
         val offset = timestampOffsetGen.sample.getOrElse(0L)
-        assume(offset >= 0)
-        val timestamp = startEpoch + (i * (windowSize.toMilliseconds)) + offset
+        val timestamp = startTime.toMilliseconds + (i * (windowSize.toMilliseconds)) + offset
         TimedValue(timestamp, value)
       }
     }.sortBy(_.timestamp)
 
-    println(s"timedBatches=[${timedBatches}]")
+    println(s"timedBatches=[${timedBatches}]") // FIXME remove
 
     // This works fine with event time because [watermarks](https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_time.html#event-time-and-watermarks)
     // won't find late events, as timestamps are sorted. This wouldn't work so well with unsorted time stamps
@@ -124,6 +131,9 @@ class WindowRecorderPoC
 where we exercise a test case, store it in a pair of files, and then we read and evaluate
       the recorded test execution $generateExerciseAndEvaluateTestCase
 and again $generateExerciseAndEvaluateTestCase
+and again $generateExerciseAndEvaluateTestCase
+and again $generateExerciseAndEvaluateTestCase
+and again $generateExerciseAndEvaluateTestCase
 """
 
   def fixture = new {
@@ -140,9 +150,11 @@ and again $generateExerciseAndEvaluateTestCase
     println(
       s"""
          |testCaseInputRecordPath=[${testCaseInputRecordPath}],
-         |testCaseOutputRecordPath=[${testCaseOutputRecordPath}]"""".stripMargin)
+         |testCaseOutputRecordPath=[${testCaseOutputRecordPath}]""".stripMargin)
 
+    // FIXME: wrap this into some batch coordinate case class, as these two tend to go together
     val letterSize = Time.seconds(1)
+    val startTime = Time.milliseconds(0)
 
     {
       implicit val env: StreamExecutionEnvironment = f.env
@@ -151,7 +163,7 @@ and again $generateExerciseAndEvaluateTestCase
       val gen = BatchGen.always(BatchGen.ofNtoM(3, 5, Gen.choose(0,100)), 3)
       val testCase = gen.sample.get
       println(s"Generated test case ${testCase}")
-      val input = TestCaseGenerator.batchesToStream(testCase)(letterSize)
+      val input = TestCaseGenerator.batchesToStream(testCase)(letterSize, startTime)
       val output = subjectAdd(input)
 
       val timedInput: DataStream[TimedValue[Int]] = input.process(new AddTimestamp())
@@ -170,7 +182,7 @@ and again $generateExerciseAndEvaluateTestCase
     type U = (DataSet[TimedValue[Int]], DataSet[TimedValue[Int]])
     val alwaysPositiveOutputFormula: Formula[U] = always(nowTime[U]{ (letter, time) =>
       val (_input, output) = letter
-      val failingRecords = output.map{_.value}.filter{x => ! (x >= 0)}
+      val failingRecords = output.map{_.value}.filter{x => ! (x > 0)}
       failingRecords.count() == 0
     }) during 3 // use 4 for none due to unconclusive always
     var alwaysPositiveOutputNextFormula = alwaysPositiveOutputFormula.nextFormula
@@ -188,8 +200,8 @@ and again $generateExerciseAndEvaluateTestCase
       val timedInput = readRecordedStream[Int](testCaseInputRecordPath.toString)
       val timedOutput = readRecordedStream[Int](testCaseOutputRecordPath.toString)
 
-      val inputWindows = TimedValue.tumblingWindows(letterSize)(timedInput)
-      val outputWindows = TimedValue.tumblingWindows(letterSize)(timedOutput)
+      val inputWindows = TimedValue.tumblingWindows(letterSize, startTime)(timedInput)
+      val outputWindows = TimedValue.tumblingWindows(letterSize, startTime)(timedOutput)
       inputWindows.zip(outputWindows).zipWithIndex.foreach{case ((inputWindow, outputWindow), windowIndex) =>
         val windowStartTimestamp = inputWindow.timestamp
         assume(windowStartTimestamp == outputWindow.timestamp, println(s"input and output window are not aligned"))
@@ -208,26 +220,3 @@ and again $generateExerciseAndEvaluateTestCase
     alwaysPositiveOutputNextFormula.result === Some(Prop.True)
   }
 }
-
-/*
-Bug
-
-Generated test case PDStream(Batch(1, 23, 94), Batch(34, 3, 16, 93, 31), Batch(68, 48, 35))
-timedBatches=[List(TimedValue(1552970062846,1), TimedValue(1552970063331,94), TimedValue(1552970063360,23), TimedValue(1552970063768,31), TimedValue(1552970063897,93), TimedValue(1552970063944,34), TimedValue(1552970064189,16), TimedValue(1552970064550,3), TimedValue(1552970064686,35), TimedValue(1552970064862,68), TimedValue(1552970065432,48))]
-Completed test case generation and exercise
-Starting test case evaluation
-
-Checking window #0 with timestamp 1552970062846
-input: TimedValue(1552970063360,23)
-input: TimedValue(1552970063768,31)
-input: TimedValue(1552970063331,94)
-input: TimedValue(1552970062846,1)
-output: TimedValue(1552970063331,95)
-
-31 should be in the second window
-
->>> 1552970063768 - 1552970062846
-922
-
-The timestamp was assigned wrong on `TestCaseGenerator.batchesToStream`
-* */
