@@ -6,6 +6,8 @@ import java.time.Instant
 import es.ucm.fdi.sscheck.gen.BatchGen
 import es.ucm.fdi.sscheck.prop.tl.{Formula, Time => SscheckTime}
 import es.ucm.fdi.sscheck.prop.tl.Formula._
+import es.ucm.fdi.sscheck.flink.{TimedValue, TimedWindow}
+import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
 
 import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.api.java.io.{TypeSerializerInputFormat, TypeSerializerOutputFormat}
@@ -24,39 +26,6 @@ import org.specs2.runner.JUnitRunner
 
 import scala.language.{implicitConversions, reflectiveCalls}
 import scala.collection.JavaConverters._
-
-object TimedValue {
-  private[this] def tumblingWindowIndex(windowSizeMillis: Long, startTimestamp: Long)(timestamp: Long): Int = {
-    val timeOffset = timestamp - startTimestamp
-    (timeOffset / windowSizeMillis).toInt
-  }
-
-  def tumblingWindows[T](windowSize: Time, startTime: Time)
-                        (data: DataSet[TimedValue[T]]): Iterator[TimedWindow[T]] =
-    if (data.count() <= 0) Iterator.empty
-    else {
-      val windowSizeMillis = windowSize.toMilliseconds
-      val startTimestamp = startTime.toMilliseconds
-      val endTimestamp = data.map{_.timestamp}.reduce(scala.math.max(_, _)).collect().head
-      val endingWindowIndex = tumblingWindowIndex(windowSizeMillis, startTimestamp)(endTimestamp)
-
-      Iterator.range(0, endingWindowIndex + 1).map { windowIndex =>
-        val windowData = data.filter{record =>
-          tumblingWindowIndex(windowSizeMillis, startTimestamp)(record.timestamp) == windowIndex
-        }
-        TimedWindow(startTimestamp + windowIndex*windowSizeMillis, windowData)
-      }
-  }
-}
-/** @param timestamp milliseconds since epoch */
-case class TimedValue[T](timestamp: Long, value: T)
-
-/** Represents a time window with timed values. Note timestamp can be smaller than the earlier
-  * element in data, for example in a tumbling window where a new event starts at a regular rate,
-  * independently of the actual elements in the window
-  * @param timestamp milliseconds since epoch for the start of the window
-  * */
-case class TimedWindow[T](timestamp: Long, data: DataSet[TimedValue[T]])
 
 /** Converts each record into a [[TimedValue]], adding the timestamp provided
   * by [[ProcessFunction#Context]]. That means this will fail if the time characteristic
@@ -109,8 +78,8 @@ object TestCaseGenerator {
         val offset = timestampOffsetGen.sample.getOrElse(0L)
         val timestamp = startTime.toMilliseconds + (i * (windowSize.toMilliseconds)) + offset
         TimedValue(timestamp, value)
-      }
-    }.sortBy(_.timestamp)
+      }.sortBy(_.timestamp)
+    }
 
     println(s"timedBatches=[${timedBatches}]") // FIXME remove
 
@@ -182,8 +151,10 @@ and again $generateExerciseAndEvaluateTestCase
     type U = (DataSet[TimedValue[Int]], DataSet[TimedValue[Int]])
     val alwaysPositiveOutputFormula: Formula[U] = always(nowTime[U]{ (letter, time) =>
       val (_input, output) = letter
-      val failingRecords = output.map{_.value}.filter{x => ! (x > 0)}
-      failingRecords.count() == 0
+      output should foreachElement{_ > 0} and
+      (output should foreachTimedElement{_.value > 0}) and
+      (output should existsElement{_ > 0}) and
+      (output should existsTimedElement{_.value > 0})
     }) during 3 // use 4 for none due to unconclusive always
     var alwaysPositiveOutputNextFormula = alwaysPositiveOutputFormula.nextFormula
 
