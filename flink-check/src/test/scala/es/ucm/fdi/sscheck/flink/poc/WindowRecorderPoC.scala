@@ -148,25 +148,20 @@ and again generateExerciseAndEvaluateTestCase
       println(s"Completed test case generation and exercise")
     }
 
-    val limit = 0
+    val threshold = 0
     type U = (DataSet[TimedValue[Int]], DataSet[TimedValue[Int]])
     val alwaysPositiveOutputFormula: Formula[U] = always(nowTime[U]{ (letter, time) =>
       val (_input, output) = letter
-//      output should foreachElement{_ > limit} and
-//      (output should foreachTimedElement{_.value > 0}) and
-//      (output should existsElement{_ > 0}) and
-//      (output should existsTimedElement{_.value > 0})
-      // TODO see https://erikerlandson.github.io/blog/2015/03/31/hygienic-closures-for-scala-function-serialization/
-      // Need explicit closure handling or it fails FIXME 1) reproduce and better errors; 2) add closure support
-      // to foreachElement too
-      output should foreachTimedElement(limit){l =>
-        {x => x.value > l}
-      }
-      // This leads to task no serializable, can be this dirty class too: fixed with explicit closure context above
-      // in any case
-      // and     (output should foreachElement{_ > limit})
-//      val failingRecords = output.map{_.value}.filter{x => ! (x > limit)}
-//      failingRecords.count() == 0
+      output should foreachElement{_ > 0} and
+      (output should foreachTimedElement{_.value > 0}) and
+      (output should existsElement{_ > 0}) and
+      (output should existsTimedElement{_.value > 0}) and
+      // using explicit closure context fixed the "task no serializable" issue when capturing variables in the
+      // assertion closure inside a non serializable test class
+      (output should foreachElement(threshold){threshold =>_ > threshold}) and
+      (output should foreachTimedElement(threshold){threshold => _.value > threshold}) and
+      (output should existsElement(threshold){threshold => _ > threshold}) and
+      (output should existsTimedElement(threshold){threshold => _.value > threshold})
     }) during 3 // use 4 for none due to unconclusive always
     var alwaysPositiveOutputNextFormula = alwaysPositiveOutputFormula.nextFormula
 
