@@ -28,10 +28,13 @@ package object flink {
         }
       }
   }
+
+  // FIXME delete
   // FIXME rename to TimedElement: that is Flink's nomenclature
   /** @param timestamp milliseconds since epoch */
   case class TimedValue[T](timestamp: Long, value: T)
 
+  // FIXME delete
   /** Represents a time window with timed values. Note timestamp can be smaller than the earlier
     * element in data, for example in a tumbling window where a new event starts at a regular rate,
     * independently of the actual elements in the window

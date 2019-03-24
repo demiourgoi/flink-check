@@ -23,6 +23,8 @@ import org.scalacheck.{Gen, Prop}
 import org.specs2.Specification
 import org.specs2.matcher.ResultMatchers
 import org.specs2.runner.JUnitRunner
+import org.slf4j.LoggerFactory
+import org.slf4j.Logger
 
 import scala.language.{implicitConversions, reflectiveCalls}
 import scala.collection.JavaConverters._
@@ -91,9 +93,14 @@ object TestCaseGenerator {
   }
 }
 
+object WindowRecorderPoC {
+  val logger = LoggerFactory.getLogger(WindowRecorderPoC.getClass)
+}
 @RunWith(classOf[JUnitRunner])
 class WindowRecorderPoC
   extends Specification with ResultMatchers {
+
+  import WindowRecorderPoC._
 
   def is =
     sequential ^ s2"""
@@ -116,7 +123,7 @@ and again generateExerciseAndEvaluateTestCase
     val f = fixture
     val testCaseInputRecordPath = TestCaseGenerator.createTempDir("WindowRecorderPoC-Input")
     val testCaseOutputRecordPath = TestCaseGenerator.createTempDir("WindowRecorderPoC-Output")
-    println(
+    logger.warn(
       s"""
          |testCaseInputRecordPath=[${testCaseInputRecordPath}],
          |testCaseOutputRecordPath=[${testCaseOutputRecordPath}]""".stripMargin)
@@ -128,10 +135,10 @@ and again generateExerciseAndEvaluateTestCase
     {
       implicit val env: StreamExecutionEnvironment = f.env
 
-      println(s"Starting test case generation and exercise")
+      logger.info(s"Starting test case generation and exercise")
       val gen = BatchGen.always(BatchGen.ofNtoM(3, 5, Gen.choose(0,100)), 3)
       val testCase = gen.sample.get
-      println(s"Generated test case ${testCase}")
+      logger.info(s"Generated test case ${testCase}")
       val input = TestCaseGenerator.batchesToStream(testCase)(letterSize, startTime)
       val output = subjectAdd(input)
 
@@ -145,7 +152,7 @@ and again generateExerciseAndEvaluateTestCase
       storeDataStream(timedInput)(testCaseInputRecordPath.toString)
       storeDataStream(timedOutput)(testCaseOutputRecordPath.toString)
       env.execute()
-      println(s"Completed test case generation and exercise")
+      logger.info(s"Completed test case generation and exercise")
     }
 
     val threshold = 0
@@ -166,7 +173,7 @@ and again generateExerciseAndEvaluateTestCase
     var alwaysPositiveOutputNextFormula = alwaysPositiveOutputFormula.nextFormula
 
     {
-      println(s"Starting test case evaluation")
+      logger.info(s"Starting test case evaluation")
       val env = ExecutionEnvironment.createLocalEnvironment(3)
 
       def readRecordedStream[T : TypeInformation](path: String) = {
@@ -182,19 +189,19 @@ and again generateExerciseAndEvaluateTestCase
       val outputWindows = TimedValue.tumblingWindows(letterSize, startTime)(timedOutput)
       inputWindows.zip(outputWindows).zipWithIndex.foreach{case ((inputWindow, outputWindow), windowIndex) =>
         val windowStartTimestamp = inputWindow.timestamp
-        assume(windowStartTimestamp == outputWindow.timestamp, println(s"input and output window are not aligned"))
-        println(s"\nChecking window #$windowIndex with timestamp ${windowStartTimestamp}")
+        assume(windowStartTimestamp == outputWindow.timestamp, logger.error(s"input and output window are not aligned"))
+        logger.debug(s"\nChecking window #$windowIndex with timestamp ${windowStartTimestamp}")
         inputWindow.data.map{x => s"input: $x"}.print()
         outputWindow.data.map{x => s"output: $x"}.print()
-        println(s"alwaysPositiveOutputNextFormula.result=[${alwaysPositiveOutputNextFormula.result}]")
+        logger.debug(s"alwaysPositiveOutputNextFormula.result=[${alwaysPositiveOutputNextFormula.result}]")
         val currentLetter: U = (inputWindow.data, outputWindow.data)
         alwaysPositiveOutputNextFormula =
           alwaysPositiveOutputNextFormula.consume(SscheckTime(windowStartTimestamp))(currentLetter)
       }
     }
 
-    println(s"\n\nalwaysPositiveOutputNextFormula.result=[${alwaysPositiveOutputNextFormula.result}]")
-    println(s"Completed test case evaluation")
+    logger.info(s"\n\nalwaysPositiveOutputNextFormula.result=[${alwaysPositiveOutputNextFormula.result}]")
+    logger.info(s"Completed test case evaluation")
     alwaysPositiveOutputNextFormula.result === Some(Prop.True)
   }
 }
