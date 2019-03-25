@@ -1,16 +1,15 @@
 package es.ucm.fdi.sscheck.flink.simple
 
-import es.ucm.fdi.sscheck.prop.tl.flink.{DataStreamTLProperty, Parallelism, TimedElement}
 import es.ucm.fdi.sscheck.gen.BatchGen
-import es.ucm.fdi.sscheck.prop.tl.Formula._
 import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
-import org.scalacheck.Arbitrary.arbitrary
+import es.ucm.fdi.sscheck.prop.tl.Formula._
+import es.ucm.fdi.sscheck.prop.tl.flink.{DataStreamTLProperty, Parallelism}
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.junit.runner.RunWith
-import org.specs2.Specification
+import org.scalacheck.Arbitrary.arbitrary
+import org.specs2.{ScalaCheck, Specification}
 import org.specs2.runner.JUnitRunner
-import org.specs2.ScalaCheck
 
 @RunWith(classOf[JUnitRunner])
 class SimpleStreamingFormulas
@@ -31,7 +30,7 @@ class SimpleStreamingFormulas
       """
 
   def filterOutNegativeGetGeqZero = {
-    type U = Letter[Int, Int]
+    type U = DataStreamTLProperty.Letter[Int, Int]
     val numBatches = 10
     val gen = BatchGen.always(BatchGen.ofNtoM(10, 50, arbitrary[Int]),
       numBatches)
