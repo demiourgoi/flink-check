@@ -2,22 +2,22 @@ package es.ucm.fdi.sscheck.prop.tl.flink
 
 import java.nio.file.{Files, Path => JPath}
 
-import es.ucm.fdi.sscheck.{TestCaseId, TestCaseIdCounter}
 import es.ucm.fdi.sscheck.prop.tl.{Formula, Time => SscheckTime}
-import org.slf4j.LoggerFactory
+import es.ucm.fdi.sscheck.{TestCaseId, TestCaseIdCounter}
 import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.api.java.io.{TypeSerializerInputFormat, TypeSerializerOutputFormat}
-import org.apache.flink.core.fs.Path
 import org.apache.flink.api.scala._
+import org.apache.flink.core.fs.Path
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.ProcessFunction
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.util.Collector
-import org.scalacheck.{Gen, Prop}
 import org.scalacheck.util.Pretty
+import org.scalacheck.{Gen, Prop}
+import org.slf4j.LoggerFactory
 
-import util.control.Breaks._
+import scala.util.control.Breaks._
 
 object DataStreamTLProperty {
   type SSeq[A] = Seq[Seq[A]]
@@ -277,6 +277,7 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
       val outputWindows = Evaluate.tumblingWindows(letterSize, testCaseStartTime)(timedOutput)
 
       // FIXME: check spark's version, use msgHeader and numSampleRecords, or delete them
+      // FIXME: delete files at the end
       breakable {
         inputWindows.zip(outputWindows).zipWithIndex.foreach{case ((inputWindow, outputWindow), windowIndex) =>
           val windowStartTimestamp = inputWindow.timestamp
