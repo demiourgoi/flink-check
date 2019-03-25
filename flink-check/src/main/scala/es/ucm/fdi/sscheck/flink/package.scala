@@ -1,5 +1,6 @@
 package es.ucm.fdi.sscheck
 
+import es.ucm.fdi.sscheck.prop.tl.flink.{TimedElement, TimedWindow}
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.windowing.time.Time
 
@@ -12,7 +13,7 @@ package object flink {
     }
 
     def tumblingWindows[T](windowSize: Time, startTime: Time)
-                                            (data: DataSet[TimedValue[T]]): Iterator[TimedWindow[T]] =
+                                            (data: DataSet[TimedElement[T]]): Iterator[TimedWindow[T]] =
       if (data.count() <= 0) Iterator.empty
       else {
         val windowSizeMillis = windowSize.toMilliseconds
@@ -28,21 +29,5 @@ package object flink {
         }
       }
   }
-
-  // FIXME delete
-  // FIXME rename to TimedElement: that is Flink's nomenclature
-  /** @param timestamp milliseconds since epoch */
-  case class TimedValue[T](timestamp: Long, value: T)
-
-  // FIXME delete
-  /** Represents a time window with timed values. Note timestamp can be smaller than the earlier
-    * element in data, for example in a tumbling window where a new event starts at a regular rate,
-    * independently of the actual elements in the window
-    * @param timestamp milliseconds since epoch for the start of the window
-    * */
-  case class TimedWindow[T](timestamp: Long, data: DataSet[TimedValue[T]])
 }
 
-package flink {
-
-}

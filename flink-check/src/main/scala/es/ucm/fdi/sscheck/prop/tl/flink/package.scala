@@ -12,4 +12,8 @@ package object flink {
     * @param timestamp milliseconds since epoch for the start of the window
     * */
   case class TimedWindow[T](timestamp: Long, data: DataSet[TimedElement[T]])
+
+  /** Used to specify a default parallelism for Flink
+    * */
+  case class Parallelism(val numPartitions : Int)
 }
