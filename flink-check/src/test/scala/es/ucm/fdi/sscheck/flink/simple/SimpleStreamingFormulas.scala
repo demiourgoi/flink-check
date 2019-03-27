@@ -22,12 +22,15 @@ class SimpleStreamingFormulas
 
   def is =
     sequential ^ s2"""
-    Demo Specs2 example for ScalaCheck properties with temporal
-    formulas on Flink streaming programs about pollution
+    Simple demo Specs2 example for ScalaCheck properties with temporal
+    formulas on Flink streaming programs
+      - Given a stream of integers
+        When we filter out negative numbers
+        Then we get only numbers greater or equal to zero $filterOutNegativeGetGeqZero
+      - where time increments for each batch $timeIncreasesMonotonically
       """
-  //        Then we get only numbers greater or equal to zero $filterOutNegativeGetGeqZero
-  //      - where time increments for each batch $timeIncreasesMonotonically
-  /*def filterOutNegativeGetGeqZero = {
+  
+  def filterOutNegativeGetGeqZero = {
     type U = DataStreamTLProperty.Letter[Int, Int]
     val numBatches = 10
     val gen = BatchGen.always(BatchGen.ofNtoM(10, 50, arbitrary[Int]),
@@ -59,5 +62,5 @@ class SimpleStreamingFormulas
       gen)(
       identity[DataStream[Int]])(
       formula)
-  }.set(minTestsOk = 5).verbose//.set(minTestsOk = 10).verbose*/
+  }.set(minTestsOk = 5).verbose//.set(minTestsOk = 10).verbose
 }
