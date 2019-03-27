@@ -10,6 +10,8 @@ crossScalaVersions  := Seq("2.10.6")
 
 lazy val sscheckVersion = "0.3.2"
 
+lazy val flinkCheckExamplesVersion = "0.1-SNAPSHOT"
+
 lazy val specs2Version = "3.8.4"
 
 lazy val flinkVersion = "1.7.2"
@@ -41,6 +43,13 @@ libraryDependencies ++= flinkDependencies
 // leads to "noSuchMethodError: akka.actor.LocalActorRefProvider.log()Lakka/event/LoggingAdapter"
 // due to multiple akka versions
 libraryDependencies += "es.ucm.fdi" %% "sscheck-core" % sscheckVersion excludeAll(
+  ExclusionRule(organization = "org.slf4j"),
+  ExclusionRule(organization = "org.specs2"),
+  ExclusionRule(organization = "org.scalatest"),
+  ExclusionRule(organization = "org.scalacheck")
+)
+
+libraryDependencies += "es.ucm.fdi" %% "flink-check-examples" % flinkCheckExamplesVersion excludeAll(
   ExclusionRule(organization = "org.slf4j"),
   ExclusionRule(organization = "org.specs2"),
   ExclusionRule(organization = "org.scalatest"),
