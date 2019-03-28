@@ -13,6 +13,10 @@ ThisBuild / scalaVersion := "2.11.8"
 
 lazy val flinkVersion = "1.7.2"
 
+lazy val flinkCheckVersion = "0.0.1-SNAPSHOT"
+
+lazy val slf4jVersion = "1.7.15"
+
 lazy val flinkDependencies = Seq(
   "org.apache.flink" %% "flink-scala" % flinkVersion % "provided",
   "org.apache.flink" %% "flink-streaming-scala" % flinkVersion % "provided",
@@ -31,7 +35,12 @@ lazy val specs2Dependencies = Seq(
 lazy val root = (project in file(".")).
   settings(
     libraryDependencies ++= flinkDependencies,
-    libraryDependencies ++= specs2Dependencies
+    libraryDependencies ++= specs2Dependencies,
+    libraryDependencies += "es.ucm.fdi" %% "flink-check" % flinkCheckVersion,
+    libraryDependencies ++= Seq(
+      "org.slf4j" % "slf4j-api" % slf4jVersion % "provided",
+      "org.slf4j" % "slf4j-log4j12" % slf4jVersion % "provided"
+    )
   )
 
 assembly / mainClass := Some("es.ucm.fdi.sscheck.flink.demo.Pollution")
