@@ -51,7 +51,8 @@ object Pollution {
   def pollution1(raw : DataStream[SensorData]) : DataStream[(Int, EmergencyLevel.EmergencyLevel)] =
     raw.filter(_.concentration > 180)
        .keyBy("sensor_id")
-       .timeWindow(Time.seconds(3), Time.seconds(1))
+       //.timeWindow(Time.seconds(3), Time.seconds(1))
+       .timeWindow(Time.seconds(1))
        .max("concentration")
        .map { x => (x.sensor_id, EmergencyLevel(x.concentration)) }
 
