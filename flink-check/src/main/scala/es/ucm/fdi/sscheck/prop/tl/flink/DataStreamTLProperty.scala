@@ -2,7 +2,7 @@ package es.ucm.fdi.sscheck.prop.tl.flink
 
 import java.nio.file.{Files, Path => JPath}
 
-import es.ucm.fdi.sscheck.prop.tl.{Formula, Time => SscheckTime}
+import es.ucm.fdi.sscheck.prop.tl.{Formula, NextFormula, Time => SscheckTime}
 import es.ucm.fdi.sscheck.{TestCaseId, TestCaseIdCounter}
 import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.api.java.io.{TypeSerializerInputFormat, TypeSerializerOutputFormat}
@@ -18,6 +18,7 @@ import org.scalacheck.{Gen, Prop}
 import org.slf4j.LoggerFactory
 
 import scala.util.control.Breaks._
+import scala.util.Properties.lineSeparator
 
 object DataStreamTLProperty {
   type SSeq[A] = Seq[Seq[A]]
@@ -104,7 +105,7 @@ trait DataStreamTLProperty {
       // where it might make sense disabling that limit as the resource manager for the cluster
       // system would handle that; TBD if Flink also implements a resource manager in local
       // cluster mode that makes such concurrent test case execution limit unnecessary
-      val testCaseResult = testCaseContext.run()
+      val testCaseResult = testCaseContext.computeResult()
       logger.warn("Completed execution of test case {} with result {}", testCaseId, testCaseResult)
 
       testCaseResult match {
@@ -120,15 +121,14 @@ trait DataStreamTLProperty {
 
 // FIXME: refactor common fields with Spark's version
 object TestCaseContext {
-  // Constants used for printing a sample of the generated values for each batch
-  private val msgHeader = "-"*43
-  private val numSampleRecords = 4
-
   def createTempDir(testCaseName: String = "flink-check_"): JPath = {
     val tempDir = Files.createTempDirectory(testCaseName)
     tempDir.toFile.deleteOnExit()
     tempDir
   }
+
+  val InputStreamName = "Input"
+  val OutputStreamName = "Output"
 
   object Exercise {
     val logger = LoggerFactory.getLogger(Exercise.getClass)
@@ -204,6 +204,9 @@ object TestCaseContext {
       (timeOffset / windowSizeMillis).toInt
     }
 
+    // Constants used for printing a sample of the generated values for each batch
+    private val numSampleRecords = 5
+
     /** Split data as a series of tumbling windows of size windowSize and starting at startTime
       * */
     def tumblingWindows[T](windowSize: Time, startTime: Time)
@@ -222,6 +225,17 @@ object TestCaseContext {
           TimedWindow(startTimestamp + windowIndex*windowSizeMillis, windowData)
         }
       }
+
+    /** Print some records in a window to get some logging that helps developing tests.
+      * */
+    def printWindowHead[T](window: TimedWindow[T], streamName: String): Unit = {
+      val numElements = window.data.count()
+      logger.debug(
+        s"""Time: ${window.timestamp} - ${streamName} (${numElements} elements)
+           |{}
+           |...
+         """.stripMargin, window.data.first(numSampleRecords).collect().mkString(lineSeparator))
+    }
   }
 }
 /** Runs a test case by
@@ -247,53 +261,65 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
 
   @transient private val logger = LoggerFactory.getLogger(TestCaseContext.getClass)
 
-  // FIXME: memoize single run with Option var
-  def run(): Prop.Status = {
-    val testCaseInputRecordPath = createTempDir()
-    logger.info("Recording input for test case {} on path {}", testCaseId, testCaseInputRecordPath)
-    val testCaseOutputRecordPath = createTempDir()
-    logger.info("Recording output test case {} on path {}", testCaseId, testCaseOutputRecordPath)
+  @transient private var result: Option[Prop.Status] = None
 
-    {
-      logger.info(s"Exercising test case {}: {}", testCaseId, testCase)
+  private def exerciseTestCase(testCaseInputRecordPath: JPath,
+                               testCaseOutputRecordPath: JPath): Unit = {
+    logger.info(s"Exercising test case {}: {}", testCaseId, testCase)
 
-      val input = Exercise.batchesToStream(testCase)(letterSize, testCaseStartTime)(streamEnv)
-      val output = testSubject(input)
-      Exercise.storeDataStreamWithTimestamps(input)(testCaseInputRecordPath.toString)
-      Exercise.storeDataStreamWithTimestamps(output)(testCaseOutputRecordPath.toString)
-      streamEnv.execute()
+    val input = Exercise.batchesToStream(testCase)(letterSize, testCaseStartTime)(streamEnv)
+    val output = testSubject(input)
+    Exercise.storeDataStreamWithTimestamps(input)(testCaseInputRecordPath.toString)
+    Exercise.storeDataStreamWithTimestamps(output)(testCaseOutputRecordPath.toString)
+    streamEnv.execute()
 
-      logger.info(s"Completed exercise for test case {}", testCaseId)
-    }
+    logger.info(s"Completed exercise for test case {}", testCaseId)
+  }
 
+  private def evaluateTestCase(testCaseInputRecordPath: JPath,
+                               testCaseOutputRecordPath: JPath): NextFormula[DataStreamTLProperty.Letter[In, Out]] = {
+    logger.info(s"Evaluating test case {}", testCaseId)
     var currFormula = formula.nextFormula
 
-    {
-      logger.info(s"Evaluating test case {}", testCaseId)
+    val timedInput = Evaluate.readRecordedStreamWithTimestamps[In](testCaseInputRecordPath.toString)(env)
+    val timedOutput = Evaluate.readRecordedStreamWithTimestamps[Out](testCaseOutputRecordPath.toString)(env)
+    val inputWindows = Evaluate.tumblingWindows(letterSize, testCaseStartTime)(timedInput)
+    val outputWindows = Evaluate.tumblingWindows(letterSize, testCaseStartTime)(timedOutput)
 
-      val timedInput = Evaluate.readRecordedStreamWithTimestamps[In](testCaseInputRecordPath.toString)(env)
-      val timedOutput = Evaluate.readRecordedStreamWithTimestamps[Out](testCaseOutputRecordPath.toString)(env)
-      val inputWindows = Evaluate.tumblingWindows(letterSize, testCaseStartTime)(timedInput)
-      val outputWindows = Evaluate.tumblingWindows(letterSize, testCaseStartTime)(timedOutput)
-
-      // FIXME: check spark's version, use msgHeader and numSampleRecords, or delete them
-      // FIXME: delete files at the end
-      breakable {
-        inputWindows.zip(outputWindows).zipWithIndex.foreach{case ((inputWindow, outputWindow), windowIndex) =>
-          val windowStartTimestamp = inputWindow.timestamp
-          assume(windowStartTimestamp == outputWindow.timestamp,
-            logger.error("Input and output window are not aligned"))
-          logger.debug("Checking window #{} with timestamp {}", windowIndex, windowStartTimestamp)
-          logger.debug("currFormula.result={}", currFormula.result)
-          val currentLetter = (inputWindow.data, outputWindow.data)
-          currFormula = currFormula.consume(SscheckTime(windowStartTimestamp))(currentLetter)
-            if (currFormula.result.isDefined) break()
-        }
+    // FIXME: delete files at the end
+    breakable {
+      inputWindows.zip(outputWindows).zipWithIndex.foreach{case ((inputWindow, outputWindow), windowIndex) =>
+        val windowStartTimestamp = inputWindow.timestamp
+        assume(windowStartTimestamp == outputWindow.timestamp,
+          logger.error("Input and output window are not aligned"))
+        logger.debug("Checking window #{} with timestamp {}", windowIndex, windowStartTimestamp)
+        Evaluate.printWindowHead(inputWindow, InputStreamName)
+        Evaluate.printWindowHead(outputWindow, OutputStreamName)
+        val currentLetter = (inputWindow.data, outputWindow.data)
+        currFormula = currFormula.consume(SscheckTime(windowStartTimestamp))(currentLetter)
+        logger.debug("Current formula result is {} after window #{}", currFormula.result, windowIndex)
+        if (currFormula.result.isDefined || windowIndex+1 >= maxNumberLettersPerTestCase) break()
       }
-
-      logger.info(s"Completed evaluation for test case {} with result {}", testCaseId, currFormula.result)
     }
 
-    currFormula.result.getOrElse(Prop.Undecided)
+    logger.info(s"Completed evaluation for test case {} with result {}", testCaseId, currFormula.result)
+    currFormula
+  }
+
+  /** Run the test case and get the result for the final formula.
+    * */
+  def computeResult(): Prop.Status = this.synchronized {
+    result.getOrElse {
+      val testCaseInputRecordPath = createTempDir()
+      logger.info("Recording input for test case {} on path {}", testCaseId, testCaseInputRecordPath)
+      val testCaseOutputRecordPath = createTempDir()
+      logger.info("Recording output test case {} on path {}", testCaseId, testCaseOutputRecordPath)
+
+      exerciseTestCase(testCaseInputRecordPath, testCaseOutputRecordPath)
+      val finalFormula = evaluateTestCase(testCaseInputRecordPath, testCaseOutputRecordPath)
+
+      result = Some(finalFormula.result.getOrElse(Prop.Undecided))
+      result.get
+    }
   }
 }
