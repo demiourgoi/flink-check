@@ -37,7 +37,7 @@ class SimpleStreamingFormulas
       numBatches)
     val formula = always(nowTime[U]{ (letter, time) =>
       val (_input, output) = letter
-      output should foreachElement {_ >= 0}
+      output should foreachElement {_.value >= 0}
     }) during numBatches
 
     forAllDataStream[Int, Int](

@@ -53,7 +53,7 @@ class PollutionFormulas
     val formula = always(now[U]{ letter =>
       val (_input, output) = letter
       //output should foreachElement (_ => false) // Este test deberia fallar!!!!
-      output should foreachElement (_._2 != EmergencyLevel.OK)
+      output should foreachElement (_.value._2 != EmergencyLevel.OK)
     }) during numWindows
 
     forAllDataStream[SensorData, (Int, EmergencyLevel.EmergencyLevel)](
@@ -83,7 +83,7 @@ class PollutionFormulas
       laterR[U] { case (_, output) =>
         val alertSensors = output.filter( (x:TEP) => x.value._2 == EmergencyLevel.OK)
 //                                 .map( (x:TEP) => x.value._1)
-        alertSensors should foreachTimedElement( (x:TEP) => highSensors.contains(x.value._1))
+        alertSensors should foreachElement( (x:TEP) => highSensors.contains(x.value._1))
       } on numWindows // FIXME: arbitrary value
     }) during numWindows
 
