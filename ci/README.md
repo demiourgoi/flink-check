@@ -1,6 +1,6 @@
 # Continuous integration
 
-## Script to run all test
+## Script to run all tests
 
 Usage:
 

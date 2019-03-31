@@ -1,6 +1,6 @@
 package es.ucm.fdi.sscheck.flink.pollution
 
-import es.ucm.fdi.sscheck.gen.BatchGen
+import es.ucm.fdi.sscheck.gen.WindowGen
 import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
 import es.ucm.fdi.sscheck.prop.tl.flink.TimedElement
 import es.ucm.fdi.sscheck.prop.tl.Formula._
@@ -47,7 +47,7 @@ class PollutionFormulas
     val numWindows = 5
     // Generates windows of 10-50 measurements from 10 sensors with 
     // concentrations in the range [180.1-1000.0]
-    val gen = BatchGen.always(BatchGen.ofNtoM(10, 50, sensorDataGen(10,180.1,1000.0)),
+    val gen = WindowGen.always(WindowGen.ofNtoM(10, 50, sensorDataGen(10,180.1,1000.0)),
                               numWindows)
     // In all processed windows the emergency level is different from OK                              
     val formula = always(now[U]{ letter =>
@@ -71,7 +71,7 @@ class PollutionFormulas
     val numWindows = 5
     // Generates windows of 10-50 measurements from 10 sensors with 
     // concentrations in the range [0.0-1000.0]
-    val gen = BatchGen.always(BatchGen.ofNtoM(2, 5, sensorDataGen(3,0.0,1000.0)),
+    val gen = WindowGen.always(WindowGen.ofNtoM(2, 5, sensorDataGen(3,0.0,1000.0)),
                               numWindows)
 
     val formula = alwaysF[U] ({ case (input, _) => 
