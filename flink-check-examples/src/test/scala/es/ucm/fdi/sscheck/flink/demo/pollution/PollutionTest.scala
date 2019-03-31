@@ -19,7 +19,7 @@ class PollutionTest
 
   def is =
     s2"""
-        - where pollution is computed correctly $pollution1Ok
+        - where pollution is computed correctly pollution1Ok FIXME
       """
 
   def fixture = new {

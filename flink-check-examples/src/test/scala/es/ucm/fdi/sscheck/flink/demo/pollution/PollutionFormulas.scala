@@ -82,9 +82,9 @@ class PollutionFormulas
                              .map( (x:TES) => x.value.sensor_id).collect
       laterR[U] { case (_, output) =>
         val alertSensors = output.filter( (x:TEP) => x.value._2 == EmergencyLevel.OK)
-                                 .map( (x:TEP) => x.value._1)
-        alertSensors should foreachElement ( (x:TEI) => highSensors.contains(x.value))
-      }
+//                                 .map( (x:TEP) => x.value._1)
+        alertSensors should foreachTimedElement( (x:TEP) => highSensors.contains(x.value._1))
+      } on numWindows // FIXME: arbitrary value
     }) during numWindows
 
     forAllDataStream[SensorData, (Int, EmergencyLevel.EmergencyLevel)](
