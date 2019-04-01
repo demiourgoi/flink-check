@@ -4,6 +4,7 @@ import es.ucm.fdi.sscheck.gen.WindowGen
 import es.ucm.fdi.sscheck.gen.flink.FlinkGenerators._
 import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
 import es.ucm.fdi.sscheck.prop.tl.Formula._
+import es.ucm.fdi.sscheck.prop.tl.flink.FlinkFormula._
 import es.ucm.fdi.sscheck.prop.tl.flink.{DataStreamTLProperty, Parallelism}
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.scala.DataStream
@@ -18,7 +19,6 @@ class SimpleStreamingFormulas
   extends Specification with ScalaCheck with DataStreamTLProperty{
 
   // Sscheck configuration
-  override val letterSize = Time.milliseconds(50)
   override val defaultParallelism = Parallelism(4)
   override val showNSampleElementsOnEvaluation = 7
 
@@ -31,7 +31,9 @@ class SimpleStreamingFormulas
         Then we get only numbers greater or equal to zero $filterOutNegativeGetGeqZero
       - where time increments for each batch $timeIncreasesMonotonically
       """
-  
+
+  val letterSize = Time.milliseconds(50)
+
   def filterOutNegativeGetGeqZero = {
     type U = DataStreamTLProperty.Letter[Int, Int]
     val numBatches = 10
@@ -41,7 +43,7 @@ class SimpleStreamingFormulas
     val formula = always(nowTime[U]{ (letter, time) =>
       val (_input, output) = letter
       output should foreachElement {_.value >= 0}
-    }) during numBatches
+    }) during numBatches groupBy TumblingWindows(letterSize)
 
     forAllDataStream[Int, Int](
       gen)(
@@ -61,7 +63,7 @@ class SimpleStreamingFormulas
       nowTime[U]{ (nextLetter, nextTime) =>
         time.millis <= nextTime.millis
       }
-    }) during numBatches-1
+    }) during numBatches-1 groupBy TumblingWindows(letterSize)
 
     forAllDataStream[Int, Int](
       gen)(

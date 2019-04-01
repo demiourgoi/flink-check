@@ -31,12 +31,6 @@ trait DataStreamTLProperty {
 
   @transient private val logger = LoggerFactory.getLogger(DataStreamTLProperty.getClass)
 
-  // FIXME remove
-  /** Size of the tumbling windows to be used to discretize both the input
-    * and output streams during test case evaluation
-    * */
-  def letterSize : Time
-
   /** Override for custom configuration
     *
     *  Maximum number of letters (i.e., tumbling windows) that the test case will wait for, 100 by default
@@ -70,10 +64,10 @@ trait DataStreamTLProperty {
   /** @return a ScalaCheck property that is executed by:
     *  - generating an input DataStream: we generate a sequence of TimedElement with generator, and then we
     *  build a DataStream[In] from it by using the timestamp of each element as its **event time**, and then
-    *  discarding the timestamp.
+    *  discarding the timestamp. Elements in the generated sequence are expected to be sorted by timestamp
+    *  in ascending order.
     *  - generating an output DataStream applying testSubject on the input DataStream
-    *  - checking formula on a discretization of those DataStream created as a tumbling
-    *  window of size this.letterSize
+    *  - checking formula.formula on a discretization of those DataStream created by formula.discretizer
     *
     *  The property is satisfied iff all the test cases satisfy the formula.
     *  A new streaming context is created for each test case to isolate its
@@ -84,7 +78,7 @@ trait DataStreamTLProperty {
     * */
   def forAllDataStream[In : TypeInformation, Out : TypeInformation](generator: TSGen[In])
                                                                    (testSubject: (DataStream[In]) => DataStream[Out])
-                                                                   (formula: Formula[Letter[In, Out]])
+                                                                   (formula: FlinkFormula[Letter[In, Out]])
                                                                    (implicit pp1: TSGen[In] => Pretty): Prop = {
     val testCaseIdCounter = new TestCaseIdCounter
 
@@ -95,7 +89,7 @@ trait DataStreamTLProperty {
       val env = buildFreshExecutionEnvironment()
       val testCaseContext = new TestCaseContext[In, Out](
         testCase, testSubject, formula)(
-        letterSize, maxNumberLettersPerTestCase, showNSampleElementsOnEvaluation)(
+        maxNumberLettersPerTestCase, showNSampleElementsOnEvaluation)(
         testCaseId, streamEnv, env)
       logger.warn("Starting execution of test case {}", testCaseId)
 
@@ -122,7 +116,6 @@ trait DataStreamTLProperty {
   }
 }
 
-// FIXME: refactor common fields with Spark's version
 object TestCaseContext {
   def createTempDir(testCaseName: String = "flink-check_"): JPath = {
     val tempDir = Files.createTempDirectory(testCaseName)
@@ -182,40 +175,6 @@ object TestCaseContext {
       env.readFile(timedInputInputFormat, path)
     }
 
-    private[this] def tumblingWindowIndex(windowSizeMillis: Long, startTimestamp: Long)(timestamp: Long): Int = {
-      val timeOffset = timestamp - startTimestamp
-      (timeOffset / windowSizeMillis).toInt
-    }
-
-    /** Split data as a series of tumbling windows of size windowSize and starting at startTime
-      *
-      * @param windowSize Size of the tumbling window
-      * @param startTime Start time of the first window. Note, as windows can be empty, we do NOT require
-      *                  to have at least one element in data with that time stamp
-      * @param data data set to split into windows, using the timestamp of TimedElement as time
-      *
-      * Note: windows are generated until covering the last element. That means that empty windows at the end
-      * are ignored. We are not supporting a lastWindowEndTime parameter because that cannot be computed
-      * from a `TSeq[A]` without knowing the windowing criteria, as conceptually a window can extend beyond
-      * the timestamp of it's latest element
-      * */
-    def tumblingWindows[T](windowSize: Time, startTime: Time)
-                          (data: DataSet[TimedElement[T]]): Iterator[TimedWindow[T]] =
-      if (data.count() <= 0) Iterator.empty
-      else {
-        val windowSizeMillis = windowSize.toMilliseconds
-        val startTimestamp = startTime.toMilliseconds
-        val endTimestamp = data.map{_.timestamp}.reduce(scala.math.max(_, _)).collect().head
-        val endingWindowIndex = tumblingWindowIndex(windowSizeMillis, startTimestamp)(endTimestamp)
-
-        Iterator.range(0, endingWindowIndex + 1).map { windowIndex =>
-          val windowData = data.filter{record =>
-            tumblingWindowIndex(windowSizeMillis, startTimestamp)(record.timestamp) == windowIndex
-          }
-          TimedWindow(startTimestamp + windowIndex*windowSizeMillis, windowData)
-        }
-      }
-
     /** Print some records in a window to get some logging that helps developing tests.
       * */
     def printWindowHead[T](window: TimedWindow[T], streamName: String, showNSampleElements: Int): Unit = {
@@ -237,8 +196,7 @@ object TestCaseContext {
 class TestCaseContext[In : TypeInformation, Out : TypeInformation](
   @transient private val testCase: DataStreamTLProperty.TSeq[In],
   @transient private val testSubject: (DataStream[In]) => DataStream[Out],
-  @transient private val formula: Formula[DataStreamTLProperty.Letter[In, Out]])(
-  @transient val letterSize: Time,
+  @transient private val formula: FlinkFormula[DataStreamTLProperty.Letter[In, Out]])(
   @transient private val maxNumberLettersPerTestCase: Int,
   @transient val showNSampleElements: Int)(
   @transient private val testCaseId: TestCaseId,
@@ -252,13 +210,6 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
   @transient private val logger = LoggerFactory.getLogger(TestCaseContext.getClass)
 
   @transient private var result: Option[Prop.Status] = None
-
-  // FIXME: remove when `DataStreamTLProperty.letterSize` is replaced by a param with default in forAllDataStream
-  // we could use Time.milliseconds(Instant.now().toEpochMilli) here instead, but Flink
-  // doesn't care as long as the timestamps are increasing so the watermark moves smoothly,
-  // and starting from 0 leads to timestamps that are usually easier to read (as letterSize
-  // is usually a multiple of 10)
-  @transient val testCaseStartTime = Time.milliseconds(0)
 
   private def exerciseTestCase(testCaseInputRecordPath: JPath,
                                testCaseOutputRecordPath: JPath): Unit = {
@@ -276,12 +227,12 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
   private def evaluateTestCase(testCaseInputRecordPath: JPath,
                                testCaseOutputRecordPath: JPath): NextFormula[DataStreamTLProperty.Letter[In, Out]] = {
     logger.info(s"Evaluating test case {}", testCaseId)
-    var currFormula = formula.nextFormula
+    var currFormula = formula.formula.nextFormula
 
     val timedInput = Evaluate.readRecordedStreamWithTimestamps[In](testCaseInputRecordPath.toString)(env)
     val timedOutput = Evaluate.readRecordedStreamWithTimestamps[Out](testCaseOutputRecordPath.toString)(env)
-    val inputWindows = Evaluate.tumblingWindows(letterSize, testCaseStartTime)(timedInput)
-    val outputWindows = Evaluate.tumblingWindows(letterSize, testCaseStartTime)(timedOutput)
+    val inputWindows = formula.discretizer.getWindows(timedInput)
+    val outputWindows = formula.discretizer.getWindows(timedOutput)
 
     // FIXME: delete files at the end
     breakable {
