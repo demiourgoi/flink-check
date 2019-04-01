@@ -21,8 +21,6 @@ import scala.util.control.Breaks._
 import scala.util.Properties.lineSeparator
 
 object DataStreamTLProperty {
-  type SSeq[A] = Seq[Seq[A]]
-  type SSGen[A] = Gen[SSeq[A]]
   type TSeq[A] = Seq[TimedElement[A]]
   type TSGen[A] = Gen[TSeq[A]]
   type Letter[In, Out] = (DataSet[TimedElement[In]], DataSet[TimedElement[Out]])
@@ -33,8 +31,9 @@ trait DataStreamTLProperty {
 
   @transient private val logger = LoggerFactory.getLogger(DataStreamTLProperty.getClass)
 
+  // FIXME remove
   /** Size of the tumbling windows to be used to discretize both the input
-    * and output streams
+    * and output streams during test case evaluation
     * */
   def letterSize : Time
 
@@ -50,9 +49,10 @@ trait DataStreamTLProperty {
   /** How many elements of each window to print during test case evaluation */
   def showNSampleElementsOnEvaluation: Int = 5
 
-  /** @return a newly created StreamExecutionEnvironment, for which no stream or action has
-  *  been defined, and that it's not started
-  *  */
+  /** If override the returned environment should have event time set.
+    *  @return a newly created StreamExecutionEnvironment, for which no stream or action has
+    *          been defined, and that it's not started.
+    */
   def buildFreshStreamExecutionEnvironment(): StreamExecutionEnvironment = {
     val env = StreamExecutionEnvironment.createLocalEnvironment()
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime); // activate event time
@@ -61,16 +61,16 @@ trait DataStreamTLProperty {
 
   /** @return a newly created ExecutionEnvironment, for which no data set or action has
     *  been defined, and that it's not started
-    *  */
+    */
   def buildFreshExecutionEnvironment(): ExecutionEnvironment = {
     ExecutionEnvironment.createLocalEnvironment(defaultParallelism.numPartitions)
   }
 
   // 1 in 1 out
   /** @return a ScalaCheck property that is executed by:
-    *  - generating an input DataStream with generator. Each generated value is interpreted as a sequence of tumbling
-    *  windows of size this.letterSize. Each element in a window is assigned a random timestamp between the start and
-    *  the end of the window (using a uniform distribution as provided by ScalaCheck's Gen.choose)
+    *  - generating an input DataStream: we generate a sequence of TimedElement with generator, and then we
+    *  build a DataStream[In] from it by using the timestamp of each element as its **event time**, and then
+    *  discarding the timestamp.
     *  - generating an output DataStream applying testSubject on the input DataStream
     *  - checking formula on a discretization of those DataStream created as a tumbling
     *  window of size this.letterSize
@@ -78,26 +78,24 @@ trait DataStreamTLProperty {
     *  The property is satisfied iff all the test cases satisfy the formula.
     *  A new streaming context is created for each test case to isolate its
     *  execution.
+    *
+    *  Note: this assumes a stream execution environment configured with event time, which is used to get more
+    *  deterministic behaviour, and to place the generated elements on the stream.
     * */
-  def forAllDataStream[In : TypeInformation, Out : TypeInformation](generator: SSGen[In])
+  def forAllDataStream[In : TypeInformation, Out : TypeInformation](generator: TSGen[In])
                                                                    (testSubject: (DataStream[In]) => DataStream[Out])
                                                                    (formula: Formula[Letter[In, Out]])
-                                                                   (implicit pp1: SSeq[In] => Pretty): Prop = {
+                                                                   (implicit pp1: TSGen[In] => Pretty): Prop = {
     val testCaseIdCounter = new TestCaseIdCounter
 
-    Prop.forAllNoShrink(generator) { testCase: SSeq[In] =>
+    Prop.forAllNoShrink(generator) { testCase: TSeq[In] =>
       // Setup new test case
       val testCaseId = testCaseIdCounter.nextId()
       val streamEnv = buildFreshStreamExecutionEnvironment()
       val env = buildFreshExecutionEnvironment()
-      // we could use Time.milliseconds(Instant.now().toEpochMilli) here instead, but Flink
-      // doesn't care as long as the timestamps are increasing so the watermark moves smoothly,
-      // and starting from 0 leads to timestamps that are usually easier to read (as letterSize
-      // is usually a multiple of 10)
-      val startTime = Time.milliseconds(0)
       val testCaseContext = new TestCaseContext[In, Out](
         testCase, testSubject, formula)(
-        startTime, letterSize, maxNumberLettersPerTestCase, showNSampleElementsOnEvaluation)(
+        letterSize, maxNumberLettersPerTestCase, showNSampleElementsOnEvaluation)(
         testCaseId, streamEnv, env)
       logger.warn("Starting execution of test case {}", testCaseId)
 
@@ -139,37 +137,18 @@ object TestCaseContext {
     val logger = LoggerFactory.getLogger(Exercise.getClass)
 
     // TODO: support parallelism using SplittableIterator
-    /** Converts batches that represents a sequence of windows into a DataStream where is record is assigned
-      * an event time computed interpreting the each batch in batches as a tumbling window of size windowSize
-      * with the first window starting at startEpoch. Inside the window, the timestamp of each record is a
-      * random value between the window start (inclusive) and the windows end (exclusive)
-      *
-      * Note: there is no warranty that for each window has a record with the window start time as timestamp.
-      * This also allows this method to support empty windows.
+    /**
       * Note: the DataStream is created with [[StreamExecutionEnvironment#fromCollection]] so it is not parallel
       */
-    def batchesToStream[A : TypeInformation](batches: Seq[Seq[A]])
-                                            (windowSize: Time, startTime: Time)
-                                            (env: StreamExecutionEnvironment): DataStream[A] = {
+    def timedElementsToStream[A : TypeInformation](timedElements: Seq[TimedElement[A]])
+                                                  (env: StreamExecutionEnvironment): DataStream[A] = {
       require(env.getStreamTimeCharacteristic == TimeCharacteristic.EventTime,
         logger.error("Event time required for converting a PDStream value into a Flink DataStream"))
 
-      // "Time-based windows have a start timestamp (inclusive) and an end timestamp (exclusive) that together
-      // describe the size of the window."
-      // https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/windows.html
-      val timestampOffsetGen = Gen.choose(min=0, max=(windowSize.toMilliseconds)-1)
-      val timedBatches = batches.zipWithIndex.flatMap{case (batch, i) =>
-        batch.map{value =>
-          val offset = timestampOffsetGen.sample.getOrElse(0L)
-          val timestamp = startTime.toMilliseconds + (i * (windowSize.toMilliseconds)) + offset
-          TimedElement(timestamp, value)
-        }.sortBy(_.timestamp)
-      }
-
       // This works fine with event time because [watermarks](https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_time.html#event-time-and-watermarks)
       // won't find late events, as timestamps are sorted. This wouldn't work so well with unsorted time stamps
-      env.fromCollection(timedBatches)
-        .assignAscendingTimestamps( _.timestamp)
+      env.fromCollection(timedElements)
+        .assignAscendingTimestamps(_.timestamp)
         .map(_.value)
     }
 
@@ -256,10 +235,9 @@ object TestCaseContext {
   * and evaluate formulaNext on a discretization of them
   * */
 class TestCaseContext[In : TypeInformation, Out : TypeInformation](
-  @transient private val testCase: DataStreamTLProperty.SSeq[In],
+  @transient private val testCase: DataStreamTLProperty.TSeq[In],
   @transient private val testSubject: (DataStream[In]) => DataStream[Out],
   @transient private val formula: Formula[DataStreamTLProperty.Letter[In, Out]])(
-  @transient val testCaseStartTime: Time,
   @transient val letterSize: Time,
   @transient private val maxNumberLettersPerTestCase: Int,
   @transient val showNSampleElements: Int)(
@@ -275,11 +253,18 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
 
   @transient private var result: Option[Prop.Status] = None
 
+  // FIXME: remove when `DataStreamTLProperty.letterSize` is replaced by a param with default in forAllDataStream
+  // we could use Time.milliseconds(Instant.now().toEpochMilli) here instead, but Flink
+  // doesn't care as long as the timestamps are increasing so the watermark moves smoothly,
+  // and starting from 0 leads to timestamps that are usually easier to read (as letterSize
+  // is usually a multiple of 10)
+  @transient val testCaseStartTime = Time.milliseconds(0)
+
   private def exerciseTestCase(testCaseInputRecordPath: JPath,
                                testCaseOutputRecordPath: JPath): Unit = {
     logger.info(s"Exercising test case {}: {}", testCaseId, testCase)
 
-    val input = Exercise.batchesToStream(testCase)(letterSize, testCaseStartTime)(streamEnv)
+    val input = Exercise.timedElementsToStream(testCase)(streamEnv)
     val output = testSubject(input)
     Exercise.storeDataStreamWithTimestamps(input)(testCaseInputRecordPath.toString)
     Exercise.storeDataStreamWithTimestamps(output)(testCaseOutputRecordPath.toString)
@@ -309,7 +294,7 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
         Evaluate.printWindowHead(outputWindow, OutputStreamName, showNSampleElements)
         val currentLetter = (inputWindow.data, outputWindow.data)
         currFormula = currFormula.consume(SscheckTime(windowStartTimestamp))(currentLetter)
-        logger.debug("Current formula result is {} after window #{}", currFormula.result, windowIndex)
+        logger.debug("Current formula result after window #{} is {}", windowIndex, currFormula.result)
         if (currFormula.result.isDefined || windowIndex+1 >= maxNumberLettersPerTestCase) break()
       }
     }

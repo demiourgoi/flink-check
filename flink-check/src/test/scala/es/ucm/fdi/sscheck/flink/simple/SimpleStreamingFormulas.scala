@@ -1,6 +1,7 @@
 package es.ucm.fdi.sscheck.flink.simple
 
 import es.ucm.fdi.sscheck.gen.WindowGen
+import es.ucm.fdi.sscheck.gen.flink.FlinkGenerators._
 import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
 import es.ucm.fdi.sscheck.prop.tl.Formula._
 import es.ucm.fdi.sscheck.prop.tl.flink.{DataStreamTLProperty, Parallelism}
@@ -34,8 +35,9 @@ class SimpleStreamingFormulas
   def filterOutNegativeGetGeqZero = {
     type U = DataStreamTLProperty.Letter[Int, Int]
     val numBatches = 10
-    val gen = WindowGen.always(WindowGen.ofNtoM(10, 50, arbitrary[Int]),
-      numBatches)
+    val gen = tumblingTimeWindow(letterSize){
+      WindowGen.always(WindowGen.ofNtoM(10, 50, arbitrary[Int]), numBatches)
+    }
     val formula = always(nowTime[U]{ (letter, time) =>
       val (_input, output) = letter
       output should foreachElement {_.value >= 0}
@@ -51,7 +53,9 @@ class SimpleStreamingFormulas
   def timeIncreasesMonotonically = {
     type U = DataStreamTLProperty.Letter[Int, Int]
     val numBatches = 10
-    val gen = WindowGen.always(WindowGen.ofNtoM(10, 50, arbitrary[Int]))
+    val gen = tumblingTimeWindow(letterSize){
+      WindowGen.always(WindowGen.ofNtoM(10, 50, arbitrary[Int]))
+    }
 
     val formula = always(nextTime[U]{ (letter, time) =>
       nowTime[U]{ (nextLetter, nextTime) =>
