@@ -2,7 +2,7 @@ package es.ucm.fdi.sscheck.prop.tl.flink
 
 import java.nio.file.{Files, Path => JPath}
 
-import es.ucm.fdi.sscheck.prop.tl.{Formula, NextFormula, Time => SscheckTime}
+import es.ucm.fdi.sscheck.prop.tl.{NextFormula, Time => SscheckTime}
 import es.ucm.fdi.sscheck.{TestCaseId, TestCaseIdCounter}
 import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.api.java.io.{TypeSerializerInputFormat, TypeSerializerOutputFormat}
@@ -11,14 +11,13 @@ import org.apache.flink.core.fs.Path
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.ProcessFunction
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
-import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.util.Collector
 import org.scalacheck.util.Pretty
 import org.scalacheck.{Gen, Prop}
-import org.slf4j.LoggerFactory
+import org.slf4j.{Logger, LoggerFactory}
 
-import scala.util.control.Breaks._
 import scala.util.Properties.lineSeparator
+import scala.util.control.Breaks._
 
 object DataStreamTLProperty {
   type TSeq[A] = Seq[TimedElement[A]]
@@ -127,14 +126,12 @@ object TestCaseContext {
   val OutputStreamName = "Output"
 
   object Exercise {
-    val logger = LoggerFactory.getLogger(Exercise.getClass)
-
     // TODO: support parallelism using SplittableIterator
     /**
       * Note: the DataStream is created with [[StreamExecutionEnvironment#fromCollection]] so it is not parallel
       */
     def timedElementsToStream[A : TypeInformation](timedElements: Seq[TimedElement[A]])
-                                                  (env: StreamExecutionEnvironment): DataStream[A] = {
+                                                  (env: StreamExecutionEnvironment, logger: Logger): DataStream[A] = {
       require(env.getStreamTimeCharacteristic == TimeCharacteristic.EventTime,
         logger.error("Event time required for converting a PDStream value into a Flink DataStream"))
 
@@ -167,9 +164,10 @@ object TestCaseContext {
   }
 
   object Evaluate {
-    val logger = LoggerFactory.getLogger(Evaluate.getClass)
+    def readRecordedStreamWithTimestamps[T : TypeInformation](path: String)
+                                                             (env: ExecutionEnvironment)
+    : DataSet[TimedElement[T]] = {
 
-    def readRecordedStreamWithTimestamps[T : TypeInformation](path: String)(env: ExecutionEnvironment) = {
       val timedInputInputFormat = new TypeSerializerInputFormat[TimedElement[T]](
         implicitly[TypeInformation[TimedElement[T]]])
       env.readFile(timedInputInputFormat, path)
@@ -177,7 +175,8 @@ object TestCaseContext {
 
     /** Print some records in a window to get some logging that helps developing tests.
       * */
-    def printWindowHead[T](window: TimedWindow[T], streamName: String, showNSampleElements: Int): Unit = {
+    def printWindowHead[T](window: TimedWindow[T], streamName: String, showNSampleElements: Int)
+                          (logger: Logger): Unit = {
       val numElements = window.data.count()
       logger.debug(
         s"""Time: ${window.timestamp} - ${streamName} (${numElements} elements)
@@ -207,7 +206,8 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
 
   import TestCaseContext._
 
-  @transient private val logger = LoggerFactory.getLogger(TestCaseContext.getClass)
+  @transient private val logger =
+    LoggerFactory.getLogger(s"${TestCaseContext.getClass.getName()} - test case ${testCaseId}")
 
   @transient private var result: Option[Prop.Status] = None
 
@@ -215,7 +215,7 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
                                testCaseOutputRecordPath: JPath): Unit = {
     logger.info(s"Exercising test case {}: {}", testCaseId, testCase)
 
-    val input = Exercise.timedElementsToStream(testCase)(streamEnv)
+    val input = Exercise.timedElementsToStream(testCase)(streamEnv, logger)
     val output = testSubject(input)
     Exercise.storeDataStreamWithTimestamps(input)(testCaseInputRecordPath.toString)
     Exercise.storeDataStreamWithTimestamps(output)(testCaseOutputRecordPath.toString)
@@ -241,8 +241,8 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
         assume(windowStartTimestamp == outputWindow.timestamp,
         logger.error("Input and output window are not aligned"))
         logger.debug("Checking window #{} with timestamp {}", windowIndex, windowStartTimestamp)
-        Evaluate.printWindowHead(inputWindow, InputStreamName, showNSampleElements)
-        Evaluate.printWindowHead(outputWindow, OutputStreamName, showNSampleElements)
+        Evaluate.printWindowHead(inputWindow, InputStreamName, showNSampleElements)(logger)
+        Evaluate.printWindowHead(outputWindow, OutputStreamName, showNSampleElements)(logger)
         val currentLetter = (inputWindow.data, outputWindow.data)
         currFormula = currFormula.consume(SscheckTime(windowStartTimestamp))(currentLetter)
         logger.debug("Current formula result after window #{} is {}", windowIndex, currFormula.result)

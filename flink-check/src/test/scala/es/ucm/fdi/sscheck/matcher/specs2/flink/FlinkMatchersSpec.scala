@@ -1,5 +1,7 @@
 package es.ucm.fdi.sscheck.matcher.specs2.flink
 
+import scala.language.reflectiveCalls
+
 import org.apache.flink.api.scala._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner

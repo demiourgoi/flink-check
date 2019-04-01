@@ -8,6 +8,11 @@ scalaVersion := "2.11.8"
 
 crossScalaVersions  := Seq("2.10.6")
 
+// Flink is ok with multiple execution contexts in the same JVM, but too much work in local
+// mode leads to "Could not allocate enough memory segments for NetworkBufferPool (required (Mb)
+// : 106, allocated (Mb): 97, missing (Mb): 9). Cause: Direct buffer memory (NetworkBufferPool.java:108)"
+parallelExecution := false
+
 lazy val sscheckVersion = "0.3.2"
 
 lazy val specs2Version = "3.8.4"

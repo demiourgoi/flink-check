@@ -1,5 +1,7 @@
 package es.ucm.fdi.sscheck.flink.simple
 
+import scala.language.reflectiveCalls
+
 import es.ucm.fdi.sscheck.gen.WindowGen
 import es.ucm.fdi.sscheck.gen.flink.FlinkGenerators._
 import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
@@ -32,30 +34,29 @@ class SimpleStreamingFormulas
       - where time increments for each batch $timeIncreasesMonotonically
       """
 
-  val letterSize = Time.milliseconds(50)
+  val genWindowSizeMillis = 50
 
   def filterOutNegativeGetGeqZero = {
     type U = DataStreamTLProperty.Letter[Int, Int]
     val numBatches = 10
-    val gen = tumblingTimeWindows(letterSize){
+    val gen = tumblingTimeWindows(Time.milliseconds(genWindowSizeMillis)){
       WindowGen.always(WindowGen.ofNtoM(10, 50, arbitrary[Int]), numBatches)
     }
     val formula = always(nowTime[U]{ (letter, time) =>
       val (_input, output) = letter
       output should foreachElement {_.value >= 0}
-    }) during numBatches groupBy TumblingTimeWindows(letterSize)
+    }) during numBatches/2 groupBy TumblingTimeWindows(Time.milliseconds(genWindowSizeMillis*2))
 
     forAllDataStream[Int, Int](
       gen)(
       _.filter{ x => !(x < 0)})(
       formula)
-  }.set(minTestsOk = 5).verbose
-  //.set(minTestsOk = 50).verbose
+  }.set(minTestsOk=5, workers=2).verbose
 
   def timeIncreasesMonotonically = {
     type U = DataStreamTLProperty.Letter[Int, Int]
     val numBatches = 10
-    val gen = tumblingTimeWindows(letterSize){
+    val gen = tumblingTimeWindows(Time.milliseconds(genWindowSizeMillis)){
       WindowGen.always(WindowGen.ofNtoM(10, 50, arbitrary[Int]))
     }
 
@@ -63,11 +64,11 @@ class SimpleStreamingFormulas
       nowTime[U]{ (nextLetter, nextTime) =>
         time.millis <= nextTime.millis
       }
-    }) during numBatches-1 groupBy TumblingTimeWindows(letterSize)
+    }) during (numBatches-1)/2 groupBy TumblingTimeWindows(Time.milliseconds(genWindowSizeMillis*2))
 
     forAllDataStream[Int, Int](
       gen)(
       identity[DataStream[Int]])(
       formula)
-  }.set(minTestsOk = 5).verbose//.set(minTestsOk = 10).verbose
+  }.set(minTestsOk=5, workers=2).verbose
 }
