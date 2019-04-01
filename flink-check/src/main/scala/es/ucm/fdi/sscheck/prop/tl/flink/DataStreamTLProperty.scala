@@ -47,6 +47,9 @@ trait DataStreamTLProperty {
   /** Override for custom configuration */
   def defaultParallelism: Parallelism = Parallelism(4)
 
+  /** How many elements of each window to print during test case evaluation */
+  def showNSampleElementsOnEvaluation: Int = 5
+
   /** @return a newly created StreamExecutionEnvironment, for which no stream or action has
   *  been defined, and that it's not started
   *  */
@@ -94,7 +97,7 @@ trait DataStreamTLProperty {
       val startTime = Time.milliseconds(0)
       val testCaseContext = new TestCaseContext[In, Out](
         testCase, testSubject, formula)(
-        startTime, letterSize, maxNumberLettersPerTestCase)(
+        startTime, letterSize, maxNumberLettersPerTestCase, showNSampleElementsOnEvaluation)(
         testCaseId, streamEnv, env)
       logger.warn("Starting execution of test case {}", testCaseId)
 
@@ -194,7 +197,6 @@ object TestCaseContext {
   object Evaluate {
     val logger = LoggerFactory.getLogger(Evaluate.getClass)
 
-
     def readRecordedStreamWithTimestamps[T : TypeInformation](path: String)(env: ExecutionEnvironment) = {
       val timedInputInputFormat = new TypeSerializerInputFormat[TimedElement[T]](
         implicitly[TypeInformation[TimedElement[T]]])
@@ -205,9 +207,6 @@ object TestCaseContext {
       val timeOffset = timestamp - startTimestamp
       (timeOffset / windowSizeMillis).toInt
     }
-
-    // Constants used for printing a sample of the generated values for each batch
-    private val numSampleRecords = 5
 
     /** Split data as a series of tumbling windows of size windowSize and starting at startTime
       *
@@ -240,13 +239,13 @@ object TestCaseContext {
 
     /** Print some records in a window to get some logging that helps developing tests.
       * */
-    def printWindowHead[T](window: TimedWindow[T], streamName: String): Unit = {
+    def printWindowHead[T](window: TimedWindow[T], streamName: String, showNSampleElements: Int): Unit = {
       val numElements = window.data.count()
       logger.debug(
         s"""Time: ${window.timestamp} - ${streamName} (${numElements} elements)
            |{}
            |...
-         """.stripMargin, window.data.first(numSampleRecords).collect().mkString(lineSeparator))
+         """.stripMargin, window.data.first(showNSampleElements).collect().mkString(lineSeparator))
     }
   }
 }
@@ -262,7 +261,8 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
   @transient private val formula: Formula[DataStreamTLProperty.Letter[In, Out]])(
   @transient val testCaseStartTime: Time,
   @transient val letterSize: Time,
-  @transient private val maxNumberLettersPerTestCase: Int)(
+  @transient private val maxNumberLettersPerTestCase: Int,
+  @transient val showNSampleElements: Int)(
   @transient private val testCaseId: TestCaseId,
   @transient private val streamEnv: StreamExecutionEnvironment,
   @transient private val env: ExecutionEnvironment)
@@ -303,10 +303,10 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
       inputWindows.zip(outputWindows).zipWithIndex.foreach{case ((inputWindow, outputWindow), windowIndex) =>
         val windowStartTimestamp = inputWindow.timestamp
         assume(windowStartTimestamp == outputWindow.timestamp,
-          logger.error("Input and output window are not aligned"))
+        logger.error("Input and output window are not aligned"))
         logger.debug("Checking window #{} with timestamp {}", windowIndex, windowStartTimestamp)
-        Evaluate.printWindowHead(inputWindow, InputStreamName)
-        Evaluate.printWindowHead(outputWindow, OutputStreamName)
+        Evaluate.printWindowHead(inputWindow, InputStreamName, showNSampleElements)
+        Evaluate.printWindowHead(outputWindow, OutputStreamName, showNSampleElements)
         val currentLetter = (inputWindow.data, outputWindow.data)
         currFormula = currFormula.consume(SscheckTime(windowStartTimestamp))(currentLetter)
         logger.debug("Current formula result is {} after window #{}", currFormula.result, windowIndex)

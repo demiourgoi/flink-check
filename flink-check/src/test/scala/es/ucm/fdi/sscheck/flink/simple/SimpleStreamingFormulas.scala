@@ -19,6 +19,7 @@ class SimpleStreamingFormulas
   // Sscheck configuration
   override val letterSize = Time.milliseconds(50)
   override val defaultParallelism = Parallelism(4)
+  override val showNSampleElementsOnEvaluation = 7
 
   def is =
     sequential ^ s2"""
