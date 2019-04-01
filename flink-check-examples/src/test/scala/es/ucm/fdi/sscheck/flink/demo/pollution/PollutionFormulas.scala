@@ -1,16 +1,16 @@
 package es.ucm.fdi.sscheck.flink.pollution
 
 import es.ucm.fdi.sscheck.gen.WindowGen
+import es.ucm.fdi.sscheck.gen.flink.FlinkGenerators._
 import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
 import es.ucm.fdi.sscheck.prop.tl.flink.TimedElement
 import es.ucm.fdi.sscheck.prop.tl.Formula._
+import es.ucm.fdi.sscheck.prop.tl.flink.FlinkFormula._
 import es.ucm.fdi.sscheck.prop.tl.flink.{DataStreamTLProperty, Parallelism}
 import es.ucm.fdi.sscheck.flink.demo.pollution.Pollution.{pollution1, SensorData, EmergencyLevel}
 import org.apache.flink.api.scala._
-import org.apache.flink.streaming.api.scala.DataStream
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.junit.runner.RunWith
-import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.specs2.runner.JUnitRunner
 import org.specs2.{ScalaCheck, Specification}
@@ -21,9 +21,10 @@ class PollutionFormulas
   extends Specification with ScalaCheck with DataStreamTLProperty{
 
   // Sscheck configuration
-  //override val letterSize = Time.milliseconds(50)
-  override val letterSize = Time.seconds(1)
   override val defaultParallelism = Parallelism(4)
+
+  // val letterSize = Time.milliseconds(50)
+  val letterSize = Time.seconds(1)
 
   def is =
     sequential ^ s2"""
@@ -47,14 +48,17 @@ class PollutionFormulas
     val numWindows = 5
     // Generates windows of 10-50 measurements from 10 sensors with 
     // concentrations in the range [180.1-1000.0]
-    val gen = WindowGen.always(WindowGen.ofNtoM(10, 50, sensorDataGen(10,180.1,1000.0)),
-                              numWindows)
+    val gen = tumblingTimeWindows(letterSize){
+      WindowGen.always(WindowGen.ofNtoM(10, 50, sensorDataGen(10,180.1,1000.0)),
+        numWindows)
+    }
+
     // In all processed windows the emergency level is different from OK                              
     val formula = always(now[U]{ letter =>
       val (_input, output) = letter
       //output should foreachElement (_ => false) // Este test deberia fallar!!!!
       output should foreachElement (_.value._2 != EmergencyLevel.OK)
-    }) during numWindows
+    }) during numWindows groupBy TumblingTimeWindows(letterSize)
 
     forAllDataStream[SensorData, (Int, EmergencyLevel.EmergencyLevel)](
       gen)(
@@ -71,8 +75,10 @@ class PollutionFormulas
     val numWindows = 5
     // Generates windows of 10-50 measurements from 10 sensors with 
     // concentrations in the range [0.0-1000.0]
-    val gen = WindowGen.always(WindowGen.ofNtoM(2, 5, sensorDataGen(3,0.0,1000.0)),
-                              numWindows)
+    val gen = tumblingTimeWindows(letterSize){
+      WindowGen.always(WindowGen.ofNtoM(2, 5, sensorDataGen(3,0.0,1000.0)),
+        numWindows)
+    }
 
     val formula = alwaysF[U] ({ case (input, _) => 
       type TES = TimedElement[SensorData]
@@ -85,7 +91,7 @@ class PollutionFormulas
 //                                 .map( (x:TEP) => x.value._1)
         alertSensors should foreachElement( (x:TEP) => highSensors.contains(x.value._1))
       } on numWindows // FIXME: arbitrary value
-    }) during numWindows
+    }) during numWindows groupBy TumblingTimeWindows(letterSize)
 
     forAllDataStream[SensorData, (Int, EmergencyLevel.EmergencyLevel)](
       gen)(

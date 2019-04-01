@@ -37,13 +37,13 @@ class SimpleStreamingFormulas
   def filterOutNegativeGetGeqZero = {
     type U = DataStreamTLProperty.Letter[Int, Int]
     val numBatches = 10
-    val gen = tumblingTimeWindow(letterSize){
+    val gen = tumblingTimeWindows(letterSize){
       WindowGen.always(WindowGen.ofNtoM(10, 50, arbitrary[Int]), numBatches)
     }
     val formula = always(nowTime[U]{ (letter, time) =>
       val (_input, output) = letter
       output should foreachElement {_.value >= 0}
-    }) during numBatches groupBy TumblingWindows(letterSize)
+    }) during numBatches groupBy TumblingTimeWindows(letterSize)
 
     forAllDataStream[Int, Int](
       gen)(
@@ -55,7 +55,7 @@ class SimpleStreamingFormulas
   def timeIncreasesMonotonically = {
     type U = DataStreamTLProperty.Letter[Int, Int]
     val numBatches = 10
-    val gen = tumblingTimeWindow(letterSize){
+    val gen = tumblingTimeWindows(letterSize){
       WindowGen.always(WindowGen.ofNtoM(10, 50, arbitrary[Int]))
     }
 
@@ -63,7 +63,7 @@ class SimpleStreamingFormulas
       nowTime[U]{ (nextLetter, nextTime) =>
         time.millis <= nextTime.millis
       }
-    }) during numBatches-1 groupBy TumblingWindows(letterSize)
+    }) during numBatches-1 groupBy TumblingTimeWindows(letterSize)
 
     forAllDataStream[Int, Int](
       gen)(

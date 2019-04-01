@@ -44,7 +44,7 @@ package flink {
       *                  to have at least one element in data with that time stamp
       *
       * */
-    case class TumblingWindows(@transient windowSize: Time,
+    case class TumblingTimeWindows(@transient windowSize: Time,
                                @transient startTime: Time = Time.milliseconds(0))
       extends StreamDiscretizer {
 

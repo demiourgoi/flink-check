@@ -18,7 +18,7 @@ object FlinkGenerators {
     * Note: there is no warranty that for each window has a record with the window start time as timestamp.
     * This also allows this method to support empty windows.
     * */
-  def tumblingTimeWindow[A](windowSize: Time, startTime: Time = Time.milliseconds(0))
+  def tumblingTimeWindows[A](windowSize: Time, startTime: Time = Time.milliseconds(0))
                            (windowsGen: Gen[PStream[A]]): Gen[Seq[TimedElement[A]]] = {
 
     // "Time-based windows have a start timestamp (inclusive) and an end timestamp (exclusive) that together
