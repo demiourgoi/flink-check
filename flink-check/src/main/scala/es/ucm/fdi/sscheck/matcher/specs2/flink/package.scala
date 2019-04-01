@@ -13,11 +13,11 @@ package es.ucm.fdi.sscheck.matcher.specs2 {
 
       def foreachElementProjection[T, P](projection: T => P)
                                         (predicate: P => Boolean): Matcher[DataSet[T]] = { (data: DataSet[T]) =>
-        val failingElements = data.filter{x => ! predicate(projection(x))}
+        val failingElements = data.filter{x => ! predicate(projection(x))}.first(numErrors)
         (
           failingElements.count() == 0,
           "all elements fulfil the predicate",
-          s"predicate failed for elements ${failingElements.first(numErrors).collect().mkString(", ")} ..."
+          s"predicate failed for elements ${failingElements.collect().mkString(", ")} ..."
         )
       }
 
@@ -36,7 +36,7 @@ package es.ucm.fdi.sscheck.matcher.specs2 {
 
       def existsElementProjection[T, P](projection: T => P)
                                        (predicate: P => Boolean): Matcher[DataSet[T]] = { (data: DataSet[T]) =>
-        val exampleElements = data.filter{x => predicate(projection(x))}
+        val exampleElements = data.filter{x => predicate(projection(x))}.first(1)
         (
           exampleElements.count() > 0,
           "some element fulfils the predicate",
