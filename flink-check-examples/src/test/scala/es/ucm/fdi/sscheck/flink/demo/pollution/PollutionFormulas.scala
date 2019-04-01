@@ -29,9 +29,10 @@ class PollutionFormulas
   def is =
     sequential ^ s2"""
     ScalaCheck properties with temporal formulas on Flink pollution streaming programs
-      - pollution1:
-          - if all sensors have values greater than 180, then all the generated 
-            emergency levels are different from OK $highValuesGetNotOK
+    - pollution1: if all sensors have values greater than 180, then all the generated 
+         emergency levels are different from OK $highValuesGetNotOK
+    - pollution1: sensors with higher concentration value in a window must be 
+         eventually tagged with EmergencyLevel.Alert $highEventuallyAlert
       """      
   // Generator of SensorData with an id between 0 and num_sensors-1, and a 
   // concentration value between min_conc and max_conc
@@ -56,7 +57,6 @@ class PollutionFormulas
     // In all processed windows the emergency level is different from OK                              
     val formula = always(now[U]{ letter =>
       val (_input, output) = letter
-      //output should foreachElement (_ => false) // Este test deberia fallar!!!!
       output should foreachElement (_.value._2 != EmergencyLevel.OK)
     }) during numWindows groupBy TumblingTimeWindows(letterSize)
 
@@ -66,30 +66,31 @@ class PollutionFormulas
       formula)
   }.set(minTestsOk = 1).verbose
 
- 
-  
-  // Those sensors with high concentration values must be eventually be tagged
-  // with EmergencyLevel.Alert
+   
+  // Those sensors with higher concentration value in a window must be 
+  // eventually tagged with EmergencyLevel.Alert
   def highEventuallyAlert = {
     type U = DataStreamTLProperty.Letter[SensorData, (Int, EmergencyLevel.EmergencyLevel)]
-    val numWindows = 5
+    val numWindows = 2
     // Generates windows of 10-50 measurements from 10 sensors with 
     // concentrations in the range [0.0-1000.0]
     val gen = tumblingTimeWindows(letterSize){
-      WindowGen.always(WindowGen.ofNtoM(2, 5, sensorDataGen(3,0.0,1000.0)),
+      WindowGen.always(WindowGen.ofNtoM(2, 5, sensorDataGen(3,500.0,1000.0)),
         numWindows)
     }
 
-    val formula = alwaysF[U] ({ case (input, _) => 
-      type TES = TimedElement[SensorData]
-      type TEP = TimedElement[(Int, EmergencyLevel.EmergencyLevel)]
-      type TEI = TimedElement[Int]
-      val highSensors = input.filter( (x:TES) => x.value.concentration > 400.0)
-                             .map( (x:TES) => x.value.sensor_id).collect
-      laterR[U] { case (_, output) =>
-        val alertSensors = output.filter( (x:TEP) => x.value._2 == EmergencyLevel.OK)
-//                                 .map( (x:TEP) => x.value._1)
-        alertSensors should foreachElement( (x:TEP) => highSensors.contains(x.value._1))
+    val formula = alwaysF[U]( { letter => 
+      val (input, _) = letter
+      val highSensors : Seq[Int] = input.filter( _.value.concentration > 400.0)
+                                        .map( _.value.sensor_id)
+                                        .collect
+      laterR[U] { letter =>
+        val (_, output) = letter
+        val alertSensors : DataSet[Int] = 
+          output.filter(_.value._2 == EmergencyLevel.Alert)
+                .map(_.value._1)
+        alertSensors should existsElement(highSensors)( (hs:Seq[Int]) => ((x:Int) => hs.contains(12)) )
+        // These matcher should fail because there are not sensor ids greater than 10!!
       } on numWindows // FIXME: arbitrary value
     }) during numWindows groupBy TumblingTimeWindows(letterSize)
 
