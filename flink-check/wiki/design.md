@@ -70,3 +70,28 @@ and tumbling window size.
 
 Akka or some RPC mechanism could be used to signal test case evaluation completion.  
 
+## TODO 
+
+### Implement `FlinkGenerators.slidingTimeWindow`
+
+When splitting a data stream with a [sliding window](https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/windows.html#sliding-windows) we often get the same element appearing in more than 1 window, because sliding windows overlap. As a result is not completely obvious how to apply the concept of sliding windows to stream generators.
+
+The deliverable should be a new method for the object `es.ucm.fdi.sscheck.gen.flink.FlinkGenerators` that is similar to the existing `FlinkGenerators.tumblingTimeWindow` but that uses sliding windows. The signature could be something like 
+
+```scala 
+  def slidingTimeWindow[A](windowSize: Time, windowSlide: Time, startTime: Time = Time.milliseconds(0))
+                       (windowsGen: Gen[PStream[A]]): Gen[Seq[TimedElement[A]]]
+```
+
+Note here, like for tumbling windows, `startTime` is analogous to the offset argument of [SlidingEventTimeWindows](https://ci.apache.org/projects/flink/flink-docs-release-1.7/api/java/org/apache/flink/streaming/api/windowing/assigners/SlidingEventTimeWindows.html#SlidingEventTimeWindows-long-long-long-). Tumbling windows are a particular case of sliding windows, so the current implementation of tumbling windows should  in principle be equivalent to 
+
+```scala
+  def tumblingTimeWindow[A](windowSize: Time, startTime: Time = Time.milliseconds(0))
+                           (windowsGen: Gen[PStream[A]]): Gen[Seq[TimedElement[A]]] =
+    slidingTimeWindow(windowSize, windowSize, startTime)(windowsGen)
+```
+
+Also the intepretation of `windowsGen` performed by `slidingTimeWindow` should be easy to understand. That might include assigning the same element to several windows, some raw ideas:
+
+- Copy an element to several windows, replicating it with different time stamps 
+- Constrain the random offset of each element so it falls in the intersection of several windows, thus  ensure the element belong to all those windows

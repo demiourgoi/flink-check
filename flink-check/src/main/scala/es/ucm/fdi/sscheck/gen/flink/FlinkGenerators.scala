@@ -37,12 +37,4 @@ object FlinkGenerators {
       }
     }
   }
-
-  // FIXME: tumblingTimeWindow as slidingTimeWindow
-
-  def slidingTimeWindow[A](windowSize: Time, windowSlide: Time, startTime: Time = Time.milliseconds(0))
-                       (windowsGen: Gen[PStream[A]]): Gen[Seq[TimedElement[A]]] = {
-    ???
-  }
-
 }
