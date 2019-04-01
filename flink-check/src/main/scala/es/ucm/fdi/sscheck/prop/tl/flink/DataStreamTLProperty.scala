@@ -23,6 +23,8 @@ import scala.util.Properties.lineSeparator
 object DataStreamTLProperty {
   type SSeq[A] = Seq[Seq[A]]
   type SSGen[A] = Gen[SSeq[A]]
+  type TSeq[A] = Seq[TimedElement[A]]
+  type TSGen[A] = Gen[TSeq[A]]
   type Letter[In, Out] = (DataSet[TimedElement[In]], DataSet[TimedElement[Out]])
 }
 
@@ -141,7 +143,7 @@ object TestCaseContext {
       *
       * Note: there is no warranty that for each window has a record with the window start time as timestamp.
       * This also allows this method to support empty windows.
-      * Note: the DatasStream is created with [[StreamExecutionEnvironment#fromCollection]] so it is not parallel
+      * Note: the DataStream is created with [[StreamExecutionEnvironment#fromCollection]] so it is not parallel
       */
     def batchesToStream[A : TypeInformation](batches: Seq[Seq[A]])
                                             (windowSize: Time, startTime: Time)
@@ -208,6 +210,16 @@ object TestCaseContext {
     private val numSampleRecords = 5
 
     /** Split data as a series of tumbling windows of size windowSize and starting at startTime
+      *
+      * @param windowSize Size of the tumbling window
+      * @param startTime Start time of the first window. Note, as windows can be empty, we do NOT require
+      *                  to have at least one element in data with that time stamp
+      * @param data data set to split into windows, using the timestamp of TimedElement as time
+      *
+      * Note: windows are generated until covering the last element. That means that empty windows at the end
+      * are ignored. We are not supporting a lastWindowEndTime parameter because that cannot be computed
+      * from a `TSeq[A]` without knowing the windowing criteria, as conceptually a window can extend beyond
+      * the timestamp of it's latest element
       * */
     def tumblingWindows[T](windowSize: Time, startTime: Time)
                           (data: DataSet[TimedElement[T]]): Iterator[TimedWindow[T]] =
