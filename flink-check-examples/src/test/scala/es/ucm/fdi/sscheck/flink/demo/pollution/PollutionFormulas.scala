@@ -76,7 +76,7 @@ class PollutionFormulas
     // concentrations in the range [0.0-1000.0]
     val gen = tumblingTimeWindows(letterSize){
       WindowGen.always(WindowGen.ofNtoM(5, 10, sensorDataGen(3,500.0,1000.0)),
-        numWindows)
+        numWindows+1)
     }
 
     val formula = alwaysF[U]( { letter => 
