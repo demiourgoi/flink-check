@@ -49,9 +49,7 @@ object Pollution {
   
   // Detect emergency level of every sensor based on maximum values
   def pollution1(raw : DataStream[SensorData]) : DataStream[(Int, EmergencyLevel.EmergencyLevel)] =
-    raw.filter(_.concentration > 180)
-       .keyBy("sensor_id")
-       //.timeWindow(Time.seconds(3), Time.seconds(1))
+    raw.keyBy("sensor_id")
        .timeWindow(Time.seconds(1))
        .max("concentration")
        .map { x => (x.sensor_id, EmergencyLevel(x.concentration)) }
@@ -163,7 +161,7 @@ object Pollution {
 
     def apply(pol : Double) = pol match {
       case x if x > 400.0 => Alert
-      case x if (x > 200.0) && (x < 400.0) => Warning
+      case x if (x > 200.0) && (x <= 400.0) => Warning
       case x if (x > 180.0) && (x <= 200.0) => Notice
       case _ => OK
     }
