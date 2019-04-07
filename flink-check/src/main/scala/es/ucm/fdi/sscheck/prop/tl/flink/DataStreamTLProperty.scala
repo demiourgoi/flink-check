@@ -225,9 +225,9 @@ class TestCaseContext[In : TypeInformation, Out : TypeInformation](
   }
 
   private def evaluateTestCase(testCaseInputRecordPath: JPath,
-                               testCaseOutputRecordPath: JPath): NextFormula[DataStreamTLProperty.Letter[In, Out]] = {
+                               testCaseOutputRecordPath: JPath): FlinkNextFormula[DataStreamTLProperty.Letter[In, Out]] = {
     logger.info(s"Evaluating test case {}", testCaseId)
-    var currFormula = formula.formula.nextFormula
+    var currFormula = formula.nextFormula
 
     val timedInput = Evaluate.readRecordedStreamWithTimestamps[In](testCaseInputRecordPath.toString)(env)
     val timedOutput = Evaluate.readRecordedStreamWithTimestamps[Out](testCaseOutputRecordPath.toString)(env)

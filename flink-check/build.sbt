@@ -13,7 +13,7 @@ crossScalaVersions  := Seq("2.10.6")
 // : 106, allocated (Mb): 97, missing (Mb): 9). Cause: Direct buffer memory (NetworkBufferPool.java:108)"
 parallelExecution := false
 
-lazy val sscheckVersion = "0.3.2"
+lazy val sscheckVersion = "0.4.1"
 
 lazy val specs2Version = "3.8.4"
 

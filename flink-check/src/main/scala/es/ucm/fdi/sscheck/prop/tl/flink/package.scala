@@ -20,8 +20,10 @@ package object flink {
 
 package flink {
   import org.apache.flink.streaming.api.windowing.time.Time
+  import es.ucm.fdi.sscheck.prop.tl.{Time => SscheckTime}
+  import org.scalacheck.Prop
 
-  sealed trait StreamDiscretizer {
+  trait StreamDiscretizer {
     /** @param data data set to split into windows, using the timestamp of TimedElement as time
       *
       * Note: windows are generated until covering the last element. That means that empty windows at the end
@@ -69,6 +71,21 @@ package flink {
           }
         }
     }
+
+    implicit private[flink] val FormulaParallelism: FormulaParallelism = SequentialFormulaParallelism
   }
-  case class FlinkFormula[T](formula: Formula[T], @transient discretizer: StreamDiscretizer)
+  case class FlinkFormula[T](formula: Formula[T], @transient discretizer: StreamDiscretizer) {
+    import FlinkFormula.FormulaParallelism
+
+    def nextFormula: FlinkNextFormula[T] = FlinkNextFormula(formula.nextFormula)
+  }
+
+  case class FlinkNextFormula[T](formula: NextFormula[T]) {
+    import FlinkFormula.FormulaParallelism
+
+    def consume(time: SscheckTime)(atoms: T): FlinkNextFormula[T] =
+      FlinkNextFormula(formula.consume(time)(atoms))
+
+    def result : Option[Prop.Status] = formula.result
+  }
 }
