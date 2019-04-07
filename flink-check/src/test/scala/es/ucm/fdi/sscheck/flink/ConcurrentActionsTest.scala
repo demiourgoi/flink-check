@@ -22,17 +22,17 @@ import scala.util.{Failure, Try}
 class ConcurrentActionsTest  extends Specification with ResultMatchers {
   def is =
     s2"""
-        - where two sequential calls to collect work ${doubleCollectSequentialPass should beSuccessful}
+        - where two sequential calls to collect work {doubleCollectSequentialPass should beSuccessful}
         - where two concurrent calls to collect break Flink's OperatorTranslation.translateToPlan,
-      and with a race condition ${doubleCollectConcurrentFail should beFailedTry}
+      and with a race condition {doubleCollectConcurrentFail should beFailedTry}
         - where flink-check matchers triggered from a parallel collection also break Flink's
         OperatorTranslation.translateToPlan, and with a race condition
-      ${flinkCheckMatchersParCollectionFail should beFailedTry}
+      {flinkCheckMatchersParCollectionFail should beFailedTry}
        - where flink-check matchers triggered from a sequential collection work
-      ${flinkCheckMatchersSeqCollectionPass should beSuccessful}
+      {flinkCheckMatchersSeqCollectionPass should beSuccessful}
        - where a sscheck formula with high parallelism also break Flink's OperatorTranslation.translateToPlan,
-       and with a race condition ${sscheckFormulaHighParFail should beFailedTry}
-       - where a flink-check formula works ${flinkFormulaOkPass should beSuccessful}
+       and with a race condition {sscheckFormulaHighParFail should beFailedTry}
+       - where a flink-check formula works {flinkFormulaOkPass should beSuccessful}
       """
 
   val logger = LoggerFactory.getLogger(getClass)
