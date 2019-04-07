@@ -2,7 +2,6 @@ package es.ucm.fdi.sscheck.matcher.specs2 {
 
   package flink {
 
-    import es.ucm.fdi.sscheck.prop.tl.flink.TimedElement
     import org.apache.flink.api.scala._
     import org.specs2.matcher.Matcher
     import org.specs2.matcher.MatchersImplicits._
