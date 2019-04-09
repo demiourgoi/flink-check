@@ -46,8 +46,8 @@ package flink {
       *                  to have at least one element in data with that time stamp
       *
       * */
-    case class TumblingTimeWindows(@transient windowSize: Time,
-                               @transient startTime: Time = Time.milliseconds(0))
+    case class TumblingTimeWindows(@transient size: Time,
+                                   @transient startTime: Time = Time.milliseconds(0))
       extends StreamDiscretizer {
 
       private[this] def tumblingWindowIndex(windowSizeMillis: Long, startTimestamp: Long)(timestamp: Long): Int = {
@@ -56,9 +56,9 @@ package flink {
       }
 
       override def getWindows[T](data: DataSet[TimedElement[T]]): Iterator[TimedWindow[T]] =
-        if (data.count() <= 0) Iterator.empty
+        if (data.first(1).count() <= 0) Iterator.empty
         else {
-          val windowSizeMillis = windowSize.toMilliseconds
+          val windowSizeMillis = size.toMilliseconds
           val startTimestamp = startTime.toMilliseconds
           val endTimestamp = data.map{_.timestamp}.reduce(scala.math.max(_, _)).collect().head
           val endingWindowIndex = tumblingWindowIndex(windowSizeMillis, startTimestamp)(endTimestamp)
@@ -68,6 +68,28 @@ package flink {
               tumblingWindowIndex(windowSizeMillis, startTimestamp)(record.timestamp) == windowIndex
             }
             TimedWindow(startTimestamp + windowIndex*windowSizeMillis, windowData)
+          }
+        }
+    }
+
+    case class SlidingTimeWindows(@transient size: Time,
+                                  @transient slide: Time,
+                                  @transient startTime: Time = Time.milliseconds(0))
+      extends StreamDiscretizer {
+
+      override def getWindows[T](data: DataSet[TimedElement[T]]): Iterator[TimedWindow[T]] =
+        if (data.first(1).count() <= 0) Iterator.empty
+        else {
+          val windowSizeMillis = size.toMilliseconds
+          val windowSlideMillis = slide.toMilliseconds
+          val startTimestamp = startTime.toMilliseconds
+          val endTimestamp = data.map{_.timestamp}.reduce(scala.math.max(_, _)).collect().head
+          Range.Long(startTimestamp, endTimestamp+1, windowSlideMillis).toIterator.map { windowStart =>
+            val windowData = data.filter{ record =>
+              /* window start (inclusive) and the windows end (exclusive) */
+              record.timestamp >= windowStart && record.timestamp < windowStart + windowSizeMillis
+            }
+            TimedWindow(windowStart, windowData)
           }
         }
     }

@@ -32,6 +32,7 @@ class SimpleStreamingFormulas
         When we filter out negative numbers
         Then we get only numbers greater or equal to zero $filterOutNegativeGetGeqZero
       - where time increments for each batch $timeIncreasesMonotonically
+      - where sliding windows for evaluation slide as they should $simpleSlidingWindowEvaluation
       """
 
   val genWindowSizeMillis = 50
@@ -65,6 +66,25 @@ class SimpleStreamingFormulas
         time.millis <= nextTime.millis
       }
     }) during (numBatches-1)/2 groupBy TumblingTimeWindows(Time.milliseconds(genWindowSizeMillis*2))
+
+    forAllDataStream[Int, Int](
+      gen)(
+      identity[DataStream[Int]])(
+      formula)
+  }.set(minTestsOk=5, workers=2).verbose
+
+  def simpleSlidingWindowEvaluation = {
+    type U = DataStreamTLProperty.Letter[Int, Int]
+    val numBatches = 10
+    val gen = tumblingTimeWindows(Time.milliseconds(genWindowSizeMillis)){
+      WindowGen.always(WindowGen.ofNtoM(10, 50, arbitrary[Int]), numBatches)
+    }
+    val formula = always(nextTime[U]{ (letter, time) =>
+      nowTime[U]{ (nextLetter, nextTime) =>
+        nextTime.millis - time.millis === genWindowSizeMillis
+      }
+    }) during (numBatches-1)/2 groupBy
+      SlidingTimeWindows(size=Time.milliseconds(genWindowSizeMillis*2), slide=Time.milliseconds(genWindowSizeMillis))
 
     forAllDataStream[Int, Int](
       gen)(
