@@ -78,12 +78,12 @@ class PollutionFormulas
         numWindows+1)
     }
 
-    val formula = alwaysR[U]( { letter =>
+    val formula = alwaysF[U]( { letter =>
       val (input, _) = letter
       val highSensors = input.filter( _.value.concentration > 400.0)
                                         .map( _.value.sensor_id)
 //                                        .collect
-//      eventuallyR[U] { letter =>
+      eventuallyR[U] { letter =>
         val (_, output) = letter
         val alertSensors : DataSet[Int] = 
           output.filter(_.value._2 == EmergencyLevel.Alert)
@@ -93,13 +93,13 @@ class PollutionFormulas
         highSensors should foreachElement[Int, Set[Int]](alerts){ alerts => { highSensor =>
           alerts.contains(highSensor)
         }}
-//      } on 2
-    }) during numWindows groupBy TumblingTimeWindows(letterSize)
+      } on 5
+    }) during numWindows-1 groupBy TumblingTimeWindows(Time.milliseconds(250))
 
     forAllDataStream[SensorData, (Int, EmergencyLevel.EmergencyLevel)](
       gen)(
       pollution1)(
       formula)
-  }.set(minTestsOk = 10).verbose
+  }.set(minTestsOk = 10, workers = 2).verbose
 
 }
