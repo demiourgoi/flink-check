@@ -34,7 +34,7 @@ class FlinkMatchersSpec
       f.nonEmptyDataSet should existsElement(Function.const(true))
     }
     "where an existential matcher for a contradiction on a non-empty data set " +
-      "succeeds" >> {
+      "fails" >> {
       val f = fixture
       (f.nonEmptyDataSet should existsElement(Function.const(false))) should beFailing
     }
@@ -52,9 +52,17 @@ class FlinkMatchersSpec
       f.nonEmptyDataSet should foreachElement(Function.const(true))
     }
     "where a universal matcher for a contradiction on a non-empty data set " +
-      "succeeds" >> {
+      "fails" >> {
       val f = fixture
       (f.nonEmptyDataSet should foreachElement(Function.const(false))) should beFailing
+    }
+    "where an empty data set should match the empty data set matcher" >> {
+      val f = fixture
+      f.emptyDataSet should beEmptyDataSet()
+    }
+    "where a non-empty data set should not match the empty data set matcher" >> {
+      val f = fixture
+      (f.nonEmptyDataSet should beEmptyDataSet()) should beFailing
     }
   }
 }

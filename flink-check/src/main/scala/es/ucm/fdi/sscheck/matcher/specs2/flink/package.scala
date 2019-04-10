@@ -56,6 +56,10 @@ package es.ucm.fdi.sscheck.matcher.specs2 {
         existsElement(predicate)
       }
 
+      def beEmptyDataSet[T](): Matcher[DataSet[T]] = {
+        foreachElement(Function.const(false))
+      }
+
       // TODO implement Flinks version of sscheck for Spark beEqualAsSetTo based on
       // https://stackoverflow.com/questions/38737194/apache-flink-dataset-difference-subtraction-operationw
     }
