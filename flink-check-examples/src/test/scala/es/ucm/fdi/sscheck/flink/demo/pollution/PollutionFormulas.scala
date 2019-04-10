@@ -78,24 +78,28 @@ class PollutionFormulas
         numWindows+1)
     }
 
-    val formula = alwaysF[U]( { letter => 
+    val formula = alwaysR[U]( { letter =>
       val (input, _) = letter
-      val highSensors : Seq[Int] = input.filter( _.value.concentration > 400.0)
+      val highSensors = input.filter( _.value.concentration > 400.0)
                                         .map( _.value.sensor_id)
-                                        .collect
-      eventuallyR[U] { letter =>
+//                                        .collect
+//      eventuallyR[U] { letter =>
         val (_, output) = letter
         val alertSensors : DataSet[Int] = 
           output.filter(_.value._2 == EmergencyLevel.Alert)
                 .map(_.value._1)
-        alertSensors should existsElement(highSensors)( (hs:Seq[Int]) => ((x:Int) => hs.contains(x)) )
-      } on numWindows // FIXME: arbitrary value
+//        alertSensors should existsElement(highSensors)( (hs:Seq[Int]) => ((x:Int) => hs.contains(x)) )
+        val alerts = alertSensors.collect().toSet
+        highSensors should foreachElement[Int, Set[Int]](alerts){ alerts => { highSensor =>
+          alerts.contains(highSensor)
+        }}
+//      } on 2
     }) during numWindows groupBy TumblingTimeWindows(letterSize)
 
     forAllDataStream[SensorData, (Int, EmergencyLevel.EmergencyLevel)](
       gen)(
       pollution1)(
       formula)
-  }.set(minTestsOk = 1).verbose
+  }.set(minTestsOk = 10).verbose
 
 }
