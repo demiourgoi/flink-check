@@ -1,11 +1,30 @@
 package es.ucm.fdi.sscheck.matcher.specs2 {
+  import org.apache.flink.api.common.typeinfo.TypeInformation
+  import org.apache.flink.api.scala._
+  import org.apache.flink.util.Collector
+  import org.specs2.matcher.Matcher
+  import org.specs2.matcher.MatchersImplicits._
+
+  package object flink {
+    import scala.reflect.ClassTag
+
+    implicit class FlinkCheckDataSet[T : TypeInformation](self: DataSet[T]) {
+      /** returns data set with elements in xs that are not present in ys */
+      def minus(other: DataSet[T])(implicit ev: ClassTag[T]): DataSet[T] = {
+        // based on https://stackoverflow.com/questions/38737194/apache-flink-dataset-difference-subtraction-operation
+        self.coGroup(other)
+          .where("*")
+          .equalTo("*") { (selfVals, otherVals, out: Collector[T]) =>
+            val otherValsSet = otherVals.toSet
+            selfVals
+              .filterNot{otherValsSet.contains}
+              .foreach{out.collect}
+          }
+      }
+    }
+  }
 
   package flink {
-
-    import org.apache.flink.api.scala._
-    import org.specs2.matcher.Matcher
-    import org.specs2.matcher.MatchersImplicits._
-
     object DataSetMatchers {
       /** Number of records to show on failing predicates */
       private val numErrors = 4

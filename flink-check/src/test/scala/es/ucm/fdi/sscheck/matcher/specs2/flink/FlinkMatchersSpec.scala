@@ -64,5 +64,11 @@ class FlinkMatchersSpec
       val f = fixture
       (f.nonEmptyDataSet should beEmptyDataSet()) should beFailing
     }
+    "where ">> {
+      val f = fixture
+      val xs = f.env.fromCollection(1 to 10)
+      val ys = f.env.fromCollection(5 to 15)
+      xs.minus(ys).collect() must containTheSameElementsAs(1 to 4)
+    }
   }
 }
