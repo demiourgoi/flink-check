@@ -4,9 +4,9 @@ package es.ucm.fdi.sscheck.matcher.specs2 {
   import org.apache.flink.util.Collector
   import org.specs2.matcher.Matcher
   import org.specs2.matcher.MatchersImplicits._
+  import scala.reflect.ClassTag
 
   package object flink {
-    import scala.reflect.ClassTag
 
     implicit class FlinkCheckDataSet[T : TypeInformation](self: DataSet[T]) {
       /** returns data set with elements in xs that are not present in ys */
@@ -17,8 +17,8 @@ package es.ucm.fdi.sscheck.matcher.specs2 {
           .equalTo("*") { (selfVals, otherVals, out: Collector[T]) =>
             val otherValsSet = otherVals.toSet
             selfVals
-              .filterNot{otherValsSet.contains}
-              .foreach{out.collect}
+              .filterNot(otherValsSet.contains)
+              .foreach(out.collect)
           }
       }
     }
@@ -77,6 +77,15 @@ package es.ucm.fdi.sscheck.matcher.specs2 {
 
       def beEmptyDataSet[T](): Matcher[DataSet[T]] = {
         foreachElement(Function.const(false))
+      }
+
+      def beSubDataSetOf[T : TypeInformation : ClassTag](other: DataSet[T]): Matcher[DataSet[T]] = { (data: DataSet[T]) =>
+        val failingElements = new FlinkCheckDataSet(data).minus(other).first(numErrors)
+        (
+          failingElements.count() == 0,
+          "this data set is contained on the other",
+          s"these elements of the data set are not contained in the other ${failingElements.collect().mkString(", ")} ..."
+        )
       }
 
       // TODO implement Flinks version of sscheck for Spark beEqualAsSetTo based on
