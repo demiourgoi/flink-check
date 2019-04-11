@@ -26,7 +26,7 @@ class PollutionFormulas
     sequential ^ s2"""
     ScalaCheck properties with temporal formulas on Flink pollution streaming programs
     - pollution1: if all sensors have values greater than 180, then all the 
-        generated emergency levels are different from OK highValuesGetNotOK FIXME
+        generated emergency levels are different from OK $highValuesGetNotOK
     - pollution1: sensors with higher concentration value in a window must be
         eventually tagged with EmergencyLevel.Alert $highEventuallyAlert
       """      
@@ -75,7 +75,7 @@ class PollutionFormulas
         numWindows)
     }
 
-    val formula = alwaysF[U]({ letter =>
+    val formula = alwaysF[U]{ letter =>
       val (input, output) = letter
       val highSensors = input.filter(_.value.concentration > 400.0).map(_.value.sensor_id)
 
@@ -90,9 +90,9 @@ class PollutionFormulas
       }
 
       val detectedNow = now[U]{ _ => highSensorsDetected(letter) }
-      val detectedLater = eventuallyR[U]{ highSensorsDetected(_) } on 5
+      val detectedLater = eventuallyR[U]{ highSensorsDetected(_) } on 4
       detectedNow or detectedLater
-    }) during 2*numWindows groupBy TumblingTimeWindows(Time.milliseconds(250))
+    } during 2*numWindows groupBy TumblingTimeWindows(Time.milliseconds(250))
     // Also works but slower as it uses many windows
     // during 4*numWindows -1 groupBy TumblingTimeWindows(Time.milliseconds(250))
 
