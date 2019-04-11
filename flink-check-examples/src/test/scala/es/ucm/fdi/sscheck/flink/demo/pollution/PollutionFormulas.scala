@@ -3,7 +3,6 @@ package es.ucm.fdi.sscheck.flink.pollution
 import es.ucm.fdi.sscheck.gen.WindowGen
 import es.ucm.fdi.sscheck.gen.flink.FlinkGenerators._
 import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
-import es.ucm.fdi.sscheck.prop.tl.flink.TimedElement
 import es.ucm.fdi.sscheck.prop.tl.Formula._
 import es.ucm.fdi.sscheck.prop.tl.flink.FlinkFormula._
 import es.ucm.fdi.sscheck.prop.tl.flink.{DataStreamTLProperty, Parallelism}
@@ -76,41 +75,31 @@ class PollutionFormulas
         numWindows)
     }
 
+    val formula = alwaysF[U]({ letter =>
+      val (input, output) = letter
+      val highSensors = input.filter(_.value.concentration > 400.0).map(_.value.sensor_id)
 
-    val formula = alwaysF[U]( { letter =>
-      val (input, _) = letter
-      val highSensors = input.filter(_.value.concentration > 400.0)
-        .map( _.value.sensor_id)
-
-      // esto tiene q ser sobre la primera letter arg del alwys
-      val nowF = now[U]{ _ =>
-        val (_, output) = letter
-        val alertSensors : DataSet[Int] =
-          output.filter(_.value._2 == EmergencyLevel.Alert)
-            .map(_.value._1)
+      def highSensorsDetected(letter: U) = {
+        val alertSensors = letter._2.filter(_.value._2 == EmergencyLevel.Alert).map(_.value._1)
+        // workaround effectively using a broadcast join until we devise a more performant
+        // version of the beSubDataSetOf matcher
         val alerts = alertSensors.collect().toSet
-        highSensors should foreachElement[Int, Set[Int]](alerts){ alerts => { highSensor =>
+        highSensors should foreachElement[Int, Set[Int]](alerts) { alerts => highSensor =>
           alerts.contains(highSensor)
-        }}
+        }
       }
 
-      nowF or (
-      eventuallyR[U] { letter =>
-        val (_, output) = letter
-        val alertSensors : DataSet[Int] = 
-          output.filter(_.value._2 == EmergencyLevel.Alert)
-                .map(_.value._1)
-        val alerts = alertSensors.collect().toSet
-        highSensors should foreachElement[Int, Set[Int]](alerts){ alerts => { highSensor =>
-          alerts.contains(highSensor)
-        }}
-      } on 5)
-    }) during numWindows-1 groupBy TumblingTimeWindows(Time.milliseconds(250))
+      val detectedNow = now[U]{ _ => highSensorsDetected(letter) }
+      val detectedLater = eventuallyR[U]{ highSensorsDetected(_) } on 5
+      detectedNow or detectedLater
+    }) during 2*numWindows groupBy TumblingTimeWindows(Time.milliseconds(250))
+    // Also works but slower as it uses many windows
+    // during 4*numWindows -1 groupBy TumblingTimeWindows(Time.milliseconds(250))
 
     forAllDataStream[SensorData, (Int, EmergencyLevel.EmergencyLevel)](
       gen)(
       pollution1)(
       formula)
-  }.set(minTestsOk = 30, workers = 4).verbose
+  }.set(minTestsOk = 10, workers = 2).verbose
 
 }
