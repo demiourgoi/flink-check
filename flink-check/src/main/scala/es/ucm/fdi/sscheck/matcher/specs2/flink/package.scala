@@ -9,7 +9,9 @@ package es.ucm.fdi.sscheck.matcher.specs2 {
   package object flink {
 
     implicit class FlinkCheckDataSet[T : TypeInformation](self: DataSet[T]) {
-      /** returns data set with elements in xs that are not present in ys */
+      /** returns data set with elements in xs that are not present in ys
+        * NOTE: cannot be used in practice, and often leads to "java.lang.OutOfMemoryError: Java heap space"
+        * */
       def minus(other: DataSet[T])(implicit ev: ClassTag[T]): DataSet[T] = {
         // based on https://stackoverflow.com/questions/38737194/apache-flink-dataset-difference-subtraction-operation
         self.coGroup(other)
@@ -79,8 +81,17 @@ package es.ucm.fdi.sscheck.matcher.specs2 {
         foreachElement(Function.const(false))
       }
 
+      /** NOTE: This is too slow to be used in practice */
       def beSubDataSetOf[T : TypeInformation : ClassTag](other: DataSet[T]): Matcher[DataSet[T]] = { (data: DataSet[T]) =>
-        val failingElements = new FlinkCheckDataSet(data).minus(other).first(numErrors)
+        // TOO slow
+        // val failingElements = new FlinkCheckDataSet(data).minus(other).first(numErrors)
+        // Still too slow
+        val failingElements =
+          data.leftOuterJoin(other).where("*").equalTo("*"){
+            (thisData, otherData) =>
+              if (otherData == null) List(thisData)
+              else Nil
+          }.flatMap{x => x}.first(numErrors)
         (
           failingElements.count() == 0,
           "this data set is contained on the other",
