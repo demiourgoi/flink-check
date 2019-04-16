@@ -27,15 +27,16 @@ For devel it's useful to use a local version of sscheck-core
 that has not been released to bintray yet. For that: 
 
 1. Clone [sscheck-core](https://github.com/demiourgoi/sscheck-core) 
-2. Launch SBT for that project and run `clean` and then `+publish-local`.
+2. Launch SBT for that project and run `clean` and then `publishLocal`.
 That should add the jars to `~/.ivy2/cache/es.ucm.fdi/sscheck-core`
 3. Run `sbt update` in this project
 
-Double check the versions are ok if there are problems. See 
-[Releasing sscheck](https://github.com/demiourgoi/sscheck/wiki/%5BInternal%5D-Releasing-sscheck)
-in the wiki for details
+Another option is running all tests following [these instructions](../ci/README.md), which:
 
-Another option is running all tests following [these instructions](../ci/README.md), which install sscheck-core and flink-check in the system.
+1. Install sscheck-core and flink-check in the system
+2. And then run all the
+tests in flink-check and flink-check-examples, which
+_includes some example Flink Check properties_
 
 ### IntelliJ
 
