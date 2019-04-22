@@ -19,7 +19,7 @@ object FlinkGenerators {
     * This also allows this method to support empty windows.
     * */
   def tumblingTimeWindows[A](windowSize: Time, startTime: Time = Time.milliseconds(0))
-                           (windowsGen: Gen[PStream[A]]): Gen[Seq[TimedElement[A]]] = {
+                            (windowsGen: Gen[PStream[A]]): Gen[Seq[TimedElement[A]]] = {
 
     // "Time-based windows have a start timestamp (inclusive) and an end timestamp (exclusive) that together
     // describe the size of the window."
@@ -34,6 +34,16 @@ object FlinkGenerators {
           val timestamp = startTime.toMilliseconds + (i * (windowSize.toMilliseconds)) + offset
           TimedElement(timestamp, value)
         }.sortBy(_.timestamp)
+      }
+    }
+  }
+
+  def eventTimeToFieldAssigner[A](fieldAssigner: Long => A => A)
+                                 (gen: Gen[Seq[TimedElement[A]]]): Gen[Seq[TimedElement[A]]] = {
+    gen.map { elements =>
+      elements.map{ element =>
+        val updatedValue = fieldAssigner(element.timestamp)(element.value)
+        element.copy(value = updatedValue)
       }
     }
   }
