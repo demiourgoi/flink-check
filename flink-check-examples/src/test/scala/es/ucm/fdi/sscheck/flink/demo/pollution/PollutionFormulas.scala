@@ -45,9 +45,11 @@ class PollutionFormulas
     val numWindows = 5
     // Generates windows of 10-50 measurements from 10 sensors with 
     // concentrations in the range [180.1-1000.0]
-    val gen = tumblingTimeWindows(letterSize){
-      WindowGen.always(WindowGen.ofNtoM(10, 50, sensorDataGen(10,180.1,1000)),
-        numWindows)
+    val gen = eventTimeToFieldAssigner[SensorData](ts => _.copy(timestamp = ts)) {
+      tumblingTimeWindows(letterSize){
+        WindowGen.always(WindowGen.ofNtoM(10, 50, sensorDataGen(10,180.1,1000)),
+          numWindows)
+      }
     }
 
     // In all processed windows the emergency level is different from OK                              
@@ -70,9 +72,11 @@ class PollutionFormulas
     val numWindows = 5
     // Generates windows of 10-50 measurements from 10 sensors with 
     // concentrations in the range [0.0-1000.0]
-    val gen = tumblingTimeWindows(letterSize){
-      WindowGen.always(WindowGen.ofNtoM(5, 10, sensorDataGen(30,500.0,1000.0)),
-        numWindows)
+    val gen = eventTimeToFieldAssigner[SensorData](ts => _.copy(timestamp = ts)) {
+      tumblingTimeWindows(letterSize){
+        WindowGen.always(WindowGen.ofNtoM(5, 10, sensorDataGen(30,500.0,1000.0)),
+          numWindows)
+      }
     }
 
     val formula = alwaysF[U]{ letter =>
