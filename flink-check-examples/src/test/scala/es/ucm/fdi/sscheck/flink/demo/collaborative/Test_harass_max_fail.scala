@@ -32,7 +32,7 @@ class Test_harass_max_fail
   val nWorkers = 1
   val nZones   = 10
 
-  def is = sequential ^ s2"""$highDangerNotSafe"""
+  def is = s2"""$highDangerNotSafe"""
 
   // Generator of a harassment Incident with a zone_id between 0 and num_zones-1, and a 
   // perceived danger between min_danger and max_danger

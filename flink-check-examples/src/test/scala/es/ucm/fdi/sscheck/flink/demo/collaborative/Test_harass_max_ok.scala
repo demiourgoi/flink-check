@@ -26,13 +26,14 @@ class Test_harass_max_ok
   // val letterSize = Time.milliseconds(50)
   val letterSize = Time.hours(1)
   
-  val nTests   = 1
-  val nWindows = 1
-  val wSize    = 5
-  val nWorkers = 1
-  val nZones   = 10
+  val nTests    = 5
+  val nWindows  = 1
+  val min_wSize = 2
+  val max_wSize = 7
+  val nWorkers  = 1
+  val nZones    = 10
 
-  def is = sequential ^ s2"""$highDangerNotSafe"""
+  def is = s2"""$highDangerNotSafe"""
 
   // Generator of a harassment Incident with a zone_id between 0 and num_zones-1, and a 
   // perceived danger between min_danger and max_danger
@@ -51,7 +52,7 @@ class Test_harass_max_ok
     // 'wSize' harassment incidents from 'nZones' different zones with perceived 
     // danger in the range [1.1-10.0]
     val gen = tumblingTimeWindows(letterSize){
-      WindowGen.always(WindowGen.ofN(wSize, incidentGen(nZones,1.1,10.0)),
+      WindowGen.always(WindowGen.ofNtoM(min_wSize, max_wSize, incidentGen(nZones,1.1,10.0)),
         nWindows)
     }
 
