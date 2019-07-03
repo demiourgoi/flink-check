@@ -47,12 +47,12 @@ object Harass {
   }*/
   
   
-  // Compute de danger level of every zone based on maximum values
-  def harass_max(raw : DataStream[HarassmentIncident]) : DataStream[(Int, DangerLevel.DangerLevel)] =
+  // Compute the danger level of every zone based on maximum values
+  def harass_max(raw : DataStream[Incident]) : DataStream[(Int, DangerLevel.DangerLevel)] =
     raw.keyBy("zone_id")
-       .timeWindow(Time.seconds(1))
-       .max("perceived_danger")
-       .map { x => (x.zone_id, DangerLevel(x.perceived_danger)) }
+       .timeWindow(Time.hours(1))
+       .max("danger")
+       .map { x => (x.zone_id, DangerLevel(x.danger)) }
 
   /*
   // Detect global emergency level counting the number of sensors exceeding the limits     
@@ -166,7 +166,7 @@ object Harass {
   // Class for representing one harassment incident
   // Each incident contains an identifier of the zone where it happens and a
   // value of perceived danger between 0 (safe) and 10 (extremely dangerous)
-  case class HarassmentIncident(zone_id: Int, perceived_danger: Double)
+  case class Incident(zone_id: Int, danger: Double)
   
   
   // Class for representing aggregate sensor datum
