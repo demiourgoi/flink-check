@@ -24,9 +24,9 @@ class Liveness_harass_ok
   // Sscheck configuration
   override val defaultParallelism = Parallelism(4)
 
-  val windowSize = Time.hours(1)
+  val windowSize = Time.minutes(15)
   val nTests    = 1
-  val nWindows  = 5
+  val nWindows  = 8
   val min_wSize = 1
   val max_wSize = 5
   val nZones    = 10
@@ -50,7 +50,7 @@ class Liveness_harass_ok
     // Generator of 'nWindows' windows (each one of 'windowSize' time) containing 
     // 'wSize' harassment incidents from 'nZones' different zones with perceived 
     // danger in the complete range [0-10.0]
-    val gen = tumblingTimeWindows(Time.minutes(15)){
+    val gen = tumblingTimeWindows(windowSize){
       WindowGen.always(WindowGen.ofNtoM(min_wSize, max_wSize, incidentGen(nZones,0,10)),
         nWindows)
     }
@@ -62,10 +62,10 @@ class Liveness_harass_ok
         val nowExtreme = Solved[U] {output.filter(_.value._2 == DangerLevel.Extreme).count() > 0}
         val eventuallyExtreme = laterR[U] { case (_,fut_output) =>
           fut_output should existsElement (_.value._2 == DangerLevel.Extreme)
-        } during 4
+        } during 3
         
-        highestDanger ==> nowExtreme or eventuallyExtreme
-    } during (4*nWindows-1) groupBy TumblingTimeWindows(windowSize)
+        highestDanger ==> (nowExtreme or eventuallyExtreme)
+    } during nWindows-4 groupBy TumblingTimeWindows(windowSize)
 
     forAllDataStream[Incident, (Int, DangerLevel.DangerLevel)](
       gen)(
