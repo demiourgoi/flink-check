@@ -17,21 +17,20 @@ import org.specs2.{ScalaCheck, Specification}
 
 
 @RunWith(classOf[JUnitRunner])
-class Test_harass_max_ok
+class Safety_harass_ok
   extends Specification with ScalaCheck with DataStreamTLProperty{
 
   // Sscheck configuration
   override val defaultParallelism = Parallelism(4)
 
-  // val letterSize = Time.milliseconds(50)
-  val letterSize = Time.hours(1)
-  
+  val windowSize = Time.hours(1)
   val nTests    = 5
-  val nWindows  = 1
-  val min_wSize = 2
-  val max_wSize = 7
-  val nWorkers  = 1
+  val nWindows  = 20
+  val min_wSize = 15
+  val max_wSize = 50
   val nZones    = 10
+  val nWorkers  = 3
+
 
   def is = s2"""$highDangerNotSafe"""
 
@@ -48,10 +47,10 @@ class Test_harass_max_ok
   def highDangerNotSafe = {
     type U = DataStreamTLProperty.Letter[Incident, (Int, DangerLevel.DangerLevel)]
 
-    // Generator of 'nWindows' windows (each one of 'letterSize' time) containing 
+    // Generator of 'nWindows' windows (each one of 'windowSize' time) containing 
     // 'wSize' harassment incidents from 'nZones' different zones with perceived 
     // danger in the range [1.1-10.0]
-    val gen = tumblingTimeWindows(letterSize){
+    val gen = tumblingTimeWindows(windowSize){
       WindowGen.always(WindowGen.ofNtoM(min_wSize, max_wSize, incidentGen(nZones,1.1,10.0)),
         nWindows)
     }
@@ -60,7 +59,7 @@ class Test_harass_max_ok
     // is different from 'Safe'
     val property = always(now[U]{ case (input, output) =>
       output should foreachElement (_.value._2 != DangerLevel.Safe)
-    }) during nWindows groupBy TumblingTimeWindows(letterSize)
+    }) during nWindows groupBy TumblingTimeWindows(windowSize)
 
     forAllDataStream[Incident, (Int, DangerLevel.DangerLevel)](
       gen)(
