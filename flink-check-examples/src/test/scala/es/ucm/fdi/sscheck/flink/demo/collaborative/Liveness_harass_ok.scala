@@ -15,6 +15,8 @@ import org.junit.runner.RunWith
 import org.scalacheck.Gen
 import org.specs2.runner.JUnitRunner
 import org.specs2.{ScalaCheck, Specification}
+import org.specs2.execute.AsResult
+
 
 
 @RunWith(classOf[JUnitRunner])
@@ -24,15 +26,15 @@ class Liveness_harass_ok
   // Sscheck configuration
   override val defaultParallelism = Parallelism(4)
 
-  val nTests    = 1
-  val nWindows  = 8
-  val min_wSize = 1
-  val max_wSize = 5
   val nZones    = 10
+  val nWindows  = 2 // of 1 hour
   val nWorkers  = 1
+  val nTests    = 1
 
 
   def is = s2"""$highestDangerEventuallyExtreme"""
+  
+
 
   // Generator of a harassment Incident with a zone_id between 0 and num_zones-1, and a 
   // perceived danger between min_danger and max_danger
@@ -45,26 +47,30 @@ class Liveness_harass_ok
   // will be a Extreme danger in that zone
   def highestDangerEventuallyExtreme = {
     type U = DataStreamTLProperty.Letter[Incident, (Int, DangerLevel.DangerLevel)]
-
-    // Generator of 'nWindows' windows (each one of 'windowSize' time) containing 
-    // 'wSize' harassment incidents from 'nZones' different zones with perceived 
+    
+    // Generator of 4 windows of 'genWSize' time containing 'genWElems'
+    // 'harassment incidents from 'nZones' different zones with perceived 
     // danger in the complete range [0-10.0]
     val gen = tumblingTimeWindows(Time.minutes(30)){
-      WindowGen.always(WindowGen.ofNtoM(min_wSize, max_wSize, incidentGen(nZones,0,10)),
-        4)
+      WindowGen.always(WindowGen.ofN(4, incidentGen(nZones,0.0,10.0)),
+        nWindows*2)
     }
 
     // Property to test: in every processed window the danger level of every zone
     // is different from 'Safe'
     val property = alwaysF[U] { case (input, output) =>
-        val highestDanger = Solved[U] {input.filter(_.value.danger > 8).count() > 0}
-        val nowExtreme = Solved[U] {output.filter(_.value._2 == DangerLevel.Extreme).count() > 0}
+        val extremeZones : Set[Int] = input.filter(_.value.danger > 8).map(_.value.zone_id).collect().toSet
+        val anyExtremeZones = Solved[U] {!extremeZones.isEmpty}
+        val nowExtremeZones : Set[Int] = output.filter(_.value._2 == DangerLevel.Extreme).map(_.value._1).collect().toSet
+                
+        val nowExtreme = Solved[U] {extremeZones.subsetOf(nowExtremeZones)}
         val eventuallyExtreme = laterR[U] { case (_,fut_output) =>
-          fut_output should existsElement (_.value._2 == DangerLevel.Extreme)
+          val futExtremeZones : Set[Int] = fut_output.filter(_.value._2 == DangerLevel.Extreme).map(_.value._1).collect().toSet
+          AsResult(extremeZones.subsetOf(futExtremeZones))
         } during 3
         
-        highestDanger ==> (nowExtreme or eventuallyExtreme)
-    } during 5 groupBy TumblingTimeWindows(Time.minutes(15))
+        anyExtremeZones ==> (nowExtreme or eventuallyExtreme)
+    } during 4*nWindows-3 groupBy TumblingTimeWindows(Time.minutes(15))
 
     forAllDataStream[Incident, (Int, DangerLevel.DangerLevel)](
       gen)(

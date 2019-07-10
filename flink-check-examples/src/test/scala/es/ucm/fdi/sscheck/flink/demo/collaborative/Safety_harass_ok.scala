@@ -24,12 +24,12 @@ class Safety_harass_ok
   override val defaultParallelism = Parallelism(4)
 
   val windowSize = Time.hours(1)
-  val nTests    = 5
+  val nTests    = 100
   val nWindows  = 20
   val min_wSize = 15
   val max_wSize = 50
   val nZones    = 10
-  val nWorkers  = 3
+  val nWorkers  = 5
 
 
   def is = s2"""$highDangerNotSafe"""
