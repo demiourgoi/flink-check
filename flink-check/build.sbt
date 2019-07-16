@@ -2,7 +2,7 @@ name := "flink-check"
 
 organization := "es.ucm.fdi"
 
-version := "0.0.1-SNAPSHOT"
+version := "0.0.2-SNAPSHOT"
 
 scalaVersion := "2.11.8"
 
@@ -17,7 +17,7 @@ lazy val sscheckVersion = "0.4.1"
 
 lazy val specs2Version = "3.8.4"
 
-lazy val flinkVersion = "1.7.2"
+lazy val flinkVersion = "1.8.0"
 
 lazy val flinkDependencies = Seq(
   "org.apache.flink" %% "flink-scala" % flinkVersion % "provided",

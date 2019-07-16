@@ -5,15 +5,19 @@ ThisBuild / resolvers ++= Seq(
 
 name := "flink-check-examples"
 
-version := "0.1-SNAPSHOT"
+version := "0.2-SNAPSHOT"
 
 organization := "es.ucm.fdi"
 
 ThisBuild / scalaVersion := "2.11.8"
 
-lazy val flinkVersion = "1.7.2"
+// Avoid OutOfMemoryError caused by "Could not allocate enough memory segments for NetworkBufferPool"
+// by running properties one by one. Note this is running using local execution environments
+parallelExecution := false
 
-lazy val flinkCheckVersion = "0.0.1-SNAPSHOT"
+lazy val flinkVersion = "1.8.0"
+
+lazy val flinkCheckVersion = "0.0.2-SNAPSHOT"
 
 lazy val slf4jVersion = "1.7.15"
 
