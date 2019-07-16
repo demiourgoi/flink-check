@@ -47,7 +47,7 @@ trait DataStreamTLProperty {
     *          been defined, and that it's not started.
     */
   def buildFreshStreamExecutionEnvironment(): StreamExecutionEnvironment = {
-    val env = StreamExecutionEnvironment.createLocalEnvironment()
+    val env = StreamExecutionEnvironment.createLocalEnvironment(defaultParallelism.numPartitions)
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime); // activate event time
     env
   }
