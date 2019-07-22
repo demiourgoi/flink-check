@@ -35,6 +35,13 @@ package flink {
   }
 
   object FlinkFormula {
+    implicit def timedElemOrdering[T: Ordering]: Ordering[TimedElement[T]] = new Ordering[TimedElement[T]] {
+      import scala.math.Ordered.orderingToOrdered
+
+      override def compare(x: flink.TimedElement[T], y: flink.TimedElement[T]): Int =
+        (x.value, x.timestamp) compare (y.value, y.timestamp)
+    }
+
     implicit class SplitterMissingFlinkFormula[T](formula: Formula[T]) extends Serializable {
       def groupBy(discretizer: StreamDiscretizer): FlinkFormula[T] = FlinkFormula(formula, discretizer)
     }

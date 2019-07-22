@@ -73,17 +73,31 @@ class FlinkMatchersSpec
 //      val ys = f.env.fromCollection(5 to 15)
 //      xs.minus(ys).collect() must containTheSameElementsAs(1 to 4)
 //    }
-//    "where the beSubDataSetOf data set matcher works as expected">> {
-//      val f = fixture
-//      val xs = f.env.fromCollection(1 to 10)
-//      val ys = f.env.fromCollection(5 to 15)
-//      val zs = f.env.fromCollection(1 to 5)
-//      zs should beSubDataSetOf(xs)
-//      xs should beSubDataSetOf(xs)
-//      f.emptyDataSet should beSubDataSetOf(xs)
-//      (xs should beSubDataSetOf(f.emptyDataSet)) should beFailing
-//      (xs should beSubDataSetOf(ys)) should beFailing
-//      (ys should beSubDataSetOf(xs)) should beFailing
-//    }
+    "where the beSubDataSetOf data set matcher works as expected">> {
+      val f = fixture
+      val xs = f.env.fromCollection(1 to 10)
+      val ys = f.env.fromCollection(5 to 15)
+      val zs = f.env.fromCollection(1 to 5)
+      println("Starting tests for beSubDataSetOf")
+      f.emptyDataSet should beSubDataSetOf(f.emptyDataSet)
+      println("--------------------------------------")
+      f.emptyDataSet should beSubDataSetOf(xs)
+      println("--------------------------------------")
+      (xs should beSubDataSetOf(f.emptyDataSet)) should beFailing
+      println("--------------------------------------")
+      zs should beSubDataSetOf(xs)
+      println("--------------------------------------")
+      xs should beSubDataSetOf(xs)
+      println("--------------------------------------")
+      f.emptyDataSet should beSubDataSetOf(xs)
+      println("--------------------------------------")
+      (xs should beSubDataSetOf(f.emptyDataSet)) should beFailing
+      println("--------------------------------------")
+      (xs should beSubDataSetOf(ys)) should beFailing
+      println("--------------------------------------")
+      (ys should beSubDataSetOf(xs)) should beFailing
+      println("Done tests for beSubDataSetOf")
+      ok
+    }
   }
 }

@@ -50,8 +50,9 @@ package simple {
         WindowGen.always(WindowGen.ofNtoM(10, 50, arbitrary[Int]), numBatches)
       }
       val formula = always(nowTime[U]{ (letter, time) =>
-        val (_input, output) = letter
-        output should foreachElement {_.value >= 0}
+        val (input, output) = letter
+        (output should foreachElement {_.value >= 0}) and
+          (output should beSubDataSetOf(input))
       }) during numBatches/2 groupBy TumblingTimeWindows(Time.milliseconds(genWindowSizeMillis*2))
 
       forAllDataStream[Int, Int](
