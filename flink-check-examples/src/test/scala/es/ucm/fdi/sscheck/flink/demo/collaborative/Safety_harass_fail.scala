@@ -1,20 +1,19 @@
 package es.ucm.fdi.sscheck.flink.collaborative
 
+import es.ucm.fdi.sscheck.flink.demo.collaborative.Harass.{DangerLevel, Incident, harass_max}
 import es.ucm.fdi.sscheck.gen.WindowGen
 import es.ucm.fdi.sscheck.gen.flink.FlinkGenerators._
 import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
-import es.ucm.fdi.sscheck.prop.tl.flink.TimedElement
 import es.ucm.fdi.sscheck.prop.tl.Formula._
+import es.ucm.fdi.sscheck.prop.tl.flink.DataStreamTLProperty._
 import es.ucm.fdi.sscheck.prop.tl.flink.FlinkFormula._
 import es.ucm.fdi.sscheck.prop.tl.flink.{DataStreamTLProperty, Parallelism}
-import es.ucm.fdi.sscheck.flink.demo.collaborative.Harass.{harass_max, Incident, DangerLevel}
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.junit.runner.RunWith
 import org.scalacheck.Gen
 import org.specs2.runner.JUnitRunner
 import org.specs2.{ScalaCheck, Specification}
-
 
 @RunWith(classOf[JUnitRunner])
 class Safety_harass_fail
@@ -32,7 +31,7 @@ class Safety_harass_fail
   val nWorkers  = 1
 
 
-  def is = s2"""$highDangerNotSafe"""
+  def is = s2"""Example of a property that is falsified ${highDangerNotSafe}"""
 
   // Generator of a harassment Incident with a zone_id between 0 and num_zones-1, and a 
   // perceived danger between min_danger and max_danger
@@ -45,7 +44,7 @@ class Safety_harass_fail
   // computed danger levels must be different from DangerLevel.Safe for
   // every zone
   def highDangerNotSafe = {
-    type U = DataStreamTLProperty.Letter[Incident, (Int, DangerLevel.DangerLevel)]
+    type U = Letter[Incident, (Int, DangerLevel.DangerLevel)]
 
     // Generator of 'nWindows' windows (each one of 'windowSize' time) containing 
     // 'wSize' harassment incidents from 'nZones' different zones with perceived 

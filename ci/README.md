@@ -13,7 +13,7 @@ function run_tests {
   ./run_all_tests.sh 2>&1 | tee "${log_file}"
   echo
   echo "log_file=[${log_file}]"
-  grep -ni 'Passed: Total' "${log_file}"
+  grep -ni ': Total' "${log_file}"
 }
 run_tests
 ```

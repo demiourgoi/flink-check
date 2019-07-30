@@ -1,23 +1,21 @@
 package es.ucm.fdi.sscheck.flink.collaborative
 
+import es.ucm.fdi.sscheck.flink.demo.collaborative.Harass.{DangerLevel, Incident, harass_max}
 import es.ucm.fdi.sscheck.gen.WindowGen
 import es.ucm.fdi.sscheck.gen.flink.FlinkGenerators._
 import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
-import es.ucm.fdi.sscheck.prop.tl.flink.TimedElement
 import es.ucm.fdi.sscheck.prop.tl.Formula._
+import es.ucm.fdi.sscheck.prop.tl.Solved
+import es.ucm.fdi.sscheck.prop.tl.flink.DataStreamTLProperty._
 import es.ucm.fdi.sscheck.prop.tl.flink.FlinkFormula._
 import es.ucm.fdi.sscheck.prop.tl.flink.{DataStreamTLProperty, Parallelism}
-import es.ucm.fdi.sscheck.prop.tl.{Solved}
-import es.ucm.fdi.sscheck.flink.demo.collaborative.Harass.{harass_max, Incident, DangerLevel}
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.junit.runner.RunWith
 import org.scalacheck.Gen
+import org.specs2.execute.AsResult
 import org.specs2.runner.JUnitRunner
 import org.specs2.{ScalaCheck, Specification}
-import org.specs2.execute.AsResult
-
-
 
 @RunWith(classOf[JUnitRunner])
 class Liveness_harass_ok
@@ -33,20 +31,20 @@ class Liveness_harass_ok
   val nWindows  = 4 // of 15 minutes
   val winSize   = 50
 
-
-  def is = s2"""$highestDangerEventuallyExtreme"""
+  def is = s2"""Example liveness property ${highestDangerEventuallyExtreme}"""
 
   // Generator of a harassment Incident with a zone_id between 0 and num_zones-1, and a 
   // perceived danger between min_danger and max_danger
-  def incidentGen( num_zones : Int, min_danger : Double, max_danger : Double) = for {
-    zone_id <- Gen.chooseNum[Int](0, num_zones-1)
-    danger  <- Gen.chooseNum[Double](min_danger, max_danger)
-  } yield Incident(zone_id, danger)
+  def incidentGen(num_zones : Int, min_danger : Double, max_danger : Double)=
+    for {
+      zone_id <- Gen.chooseNum[Int](0, num_zones-1)
+      danger  <- Gen.chooseNum[Double](min_danger, max_danger)
+    } yield Incident(zone_id, danger)
   
   // If there is an incident with a value greater than 8 then eventually there
   // will be a Extreme danger in that zone
   def highestDangerEventuallyExtreme = {
-    type U = DataStreamTLProperty.Letter[Incident, (Int, DangerLevel.DangerLevel)]
+    type U = Letter[Incident, (Int, DangerLevel.DangerLevel)]
     
     // Generator of 4 windows of 'genWSize' time containing 'winSize'
     // harassment incidents from 'nZones' different zones with perceived 
@@ -59,14 +57,14 @@ class Liveness_harass_ok
     // Property to test: in every processed window the danger level of every zone
     // is different from 'Safe'
     val property = alwaysF[U] { case (input, output) =>
-        val extremeZones : Set[Int] = input.filter(_.value.danger > 8).map(_.value.zone_id).collect().toSet
-        val anyExtremeZones = Solved[U](!extremeZones.isEmpty)
-        val nowExtremeZones : Set[Int] = output.filter(_.value._2 == DangerLevel.Extreme).map(_.value._1).collect().toSet
+        val extremeZones = input.filter(_.value.danger > 8).map(_.value.zone_id)
+        val anyExtremeZones = Solved[U]{ extremeZones should beEmptyDataSet() }
+        val nowExtremeZones = output.filter(_.value._2 == DangerLevel.Extreme).map(_.value._1)
                 
-        val nowExtreme = Solved[U](extremeZones.subsetOf(nowExtremeZones))
+        val nowExtreme = Solved[U]{ extremeZones should beSubDataSetOf(nowExtremeZones) }
         val eventuallyExtreme = laterR[U] { case (_,fut_output) =>
-                  val futExtremeZones : Set[Int] = fut_output.filter(_.value._2 == DangerLevel.Extreme).map(_.value._1).collect().toSet
-                  AsResult(extremeZones.subsetOf(futExtremeZones)) 
+          val futExtremeZones = fut_output.filter(_.value._2 == DangerLevel.Extreme).map(_.value._1)
+          AsResult{ extremeZones should beSubDataSetOf(futExtremeZones) }
         } during 3
         
         anyExtremeZones ==> (nowExtreme or eventuallyExtreme)
@@ -77,6 +75,4 @@ class Liveness_harass_ok
       harass_max)(
       property)
   }.set(minTestsOk = nTests, workers=nWorkers)//.verbose
-
-   
 }
