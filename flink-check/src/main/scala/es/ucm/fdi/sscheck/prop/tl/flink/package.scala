@@ -112,8 +112,8 @@ package flink {
   case class FlinkNextFormula[T](formula: NextFormula[T]) {
     import FlinkFormula.FormulaParallelism
 
-    def consume(time: SscheckTime)(atoms: T): FlinkNextFormula[T] =
-      FlinkNextFormula(formula.consume(time)(atoms))
+    def consume(time: SscheckTime)(letter: T): FlinkNextFormula[T] =
+      FlinkNextFormula(formula.consume(time)(letter))
 
     def result : Option[Prop.Status] = formula.result
   }
