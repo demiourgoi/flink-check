@@ -24,7 +24,7 @@ class Safety_harass_ok
   override val defaultParallelism = Parallelism(4)
 
   val windowSize = Time.hours(1)
-  val nTests    = 100
+  val nTests    = 10
   val nWindows  = 20
   val min_wSize = 15
   val max_wSize = 50

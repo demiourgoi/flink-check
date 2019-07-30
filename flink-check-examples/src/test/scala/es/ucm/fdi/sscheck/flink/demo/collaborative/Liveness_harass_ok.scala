@@ -28,7 +28,7 @@ class Liveness_harass_ok
 
   val nZones    = 10
   val nWorkers  = 5
-  val nTests    = 100
+  val nTests    = 10
   
   val nWindows  = 4 // of 15 minutes
   val winSize   = 50
