@@ -24,7 +24,15 @@ lazy val flinkDependencies = Seq(
   "org.apache.flink" %% "flink-streaming-scala" % flinkVersion % "provided",
   "org.apache.flink" %% "flink-runtime-web"  % flinkVersion % "provided",
   "org.apache.flink" %% "flink-connector-filesystem"  % flinkVersion % "provided",
-  "org.apache.flink" %% "flink-hadoop-compatibility"  % flinkVersion % "provided"
+  "org.apache.flink" %% "flink-hadoop-compatibility"  % flinkVersion % "provided",
+  // FIXME: I these shouldn't be provided as we need them to run the program, but probably
+  // should have test scope, think about it
+  // FIXME: investigate why in the mailing list they suggest the following, and why it doesn't work
+  // Might be because this project has test utils in the main section
+//  "org.apache.flink" %% "flink-test-utils"  % flinkVersion % Test,
+//  "org.apache.flink" %% "flink-runtime"  % flinkVersion % Test classifier "tests"
+  "org.apache.flink" %% "flink-test-utils"  % flinkVersion,
+  "org.apache.flink" %% "flink-runtime"  % flinkVersion classifier "tests"
 )
 
 libraryDependencies ++= Seq("org.scalacheck" %% "scalacheck" % "1.13.4", "org.scalacheck" %% "scalacheck" % "1.13.4" % "test")

@@ -2,7 +2,7 @@ package es.ucm.fdi.sscheck.prop.tl.flink
 
 import java.nio.file.{Files, Path => JPath}
 
-import es.ucm.fdi.sscheck.prop.tl.{NextFormula, Time => SscheckTime}
+import es.ucm.fdi.sscheck.prop.tl.{Time => SscheckTime}
 import es.ucm.fdi.sscheck.{TestCaseId, TestCaseIdCounter}
 import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.api.java.io.{TypeSerializerInputFormat, TypeSerializerOutputFormat}
@@ -11,6 +11,8 @@ import org.apache.flink.core.fs.Path
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.ProcessFunction
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
+import org.apache.flink.test.util.AbstractTestBase // FIXME delete?
+//import org.apache.flink.test.util.{MiniClusterWithClientResource, MiniClusterResourceConfiguration}
 import org.apache.flink.util.Collector
 import org.scalacheck.util.Pretty
 import org.scalacheck.{Gen, Prop}
@@ -23,12 +25,37 @@ object DataStreamTLProperty {
   type TSeq[A] = Seq[TimedElement[A]]
   type TSGen[A] = Gen[TSeq[A]]
   type Letter[In, Out] = (DataSet[TimedElement[In]], DataSet[TimedElement[Out]])
+
+  /*
+  *  https://github.com/apache/flink/blob/master/flink-test-utils-parent/flink-test-utils/src/main/java/org/apache/flink/test/util/MiniClusterWithClientResource.java
+  * Starts a Flink mini cluster as a resource and registers the respective
+  * ExecutionEnvironment and StreamExecutionEnvironment.
+  *
+  * So we use that mini cluster when running `StreamExecutionEnvironment.getExecutionEnvironment`
+  * */
+  // FIXME: hook this lifecycle with specs2 techniques, if we don't go the route of the fixme below
+  // https://stackoverflow.com/questions/41121778/junit-rule-and-classrule
+  // FIXME create miniClusterResource directly to set the paralellism configured. The mini cluster is shared
+  // by all test cases, but not across properties, so we can have different parallelisms but we have to setup/tier
+  // down per property. If that is too slow consider using a fixed config in a (properties) file, for the parallelism,
+  // and using a static mini cluster to share it across properties
+  private val miniClusterResource = AbstractTestBase.miniClusterResource
+  miniClusterResource.before()
 }
 
 trait DataStreamTLProperty {
   import DataStreamTLProperty._
 
   @transient private val logger = LoggerFactory.getLogger(DataStreamTLProperty.getClass)
+
+//  @transient private val abstractTestBase = new AbstractTestBase {}
+//  @transient private val miniCluster = {
+//    val config: MiniClusterResourceConfiguration = new MiniClusterResourceConfiguration.Builder()
+//      .setNumberTaskManagers(1)
+//      .setNumberSlotsPerTaskManager(defaultParallelism.numPartitions)
+//      .build()
+//    new MiniClusterWithClientResource(config)
+//  }
 
   /** Override for custom configuration
     *
@@ -47,7 +74,8 @@ trait DataStreamTLProperty {
     *          been defined, and that it's not started.
     */
   def buildFreshStreamExecutionEnvironment(): StreamExecutionEnvironment = {
-    val env = StreamExecutionEnvironment.createLocalEnvironment(defaultParallelism.numPartitions)
+//    val env = StreamExecutionEnvironment.createLocalEnvironment(defaultParallelism.numPartitions)
+    val env = StreamExecutionEnvironment.getExecutionEnvironment
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime); // activate event time
     env
   }
@@ -56,7 +84,8 @@ trait DataStreamTLProperty {
     *  been defined, and that it's not started
     */
   def buildFreshExecutionEnvironment(): ExecutionEnvironment = {
-    ExecutionEnvironment.createLocalEnvironment(defaultParallelism.numPartitions)
+//    ExecutionEnvironment.createLocalEnvironment(defaultParallelism.numPartitions)
+    ExecutionEnvironment.getExecutionEnvironment
   }
 
   // 1 in 1 out
@@ -155,6 +184,7 @@ object TestCaseContext {
 
     def storeDataStream[A : TypeInformation](stream: DataStream[A])(outputDir: String): Unit = {
       val format = new TypeSerializerOutputFormat[A]
+      format.setOutputFilePath(new Path(outputDir))
       format.setOutputFilePath(new Path(outputDir))
       stream.writeUsingOutputFormat(format)
     }
