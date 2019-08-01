@@ -92,15 +92,7 @@ trait DataStreamTLProperty {
         testCaseId, streamEnv, env)
       logger.warn("Starting execution of test case {}", testCaseId)
 
-      // NOTE: `testCaseContext.run()` is a blocking call
-      // TODO: concurrent test case execution, provided concurrent creation and execution
-      // of different StreamExecutionEnvironment and ExecutionEnvironment in the same JVM
-      // are ok, and Flink has no issues similar to SPARK-2243. In any case that requires
-      // setting up a configurable limit to the number of concurrent test cases to avoid
-      // starving the host resources; TBD how well this performs on a distributed environment,
-      // where it might make sense disabling that limit as the resource manager for the cluster
-      // system would handle that; TBD if Flink also implements a resource manager in local
-      // cluster mode that makes such concurrent test case execution limit unnecessary
+      // NOTE this is a blocking call, but that is what we want for integrating with ScalaCheck here
       val testCaseResult = testCaseContext.computeResult()
       logger.warn("Completed execution of test case {} with result {}", testCaseId, testCaseResult)
 
