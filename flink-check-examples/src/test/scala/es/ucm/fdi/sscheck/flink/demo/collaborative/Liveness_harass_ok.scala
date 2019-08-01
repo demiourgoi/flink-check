@@ -13,7 +13,6 @@ import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.junit.runner.RunWith
 import org.scalacheck.Gen
-import org.specs2.execute.AsResult
 import org.specs2.runner.JUnitRunner
 import org.specs2.{ScalaCheck, Specification}
 
@@ -58,14 +57,14 @@ class Liveness_harass_ok
     // is different from 'Safe'
     val property = alwaysF[U] { case (input, output) =>
         val extremeZones = input.filter(_.value.danger > 8).map(_.value.zone_id)
-        val anyExtremeZones = Solved[U]{ extremeZones should beEmptyDataSet() }
+        val anyExtremeZones = Solved[U]{ extremeZones should beNonEmptyDataSet() }
         val nowExtremeZones = output.filter(_.value._2 == DangerLevel.Extreme).map(_.value._1)
                 
         val nowExtreme = Solved[U]{ extremeZones should beSubDataSetOf(nowExtremeZones) }
-        val eventuallyExtreme = laterR[U] { case (_,fut_output) =>
+        val eventuallyExtreme = eventuallyR[U] { case (_,fut_output) =>
           val futExtremeZones = fut_output.filter(_.value._2 == DangerLevel.Extreme).map(_.value._1)
-          AsResult{ extremeZones should beSubDataSetOf(futExtremeZones) }
-        } during 3
+          extremeZones should beSubDataSetOf(futExtremeZones)
+        } on 3
         
         anyExtremeZones ==> (nowExtreme or eventuallyExtreme)
     } during (nWindows-3) groupBy TumblingTimeWindows(Time.minutes(15))

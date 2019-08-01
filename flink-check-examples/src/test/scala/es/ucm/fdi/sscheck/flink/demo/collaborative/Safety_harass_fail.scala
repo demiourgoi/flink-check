@@ -56,7 +56,7 @@ class Safety_harass_fail
 
     // Property to test: in every processed window the danger level of every zone
     // is different from 'Safe'
-    val property = always(now[U]{ case (input, output) =>
+    val property = always(consumeR[U]{ case (input, output) =>
       output should foreachElement (_.value._2 != DangerLevel.Safe)
     }) during nWindows groupBy TumblingTimeWindows(windowSize)
 

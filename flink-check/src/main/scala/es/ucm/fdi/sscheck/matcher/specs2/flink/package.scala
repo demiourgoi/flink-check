@@ -161,6 +161,9 @@ package es.ucm.fdi.sscheck.matcher.specs2 {
         foreachElement(Function.const(false))
       }
 
+      def beNonEmptyDataSet[T](): Matcher[DataSet[T]] = {
+        existsElement(Function.const(true))
+      }
 
       def beSubDataSetOf[T : TypeInformation : ClassTag : Ordering](other: DataSet[T]): Matcher[DataSet[T]] = {
         (data: DataSet[T]) =>

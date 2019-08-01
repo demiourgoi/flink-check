@@ -66,6 +66,14 @@ class FlinkMatchersSpec
       val f = fixture
       (f.nonEmptyDataSet should beEmptyDataSet()) should beFailing
     }
+    "where an empty data set should fail the non empty data set matcher" >> {
+      val f = fixture
+      (f.emptyDataSet should beNonEmptyDataSet()) should beFailing
+    }
+    "where an non-empty data set should match the non empty data set matcher" >> {
+      val f = fixture
+      f.nonEmptyDataSet should beNonEmptyDataSet()
+    }
     "where the minus data set operator works as expected">> {
       val f = fixture
       val xs = f.env.fromCollection(1 to 10)
