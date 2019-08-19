@@ -16,8 +16,8 @@ Flink Check has been tested with Scala 2.11.8 and Apache Flink 1.7.2.
 
 See an example property [PollutionFormulas](../flink-check-examples/src/test/scala/es/ucm/fdi/sscheck/flink/demo/pollution/PollutionFormulas.scala) in the [flink-check-examples project](../flink-check-examples). See also the **scaladoc**.
 
-- [flink-check scaladoc](https://demiourgoi.github.io/doc/flink-check/0.0.1-SNAPSHOT/scala-2.11/api)
-- [sscheck-core scaladoc](https://demiourgoi.github.io/doc/sscheck-core/0.0.1-SNAPSHOT/scala-2.11/api)
+- [flink-check scaladoc](https://demiourgoi.github.io/doc/flink-check/0.0.2/scala-2.11/api)
+- [sscheck-core scaladoc](https://demiourgoi.github.io/doc/sscheck-core/0.4.1/scala-2.11/api)
 
 ## How properties are executed 
 
