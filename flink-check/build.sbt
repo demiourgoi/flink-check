@@ -2,11 +2,17 @@ name := "flink-check"
 
 organization := "es.ucm.fdi"
 
-version := "0.0.2-SNAPSHOT"
+version := "0.0.2"
 
 scalaVersion := "2.11.8"
 
-crossScalaVersions  := Seq("2.10.6")
+crossScalaVersions  := Seq("2.11.8")
+
+licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
+
+bintrayPackageLabels := Seq("testing", "scala", "apache flink")
+
+bintrayVcsUrl := Some("git@github.com:demiourgoi/flink-check.git")
 
 // Flink is ok with multiple execution contexts in the same JVM, but too much work in local
 // mode leads to "Could not allocate enough memory segments for NetworkBufferPool (required (Mb)

@@ -1,11 +1,12 @@
 ThisBuild / resolvers ++= Seq(
     "Apache Development Snapshot Repository" at "https://repository.apache.org/content/repositories/snapshots/",
-    Resolver.mavenLocal
+    Resolver.mavenLocal,
+    Resolver.bintrayRepo("juanrh", "maven")
 )
 
 name := "flink-check-examples"
 
-version := "0.2-SNAPSHOT"
+version := "0.0.2"
 
 organization := "es.ucm.fdi"
 
@@ -17,7 +18,7 @@ parallelExecution := false
 
 lazy val flinkVersion = "1.8.0"
 
-lazy val flinkCheckVersion = "0.0.2-SNAPSHOT"
+lazy val flinkCheckVersion = "0.0.2"
 
 lazy val slf4jVersion = "1.7.15"
 
