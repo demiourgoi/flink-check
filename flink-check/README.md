@@ -12,7 +12,7 @@ detail in the paper [Property-based testing for Spark Streaming](https://arxiv.o
 
 ## Getting started
 
-Flink Check has been tested with Scala 2.11.8 and Apache Flink 1.7.2.
+Flink Check has been tested with Scala 2.11.8 and Apache Flink 1.8.0.
 
 See an example property [PollutionFormulas](../flink-check-examples/src/test/scala/es/ucm/fdi/sscheck/flink/demo/pollution/PollutionFormulas.scala) in the [flink-check-examples project](../flink-check-examples). See also the **scaladoc**.
 
