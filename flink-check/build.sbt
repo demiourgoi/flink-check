@@ -2,7 +2,7 @@ name := "flink-check"
 
 organization := "es.ucm.fdi"
 
-version := "0.0.2"
+version := "0.0.3-SNAPSHOT"
 
 scalaVersion := "2.11.8"
 
@@ -19,7 +19,7 @@ bintrayVcsUrl := Some("git@github.com:demiourgoi/flink-check.git")
 // : 106, allocated (Mb): 97, missing (Mb): 9). Cause: Direct buffer memory (NetworkBufferPool.java:108)"
 parallelExecution := false
 
-lazy val sscheckVersion = "0.4.1"
+lazy val sscheckVersion = "0.4.2-SNAPSHOT"
 
 lazy val specs2Version = "3.8.4"
 

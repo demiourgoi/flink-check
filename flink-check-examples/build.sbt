@@ -6,7 +6,7 @@ ThisBuild / resolvers ++= Seq(
 
 name := "flink-check-examples"
 
-version := "0.0.2"
+version := "0.0.3-SNAPSHOT"
 
 organization := "es.ucm.fdi"
 
@@ -18,7 +18,7 @@ parallelExecution := false
 
 lazy val flinkVersion = "1.8.0"
 
-lazy val flinkCheckVersion = "0.0.2"
+lazy val flinkCheckVersion = "0.0.3-SNAPSHOT"
 
 lazy val slf4jVersion = "1.7.15"
 
