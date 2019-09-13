@@ -42,7 +42,12 @@ object TaxiFareGen {
     for {
       driverId <- driverIdGen
       tip <- tipGen
-    } yield new TaxiFare(0, 0, driverId, new DateTime(0), "", tip, 0F, 0F);
+    } yield {
+      val fare = new TaxiFare()
+      fare.driverId = driverId
+      fare.tip = tip
+      fare
+    }
 
   def eventTimeFieldAssigner(eventTime: Long)(fare: TaxiFare): TaxiFare = {
     fare.startTime = new DateTime(eventTime)
@@ -52,12 +57,12 @@ object TaxiFareGen {
 
 @RunWith(classOf[JUnitRunner])
 class HourlyTipsTest
-  extends Specification with ScalaCheck with DataStreamTLProperty {
+  extends Specification with ScalaCheck with DataStreamTLProperty with Serializable {
 
-  def is =
-    s2"""
+  def is = sequential ^ s2"""
       A specification for the HourlyTips example:
         - where if we have $oneDriverWithOneTip_Then_onlyCountThatTip
+        - where $tipsAreSummedByHour
       """
 
   type TipCount = Tuple3[java.lang.Long, java.lang.Long, java.lang.Float]
@@ -84,11 +89,46 @@ class HourlyTipsTest
 
     forAllDataStream[TaxiFare, TipCount](
       gen)(
-      in =>  new DataStream(HourlyTipsSolution.getHourlyMax(in.javaStream))
+      in => new DataStream(HourlyTipsSolution.getHourlyMax(in.javaStream))
     )(formula)
-  }.set(minTestsOk = 12, workers = 3).verbose
+  }.set(minTestsOk = 9, workers = 3).verbose
 
-  // safety: always only 1 max
+  // getTipsPerHourAndDriver: sum ok iff always the 1 window sum based on driver id is as expected
+  def tipsAreSummedByHour = {
+    type U = DataStreamTLProperty.Letter[TaxiFare, TipCount]
 
+    val genWindowSize = Time.minutes(10)
+    val checkWindowSize = Time.hours(1)
+    val windowFactor = checkWindowSize.toMilliseconds / genWindowSize.toMilliseconds
+    val numGenWindows = 6*4 + 1
+    val fareFactor = 10
+    val fares = (1 to 10).map{ driverId =>
+      val fare = new TaxiFare()
+      fare.driverId = driverId
+      fare.tip = driverId * fareFactor
+      fare
+    }
+    val gen = eventTimeToFieldAssigner(TaxiFareGen.eventTimeFieldAssigner){
+      tumblingTimeWindows(genWindowSize){
+        WindowGen.always(Gen.const(fares), numGenWindows)
+      }
+    }
+
+    val formula = alwaysR[U]{ case (fares, hourlyTips) =>
+      hourlyTips should foreachElement{ elem =>
+        val tips = elem.value
+        tips.f2 === tips.f1 * fareFactor * 6
+      }
+    } during numGenWindows/6 groupBy TumblingTimeWindows(checkWindowSize)
+
+    forAllDataStream[TaxiFare, TipCount](
+      gen)(
+      in => new DataStream(HourlyTipsSolution.getTipsPerHourAndDriver(in.javaStream))
+    )(formula)
+  }.set(minTestsOk = 9, workers = 3).verbose
+
+  // TODO safety: always only 1 max
+
+  // TODO testMaxAcrossDrivers with eventually
 }
 
