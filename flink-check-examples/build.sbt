@@ -45,7 +45,8 @@ lazy val root = (project in file(".")).
     libraryDependencies ++= Seq(
       "org.slf4j" % "slf4j-api" % slf4jVersion % "provided",
       "org.slf4j" % "slf4j-log4j12" % slf4jVersion % "provided"
-    )
+    ),
+    libraryDependencies += "joda-time" % "joda-time" % "2.7"
   )
 
 assembly / mainClass := Some("es.ucm.fdi.sscheck.flink.demo.Pollution")

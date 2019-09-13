@@ -17,7 +17,7 @@ import org.specs2.{ScalaCheck, Specification}
 
 @RunWith(classOf[JUnitRunner])
 class PollutionFormulas
-  extends Specification with ScalaCheck with DataStreamTLProperty{
+  extends Specification with ScalaCheck with DataStreamTLProperty {
 
   // Sscheck configuration
   override val defaultParallelism = Parallelism(4)
