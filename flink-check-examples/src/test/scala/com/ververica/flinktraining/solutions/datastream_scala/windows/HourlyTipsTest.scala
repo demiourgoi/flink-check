@@ -17,7 +17,6 @@ package com.ververica.flinktraining.exercises.datastream_scala.windows
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.{ScalaCheck, Specification}
-import org.specs2.matcher.DataTables
 import org.scalacheck.Gen
 import org.scalacheck.Arbitrary._
 import org.joda.time.DateTime
@@ -58,12 +57,12 @@ object TaxiFareGen {
 
 @RunWith(classOf[JUnitRunner])
 class HourlyTipsTest
-  extends Specification with ScalaCheck with DataTables with DataStreamTLProperty with Serializable {
+  extends Specification with ScalaCheck  with DataStreamTLProperty with Serializable {
 
   def is = sequential ^ s2"""
       A specification for the HourlyTips example:
         - where if we have just one driver with one tip then we only count that tip $oneDriverWithOneTip_Then_onlyCountThatTip
-        - where tips are correctly summed by hour ${tipsAreSummedByHourTable}
+        - where tips are correctly summed by hour ${tipsAreSummedByHour(6)}
       """
 
   type TipCount = Tuple3[java.lang.Long, java.lang.Long, java.lang.Float]
@@ -93,15 +92,6 @@ class HourlyTipsTest
       in => new DataStream(HourlyTipsSolution.getHourlyMax(in.javaStream))
     )(formula)
   }.set(minTestsOk = 9, workers = 3).verbose
-
-  def tipsAreSummedByHourTable =
-    "windowFactor" |
-      2 |
-      3 |
-      4 |
-      6 |> {
-      tipsAreSummedByHour _
-    }
 
   // getTipsPerHourAndDriver: sum ok iff always the 1 window sum based on driver id is as expected
   def tipsAreSummedByHour(windowFactor: Int) = {
@@ -134,7 +124,7 @@ class HourlyTipsTest
       gen)(
       in => new DataStream(HourlyTipsSolution.getTipsPerHourAndDriver(in.javaStream))
     )(formula)
-  }.set(minTestsOk = 3, workers = 3).verbose
+  }.set(minTestsOk = 9, workers = 3).verbose
 
   // TODO safety: always only 1 max
 
