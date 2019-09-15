@@ -31,6 +31,7 @@ import com.ververica.flinktraining.exercises.datastream_java.datatypes.TaxiFare
 import com.ververica.flinktraining.solutions.datastream_java.windows._
 import es.ucm.fdi.sscheck.matcher.specs2.flink.DataSetMatchers._
 import es.ucm.fdi.sscheck.prop.tl.flink.FlinkFormula._
+import es.ucm.fdi.sscheck.gen.BatchGenConversions._
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.api.scala.DataStream
 
@@ -61,9 +62,10 @@ class HourlyTipsTest
 
   def is = sequential ^ s2"""
       A specification for the HourlyTips example:
-        - where if we have just one driver with one tip then we only count that tip  $oneDriverWithOneTip_Then_onlyCountThatTip
+        - where if we have just one driver with one tip then we only count that tip $oneDriverWithOneTip_Then_onlyCountThatTip
         - where tips are correctly summed by hour ${tipsAreSummedByHour(6)}
         - where we always get a single value for the hourly max tip ${alwaysOnlyOneTopHourlyMax(12)}
+        - where two drivers correctly alternate as the top tip receiver $driverOneTopUntilDriverTwoTop
       """
 
   type TipCount = Tuple3[java.lang.Long, java.lang.Long, java.lang.Float]
@@ -153,6 +155,31 @@ class HourlyTipsTest
     )(formula)
     }.set(minTestsOk = 9, workers = 3).verbose
 
-  // TODO testMaxAcrossDrivers with eventually
+  // testMaxAcrossDrivers with until
+  def driverOneTopUntilDriverTwoTop = {
+    type U = DataStreamTLProperty.Letter[TaxiFare, TipCount]
+    val topHourlyTips = (_ : U)._2
+
+    val windowSize = Time.hours(1)
+    val timeout = 6
+    def driverTop(driverId: Long): Gen[Window[TaxiFare]] =
+      WindowGen.ofN(5, TaxiFareGen.fare(driverIdGen=Gen.const(driverId))) +
+        WindowGen.ofN(2, TaxiFareGen.fare(driverIdGen=Gen.const(2-driverId+1)))
+    val gen = eventTimeToFieldAssigner(TaxiFareGen.eventTimeFieldAssigner) {
+      tumblingTimeWindows(windowSize) {
+        WindowGen.until(driverTop(1), driverTop(2), timeout)
+      }
+    }
+
+    val formula =
+      { at(topHourlyTips){_ should foreachElement(_.value.f1 == 1)} } until {
+        at(topHourlyTips){_ should foreachElement(_.value.f1 == 2)}
+      } on timeout groupBy TumblingTimeWindows(windowSize)
+
+    forAllDataStream[TaxiFare, TipCount](
+      gen)(
+      in => new DataStream(HourlyTipsSolution.getHourlyMax(in.javaStream))
+    )(formula)
+  }.set(minTestsOk = 9, workers = 3).verbose
 }
 
