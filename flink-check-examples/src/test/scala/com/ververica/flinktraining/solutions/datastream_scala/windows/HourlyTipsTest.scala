@@ -61,8 +61,9 @@ class HourlyTipsTest
 
   def is = sequential ^ s2"""
       A specification for the HourlyTips example:
-        - where if we have just one driver with one tip then we only count that tip $oneDriverWithOneTip_Then_onlyCountThatTip
+        - where if we have just one driver with one tip then we only count that tip  $oneDriverWithOneTip_Then_onlyCountThatTip
         - where tips are correctly summed by hour ${tipsAreSummedByHour(6)}
+        - where we always get a single value for the hourly max tip ${alwaysOnlyOneTopHourlyMax(12)}
       """
 
   type TipCount = Tuple3[java.lang.Long, java.lang.Long, java.lang.Float]
@@ -94,12 +95,12 @@ class HourlyTipsTest
   }.set(minTestsOk = 9, workers = 3).verbose
 
   // getTipsPerHourAndDriver: sum ok iff always the 1 window sum based on driver id is as expected
-  def tipsAreSummedByHour(windowFactor: Int) = {
+  def tipsAreSummedByHour(genWindowFactor: Int) = {
     type U = DataStreamTLProperty.Letter[TaxiFare, TipCount]
 
     val checkWindowSize = Time.hours(1)
-    val genWindowSize = Time.milliseconds(checkWindowSize.toMilliseconds / windowFactor)
-    val numGenWindows = windowFactor*4 + 1
+    val genWindowSize = Time.milliseconds(checkWindowSize.toMilliseconds / genWindowFactor)
+    val numGenWindows = genWindowFactor*4 + 1
     val fareFactor = 10
     val fares = (1 to 10).map{ driverId =>
       val fare = new TaxiFare()
@@ -116,9 +117,9 @@ class HourlyTipsTest
     val formula = alwaysR[U]{ case (fares, hourlyTips) =>
       hourlyTips should foreachElement{ elem =>
         val tips = elem.value
-        tips.f2 === tips.f1 * fareFactor * windowFactor
+        tips.f2 === tips.f1 * fareFactor * genWindowFactor
       }
-    } during numGenWindows/windowFactor groupBy TumblingTimeWindows(checkWindowSize)
+    } during numGenWindows/genWindowFactor groupBy TumblingTimeWindows(checkWindowSize)
 
     forAllDataStream[TaxiFare, TipCount](
       gen)(
@@ -126,7 +127,31 @@ class HourlyTipsTest
     )(formula)
   }.set(minTestsOk = 9, workers = 3).verbose
 
-  // TODO safety: always only 1 max
+  // safety: always only 1 max
+  def alwaysOnlyOneTopHourlyMax(genWindowFactor: Int) = {
+    type U = DataStreamTLProperty.Letter[TaxiFare, TipCount]
+
+    val checkWindowSize = Time.hours(1)
+    val genWindowSize = Time.milliseconds(checkWindowSize.toMilliseconds / genWindowFactor)
+    val numWindows = 5 * genWindowFactor
+    val gen = eventTimeToFieldAssigner(TaxiFareGen.eventTimeFieldAssigner) {
+      tumblingTimeWindows(genWindowSize) {
+        WindowGen.always(
+          WindowGen.ofNtoM(1, 50, TaxiFareGen.fare()),
+          numWindows
+        )
+      }
+    }
+
+    val formula = alwaysR[U]{ case (_, hourlyMax) =>
+      hourlyMax.count() === 1
+    } during numWindows/genWindowFactor groupBy TumblingTimeWindows(checkWindowSize)
+
+    forAllDataStream[TaxiFare, TipCount](
+      gen)(
+      in => new DataStream(HourlyTipsSolution.getHourlyMax(in.javaStream))
+    )(formula)
+    }.set(minTestsOk = 9, workers = 3).verbose
 
   // TODO testMaxAcrossDrivers with eventually
 }
