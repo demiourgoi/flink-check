@@ -5,7 +5,7 @@
 This project builds with [sbt](https://www.scala-sbt.org/).
 
 First clone, build and publish locally the master branch of flink-check 
-and its dependencies. This is required until we do a release on bitbucket.  
+and its dependencies. 
 
 ```bash
 # Update to the paths of your git clones
@@ -27,3 +27,4 @@ install_flink_check
 
 That should leave some jars on `~/.ivy2/cache/es.ucm.fdi/sscheck-core`. 
 Then import the project on IntelliJ or run it directly with sbt.
+See also [these scripts](https://github.com/demiourgoi/flink-check/tree/master/ci) for running all tests for Flink Check from the command line.
