@@ -19,6 +19,8 @@ See an example property [PollutionFormulas](../flink-check-examples/src/test/sca
 - [flink-check scaladoc](https://demiourgoi.github.io/doc/flink-check/0.0.2/scala-2.11/api)
 - [sscheck-core scaladoc](https://demiourgoi.github.io/doc/sscheck-core/0.4.1/scala-2.11/api)
 
+Flink Check is available as a maven dependency in [bintray](https://bintray.com/juanrh/maven/flink-check).
+
 ## How properties are executed 
 
 Properties are defined by extending the trait `DataStreamTLProperty`, which includes the method `forAllDataStream` for defining a property that for each test case generates a `DataStream[In]`, applies the `testSubject` to produce a `DataStream[Out]`, and checks those data streams fulfill the specified `formula`.
