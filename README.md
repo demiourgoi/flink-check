@@ -1,6 +1,6 @@
 # Flink Check
 
-Use linear temporal logic to write ScalaCheck properties for Spark Streaming programs. 
+Use linear temporal logic to write ScalaCheck properties for Flink streaming programs. 
 See [our wiki](flink-check/README.md) for documentation.
 
 See also
