@@ -2,7 +2,7 @@
 
 Flink Check is a property-based testing library for Apache Flink that
 extends [ScalaCheck](https://www.scalacheck.org/) with linear temporal
-logic operators that are suitable for testing Flink data stream transformations.
+logic operators that are suitable for testing Flink data stream transformations. See this [open access paper](https://ieeexplore.ieee.org/document/8868163) for detailed description of Flink Check.
 
 Flink Check is based on [sscheck](https://github.com/demiourgoi/sscheck),a property-based testing library for Apache Spark, and so it depends on the project [sscheck-core](https://github.com/demiourgoi/sscheck-core), that contains code that is common to both sscheck and Flink Check,
 in particular the implementation of the LTLss logic that
